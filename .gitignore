@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+*.zip
+
+# Logs & temp
+logs/
+historique/
+
+# Claude memory (internal)
+.claude/

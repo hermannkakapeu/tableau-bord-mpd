@@ -1,0 +1,2086 @@
+<ods-dataset-context 
+                     context="ctxpop,ctxpib,ctxpib2,pibseries2,ctxsocio,ctxicai,ctxicac,ctxicac1,ctxicac2,ctxicac3,ctxippi,ctxipi,ctxdemo,ctxihpc,ctxpauvrete,ctxcomext,ctxcomext1"
+                     
+                     ctxpop-dataset="population-par-sexe"
+                     ctxpib-dataset="pib-series_agregat"
+                     ctxpib2-dataset="pib-series"
+                     ctxsocio-dataset="maj-indicateurs-socio-demographiques"
+                     ctxicai-dataset="maj-icai"
+                     ctxicac1-dataset="maj-icac-copie"
+                     ctxicac3-dataset="maj-icac-copie1"
+                     ctxicac2-dataset="maj-icac-copie0"
+                     ctxicac-dataset="maj-icac"
+                     ctxippi-dataset="ippi-maj"
+                     ctxipi-dataset="ipi-maj"
+                     ctxdemo-dataset="indicateurs-demographiques-copie"
+                     ctxihpc-dataset="ihpcbase23"
+                     ctxpauvrete-dataset="evolution-du-taux-de-pauvrete-1"
+                     ctxcomext-dataset="2-commerce-exterieur"
+                     ctxcomext1-dataset="commerce-exterieur"
+                     pibseries2-dataset="pib-series2"
+                     pibseries2-parameters="{
+                                         'refine.annee':'2025',
+                                         'disjunctive.annee':true,
+                                         'refine.mois':'Janvier',
+                                         'disjunctive.mois':true
+                                         }"
+                     
+                     ctxpib2WithoutYear="pib-series"
+                     ctxpib2-parameters="{
+                                         'refine.annee':'2025',
+                                         'disjunctive.annee':true,
+                                         'refine.mois':'Janvier',
+                                         'disjunctive.mois':true
+                                         }"
+
+                     ctxpib-parameters="{
+                                        'refine.annee':'2025',
+                                        'refine.mois':'Janvier'
+                                        }"
+                     ctxicac1-parameters="{
+                                        'refine.annee':'2025',
+                                        'refine.mois':'Janvier',
+                                          'disjunctive.mois':true
+                                        }">
+
+    <div class="dashboard-layout">
+
+        <nav class="sidebar">
+            <!--<div class="logo-me">ME</div>-->
+             <!---->
+            <div ods-current-user class="logo-me">
+                {{ currentUser.first_name | limitTo:1 }}{{ currentUser.last_name | limitTo:1 }}
+            </div>
+            
+
+            <a href="/pages/accueil-tableau-de-bord/" class="nav-item active">
+                <div class="nav-icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard-icon lucide-layout-dashboard"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                </div>
+                <span>Tableau de bord</span>
+            </a>
+
+            <a href="/pages/page-explorer/" class="nav-item">
+                <div class="nav-icon-box">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </div>
+                <span>Explorer</span>
+            </a>
+        </nav>
+
+        <main class="main-content">
+
+            <header class="top-header">
+                <div class="header-left-section">
+                   
+                    <a href="/pages/page-accueil-mpd/" style="line-height: 0;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMxYTJiM2MiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1hcnJvdy1sZWZ0LWljb24gbHVjaWRlLWFycm93LWxlZnQiPjxwYXRoIGQ9Im0xMiAxOS03LTcgNy03Ii8+PHBhdGggZD0iTTE5IDEySDUiLz48L3N2Zz4="></a>
+                    <h1 class="header-welcome-text">Agence Nationale de la Statistique</h1>
+                </div>
+
+                <div class="header-right-section">
+                    <!-- <img src="/assets/theme_image/Armoiries%20CI.png" 
+                         alt="République de Côte d'Ivoire" 
+                         class="logo-armoiries"> -->
+                    <img src="/assets/theme_image/logo-ANStat.png" 
+                         alt="Ministère de l'Économie, du Plan et du Développement" 
+                         class="logo-armoiries">
+                    
+                </div>
+            </header>
+
+            <div class="page-container" ng-init="activeTab = 'kpi'">
+
+                <div class="thematics-card">
+
+                    <div class="thematics-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                        </svg>
+                        Thématiques
+                    </div>
+
+                    <div class="tabs-row">
+                        <button class="tab-pill" 
+                                ng-class="{'active': activeTab == 'kpi'}" 
+                                ng-click="activeTab = 'kpi'">
+                            Analyse du PIB
+                        </button>
+                        <button class="tab-pill" 
+                                ng-class="{'active': activeTab == 'invest'}" 
+                                ng-click="activeTab = 'invest'">
+                            Inflation
+                        </button>
+                        <button class="tab-pill" 
+                                ng-class="{'active': activeTab == 'prix'}" 
+                                ng-click="activeTab = 'prix'">
+                            Secteur Industriel
+                        </button>
+                        <button class="tab-pill" 
+                                ng-class="{'active': activeTab == 'echanges'}" 
+                                ng-click="activeTab = 'echanges'">
+                            Commerce & Services
+                        </button>
+                        <button class="tab-pill" 
+                                ng-class="{'active': activeTab == 'echanges1'}" 
+                                ng-click="activeTab = 'echanges1'">
+                            Démographie
+                        </button>
+                        <button class="tab-pill" 
+                                ng-class="{'active': activeTab == 'pauvrete'}" 
+                                ng-click="activeTab = 'pauvrete'">
+                            Emploi & Pauvreté
+                        </button>
+                    </div>
+
+                    <div class="filters-row" ng-init="activeDevise = 'FCFA'; activeValeur = 'courant'">
+
+                        <!-- 🌍 Devise -->
+                        <div class="filter-group">
+                            <!--<span class="filter-label">Devise :</span>-->
+                            <div class="currency-toggle">
+
+                                <!-- Bouton FCFA 
+                                <button class="currency-btn"
+                                        ng-class="{'active': activeDevise == 'FCFA'}"
+                                        ng-click="activeDevise = 'FCFA'; activeValeur = 'courant'">
+                                    FCFA
+                                </button>-->
+
+                                <!-- Bouton USD désactivé si pas sur Principaux agrégats 
+                                <button class="currency-btn"
+                                        ng-disabled="activeTab != 'kpi'"
+                                        ng-class="{
+                                                  'active': activeDevise == 'USD',
+                                                  'disabled-filter': activeTab != 'kpi'
+                                                  }"
+                                        ng-click="activeDevise = 'USD'">
+                                    USD
+                                </button> -->
+
+
+                            </div>
+                        </div>
+                        
+                        <!-- 🧮 Type de valeur
+                        <div class="filter-group"
+                             ng-class="{'disabled-filter': activeDevise == 'USD'}">
+
+                            <span class="filter-label">Type de valeur :</span>
+
+                            <div class="currency-toggle">
+                                <button class="currency-btn"
+                                        ng-disabled="activeDevise == 'USD' || activeTab =='echanges' || activeTab =='echanges1'"
+                                        ng-class="{'active': activeValeur == 'courant',
+                                                  'disabled-filter1': activeTab == 'echanges',
+                                                  'disabled-filter': activeTab == 'echanges1'}"
+                                        ng-click="activeValeur = 'courant'">
+                                    Francs courants
+                                </button>
+
+                                <button class="currency-btn"
+                                        ng-disabled="activeDevise == 'USD' || activeTab =='echanges' || activeTab =='echanges1'"
+                                        ng-class="{'active': activeValeur == 'constant',
+                                                  'disabled-filter1': activeTab == 'echanges',
+                                                  'disabled-filter': activeTab == 'echanges1'}"
+                                        ng-click="activeValeur = 'constant'">
+                                    Francs constants
+                                </button>
+                            </div>
+                        </div>  -->
+
+                        <div class="filter-group" style="margin-left: 20px;">
+                            <div class="currency-toggle">
+                                <button class="currency-btn"
+                                        ng-disabled="activeDevise == 'USD' || activeTab =='echanges' || activeTab =='echanges1' || activeTab=='pauvrete'"
+                                        ng-class="{'active': activeValeur == 'courant',
+                                                  'disabled-filter1': activeTab == 'echanges',
+                                                  'disabled-filter': activeTab == 'echanges1',
+                                                  'disabled-filter2': activeTab == 'pauvrete',
+                                                  'disabled-filter3': activeTab == 'invest',
+                                                  'disabled-filter4': activeTab == 'prix'}"
+                                        ng-click="activeValeur = 'courant'">
+                                    Francs courants
+                                </button>
+
+                                <button class="currency-btn"
+                                        ng-disabled="activeDevise == 'USD' || activeTab =='echanges' || activeTab =='echanges1'"
+                                        ng-class="{'active': activeValeur == 'constant',
+                                                  'disabled-filter1': activeTab == 'echanges',
+                                                  'disabled-filter': activeTab == 'echanges1',
+                                                  'disabled-filter2': activeTab == 'pauvrete',
+                                                  'disabled-filter3': activeTab == 'invest',
+                                                  'disabled-filter4': activeTab == 'prix'}"
+                                        ng-click="activeValeur = 'constant'">
+                                    Francs constants
+                                </button>
+                            </div>
+                            <span class="filter-label">Filtrez sur une année :</span>
+                            <!--<button class="year-selector">
+                                2024 
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </button> -->
+                        </div>
+                        <div class="kpi-filter-year">
+                            <div class="boite">
+
+
+
+                                <!-- 🔽 Sélecteur d'année -->
+                                <div 
+                                     ods-facet-results="filtreannee"
+                                     ods-facet-results-facet-name="annee"
+                                     ods-facet-results-context="ctxpib2">
+                                    <ods-select options="filtreannee"
+                                                selected-values="ctxpib2.parameters['refine.annee']"
+                                                label-modifier="name"
+                                                value-modifier="name"
+                                                placeholder="Filtrer sur une année"
+                                                multiple="false">
+                                    </ods-select>
+
+                                    <!-- Synchronisation des 3 contextes -->
+                                    {{ ctxcomext.parameters['refine.annee'] = ctxicac.parameters['refine.annee'] = ctxicac3.parameters['refine.annee'] = ctxicac2.parameters['refine.annee'] = ctxicac1.parameters['refine.annee']  = ctxdemo.parameters['refine.annee'] = ctxihpc.parameters['refine.annee'] = ctxpib.parameters['refine.annee'] = pibseries2.parameters['refine.annee'] = ctxpib2.parameters['refine.annee']; "" }} 
+
+                                </div>
+
+                                <!-- 🔍 Label dynamique : Réel / Estimatif / Prévisionnel
+                            <div class="kpi-type-valeur"
+                                 ods-results="rows"
+                                 ods-results-context="ctxoffre"
+                                 ng-class="{
+                                           'type-reel': rows[0].fields.type_valeur === 'Réel',
+                                           'type-estimatif': rows[0].fields.type_valeur === 'Estimatif',
+                                           'type-previsionnel': rows[0].fields.type_valeur === 'Prévisionnel'
+                                           }">
+
+                                <div>
+                                    {{ rows[0].fields.type_valeur }}
+                                </div>
+
+                            </div>       ng-if="activeTab !='invest'" -->
+                            </div>
+                        </div>
+                        
+                        <div class="filter-group" style="margin-left: 20px;">
+                            <span class="filter-label">Filtrez sur un mois :</span>
+                            <!--<button class="year-selector">
+                                2024 
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </button> -->
+                        </div>
+                        <div class="kpi-filter-year">
+                            <div class="boite">
+
+
+
+                                <!-- 🔽 Sélecteur d'année -->
+                                <div 
+                                     ods-facet-results="filtreannee" 
+                                     ods-facet-results-facet-name="mois"
+                                     ods-facet-results-context="ctxicac1">
+                                    <ods-select options="filtreannee"
+                                                selected-values="ctxicac1.parameters['refine.mois']"
+                                                label-modifier="name"
+                                                value-modifier="name"
+                                                placeholder="Filtrer sur un mois"
+                                                multiple="false">
+                                    </ods-select>
+
+                                    <!-- Synchronisation des 3 contextes                 ctxihpc.parameters['refine.mois'] = -->
+                                    {{   ctxcomext.parameters['refine.mois'] = ctxippi.parameters['refine.mois'] = ctxipi.parameters['refine.mois'] = ctxsocio.parameters['refine.mois'] = ctxicac3.parameters['refine.mois'] = ctxicac2.parameters['refine.mois'] = ctxicac.parameters['refine.mois'] = ctxicac1.parameters['refine.mois'] ; "" }}
+
+                                </div>
+
+                                <!-- 🔍 Label dynamique : Réel / Estimatif / Prévisionnel
+                            <div class="kpi-type-valeur"
+                                 ods-results="rows"
+                                 ods-results-context="ctxoffre"
+                                 ng-class="{
+                                           'type-reel': rows[0].fields.type_valeur === 'Réel',
+                                           'type-estimatif': rows[0].fields.type_valeur === 'Estimatif',
+                                           'type-previsionnel': rows[0].fields.type_valeur === 'Prévisionnel'
+                                           }">
+
+                                <div>
+                                    {{ rows[0].fields.type_valeur }}
+                                </div>
+
+                            </div> -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div ng-if="activeTab == 'kpi'">
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title" ng-if="activeValeur == 'courant'">Evolution du PIB - Francs courants<small>(Mds FCFA)</small></h3>
+                            <h3 class="chart-title" ng-if="activeValeur == 'constant'">Evolution du PIB - Francs constants <small>(Mds FCFA)</small></h3>
+
+                            <!-- <div class="chart-kpi-group" ng-if="activeValeur == 'courant'">
+                                <div class="mini-kpi" ods-adv-analysis="resultPibReal"
+                                               ods-adv-analysis-context="pibseries2"
+                                               ods-adv-analysis-select="SUM(valeur) AS total_pib">
+                                    <div class="mini-kpi-label" style="font-size:11px; color:#94A3B8;">PIB Nominal</div>
+                                    <div class="mini-kpi-val">{{resultPibReal[0].total_pib | number:0}}<span style="font-size:12px; padding-left: 2px; font-weight:400;">Mds FCFA</span></div>
+                                    
+                                </div>
+                                <div class="mini-kpi" ods-adv-analysis="resultPibReal"
+                                               ods-adv-analysis-context="pibseries2"
+                                               ods-adv-analysis-select="SUM(valeur) AS total_pib">
+                                    <div class="mini-kpi-label" style="font-size:11px; color:#94A3B8;">PIB par Habitant</div>
+                                    <div class="mini-kpi-val">{{resultPibReal[0].total_pib | number:0}} <span style="font-size:12px; padding-left: 2px; font-weight:400;">k FCFA</span></div>
+                                    
+                                </div>
+                            </div>
+                            <div class="chart-kpi-group" ng-if="activeValeur == 'constant'">
+                                <div class="mini-kpi" ods-adv-analysis="resultPibReal"
+                                               ods-adv-analysis-context="pibseries2"
+                                               ods-adv-analysis-select="SUM(valeur) AS total_pib">
+                                    <div class="mini-kpi-label" style="font-size:11px; color:#94A3B8;">PIB Réel</div>
+                                    <div class="mini-kpi-val">{{ resultPibReal[0].total_pib | number:0 }} <span style="font-size:12px;padding-left: 2px; font-weight:400;"> Mds FCFA</span></div>
+                                    
+                                </div>
+                                <div class="mini-kpi" ods-adv-analysis="resultPibReal"
+                                               ods-adv-analysis-context="pibseries2"
+                                               ods-adv-analysis-select="SUM(valeur) AS total_pib">
+                                    <div class="mini-kpi-label" style="font-size:11px; color:#94A3B8;">PIB par Habitant</div>
+                                    <div class="mini-kpi-val">{{resultPibReal[0].total_pib | number:0 }} <span style="font-size:12px; padding-left: 2px; font-weight:400;"> k FCFA</span></div>
+                                    
+                                </div>
+                            </div> -->
+                        </div>
+                        <ods-dataset-context context="pibseries2" pibseries2-dataset="pib-series2" ng-if="activeValeur == 'courant'">
+                            <ods-chart timescale="year" scientific-display="false" align-month="true" >
+                                <ods-chart-query context="pibseries2" field-x="annee" maxpoints="0" timescale="year" stacked="normal" series-breakdown="secteur" category-colors="{'Primaire':'#19630A','Secondaire':'#0A71B5','Tertiaire':'#F98C44','Taxes':'#AAAAAA'}">
+                                    <ods-chart-serie expression-y="valeur" chart-type="column" function-y="SUM" label-y="Valeur du PIB (Mds FCFA)"  color="range-OrRd" scientific-display="true">
+                                    </ods-chart-serie>
+                                </ods-chart-query>
+                            </ods-chart>
+
+                        </ods-dataset-context>
+                        <ods-dataset-context context="pibseries2" pibseries2-dataset="pib-series2" ng-if="activeValeur == 'constant'">
+                            <ods-chart timescale="year" scientific-display="false" align-month="true" >
+                                <ods-chart-query context="pibseries2" field-x="annee" maxpoints="0" timescale="year" stacked="normal" series-breakdown="secteur" category-colors="{'Primaire':'#19630A','Secondaire':'#0A71B5','Tertiaire':'#F98C44','Taxes':'#AAAAAA'}">
+                                    <ods-chart-serie expression-y="valeur" chart-type="column" function-y="SUM" label-y="Valeur du PIB (Mds FCFA)"  color="range-OrRd" scientific-display="true">
+                                    </ods-chart-serie>
+                                </ods-chart-query>
+                            </ods-chart>
+
+                        </ods-dataset-context>
+                        
+                        <p style="text-align: center; font-size: 12px; color: #94A3B8; margin-top: 10px;">-</p>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+
+                            <!-- NIVEAU 1 : Type PIB -->
+                            <h3 class="chart-title" ng-if="!pibseries2.parameters['refine.type_pib']">
+                                Part du PIB par type <small>(Marchand / Non Marchand)</small>
+                            </h3>
+
+                            <!-- NIVEAU 2 : Secteur -->
+                            <h3 class="chart-title" ng-if="pibseries2.parameters['refine.type_pib'] && !pibseries2.parameters['refine.secteur']">
+                                Répartition par secteur<br>
+                                <small>Type PIB : {{ pibseries2.parameters['refine.type_pib'] }}</small>
+                            </h3>
+
+                            <!-- NIVEAU 3 : Nom -->
+                            <h3 class="chart-title" ng-if="pibseries2.parameters['refine.type_pib'] && pibseries2.parameters['refine.secteur']">
+                                Détail du secteur : {{ pibseries2.parameters['refine.secteur'] }}<br>
+                                <small>Type PIB : {{ pibseries2.parameters['refine.type_pib'] }}</small>
+                            </h3>
+
+                        </div>
+
+                        <div class="chart-placeholder">
+
+                            <!-- ════════════════════════════════════════ -->
+                            <!-- 🟢 NIVEAU 1 : TYPE PIB                  -->
+                            <!-- ════════════════════════════════════════ -->
+
+                            <ods-chart ng-if="!pibseries2.parameters['refine.type_pib'] && activeValeur == 'courant'"
+                                       scientific-display="false" align-month="true" class="chartline1">
+                                <ods-chart-query context="pibseries2"
+                                                 field-x="type_pib"
+                                                 maxpoints="0"
+                                                 category-colors="{'Marchand':'#628E5A','Non Marchand':'#F7B133'}">
+                                    <ods-chart-serie
+                                                     expression-y="valeur"
+                                                     chart-type="pie"
+                                                     function-y="SUM"
+                                                     color="range-Accent"
+                                                     scientific-display="true"
+                                                     label-y="Valeur (Mds FCFA)"
+                                                     refine-on-click-context="pibseries2"
+                                                     refine-on-click-pibseries2-context-field="type_pib">
+                                    </ods-chart-serie>
+                                </ods-chart-query>
+                            </ods-chart>
+
+                            <ods-chart ng-if="!pibseries2.parameters['refine.type_pib'] && activeValeur == 'constant'"
+                                       scientific-display="false" align-month="true" class="chartline1">
+                                <ods-chart-query context="pibseries2"
+                                                 field-x="type_pib"
+                                                 maxpoints="0"
+                                                 category-colors="{'Marchand':'#628E5A','Non Marchand':'#F7B133'}">
+                                    <ods-chart-serie
+                                                     expression-y="valeur"
+                                                     chart-type="pie"
+                                                     function-y="SUM"
+                                                     color="range-Accent"
+                                                     scientific-display="true"
+                                                     label-y="Valeur (Mds FCFA)"
+                                                     refine-on-click-context="pibseries2"
+                                                     refine-on-click-pibseries2-context-field="type_pib">
+                                    </ods-chart-serie>
+                                </ods-chart-query>
+                            </ods-chart>
+
+                            <!-- ════════════════════════════════════════ -->
+                            <!-- 🟠 NIVEAU 2 : SECTEUR                   -->
+                            <!-- ════════════════════════════════════════ -->
+
+                            <ods-chart ng-if="pibseries2.parameters['refine.type_pib'] && !pibseries2.parameters['refine.secteur']"
+                                       scientific-display="false" align-month="true" class="chartline1">
+                                <ods-chart-query context="pibseries2"
+                                                 field-x="secteur"
+                                                 maxpoints="25"
+                                                 sort="serie1-1">
+                                    <ods-chart-serie
+                                                     expression-y="valeur"
+                                                     chart-type="pie"
+                                                     function-y="SUM"
+                                                     color="YlGnBu"
+                                                     scientific-display="true"
+                                                     label-y="Valeur (Mds FCFA)"
+                                                     refine-on-click-context="pibseries2"
+                                                     refine-on-click-pibseries2-context-field="secteur">
+                                    </ods-chart-serie>
+                                </ods-chart-query>
+                            </ods-chart>
+
+                            <!-- ════════════════════════════════════════ -->
+                            <!-- 🔴 NIVEAU 3 : NOM                       -->
+                            <!-- ════════════════════════════════════════ -->
+
+                            <ods-chart ng-if="pibseries2.parameters['refine.type_pib'] && pibseries2.parameters['refine.secteur']"
+                                       scientific-display="false" align-month="true" class="chartline1">
+                                <ods-chart-query context="pibseries2"
+                                                 field-x="nom"
+                                                 maxpoints="200">
+                                    <ods-chart-serie
+                                                     expression-y="valeur"
+                                                     chart-type="pie"
+                                                     function-y="SUM"
+                                                     color="YlGnBu"
+                                                     scientific-display="true"
+                                                     label-y="Valeur (Mds FCFA)">
+                                    </ods-chart-serie>
+                                </ods-chart-query>
+                            </ods-chart>
+
+                        </div>
+
+                        <!-- ════════════════════════════════════════ -->
+                        <!-- 🔙 BOUTONS RETOUR                       -->
+                        <!-- ════════════════════════════════════════ -->
+                        <div class="filters">
+
+                            <!-- Retour niveau 1 -->
+                            <a href
+                               class="resetfilter"
+                               ng-if="pibseries2.parameters['refine.type_pib'] && !pibseries2.parameters['refine.secteur']"
+                               ng-click="pibseries2.parameters['refine.type_pib'] = undefined">
+                                ⬅ Retour au type PIB
+                            </a>
+
+                            <!-- Retour niveau 2 -->
+                            <a href
+                               class="resetfilter"
+                               ng-if="pibseries2.parameters['refine.secteur']"
+                               ng-click="pibseries2.parameters['refine.secteur'] = undefined">
+                                ⬅ Retour aux secteurs
+                            </a>
+
+                        </div>
+
+                        <p style="text-align: center; font-size: 12px; color: #94A3B8; margin-top: 10px;"></p>
+                    </div>
+
+                    
+                   <!-- <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title" ng-if="activeValeur == 'courant'">Part du PIB par type Marchand / Non Marchand <small>(Mds FCFA)</small></h3>
+                            <h3 class="chart-title" ng-if="activeValeur == 'constant'">Part du PIB par type Marchand / Non Marchand <small>(Mds FCFA)</small></h3>
+
+                           
+                        </div>
+                        
+                            
+                        
+                            <ods-chart scientific-display="false" align-month="true" ng-if="activeValeur == 'constant'">
+                                <ods-chart-query context="pibseries2" field-x="type_pib" maxpoints="0" category-colors="{'Marchand':'#628E5A','Non Marchnad':'#F7B133'}">
+                                    <ods-chart-serie expression-y="valeur" chart-type="pie" function-y="SUM" color="range-Accent" scientific-display="true">
+                                    </ods-chart-serie>
+                                </ods-chart-query>
+                            </ods-chart>
+                            <ods-chart scientific-display="false" align-month="true" ng-if="activeValeur == 'courant'">
+                                <ods-chart-query context="pibseries2" field-x="type_pib" maxpoints="0" category-colors="{'Marchand':'#628E5A','Non Marchnad':'#F7B133'}">
+                                    <ods-chart-serie expression-y="valeur" chart-type="pie" function-y="SUM" color="range-Accent" scientific-display="true">
+                                    </ods-chart-serie>
+                                </ods-chart-query>
+                            </ods-chart>
+
+                        
+
+                       
+                        
+                        <p style="text-align: center; font-size: 12px; color: #94A3B8; margin-top: 10px;"></p>
+                    </div> -->
+                    
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title" ng-if="activeValeur == 'courant'"> Importations et Exportations des marchandises <small>(Mds FCFA)</small></h3>
+                        </div>
+                        
+                            <ods-chart scientific-display="false" align-month="true">
+                                <ods-chart-query context="ctxcomext" field-x="exp_imp" maxpoints="0">
+                                    <ods-chart-serie expression-y="valeur" chart-type="pie" function-y="SUM" color="range-Dark2" scientific-display="true">
+                                    </ods-chart-serie>
+                                </ods-chart-query>
+                            </ods-chart>
+
+                       
+
+                        <p style="text-align: center; font-size: 12px; color: #94A3B8; margin-top: 10px;"></p>
+                    </div>
+
+                    
+                    
+                    
+                    
+                    
+                </div>
+                
+                <div ng-if="activeTab == 'invest'">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title" ng-if="activeValeur == 'courant'">Indicateurs harmonisés des prix à la consommation (Inflation)</small></h3>
+                    </div>
+                    <div class="table-secteur">
+
+
+                        <table class="table-custom t1"
+                               ods-results="dataIPC"
+                               ods-results-context="ctxihpc"
+                               ods-results-max="2"
+                               ods-results-sort="annee desc">
+
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center">INDICATEUR</th>
+                                    <th style="text-align:center">VALEUR</th>
+                                    <th style="text-align:center">TENDANCE N-1</th>
+                                </tr>
+                            </thead>
+
+                            <tbody ng-if="dataIPC.length >= 2"
+                                   ng-init="indicateurs = [
+
+                                            { key:'00_indice_global', label:'Indice global' },
+
+                                            { key:'01_produits_alimentaires_et_boissons_non_alcoolisees',
+                                            label:'Produits alimentaires et boissons non alcoolisées' },
+
+                                            { key:'02_tabacs_et_stupefiants',
+                                            label:'Tabacs et stupéfiants' },
+
+                                            { key:'03_articles_d_habillement_et_chaussures',
+                                            label:'Articles d\'habillement et chaussures' },
+
+                                            { key:'04_logement_eau_gaz_electricite_et_autres_combustibles',
+                                            label:'Logement, eau, gaz, électricité et autres combustibles' },
+
+                                            { key:'05_meubles_articles_de_menage_et_entretien_courant_du_foyer',
+                                            label:'Meubles, articles de ménage et entretien courant du foyer' },
+
+                                            { key:'06_sante',
+                                            label:'Santé' },
+
+                                            { key:'07_transports',
+                                            label:'Transports' },
+
+                                            { key:'08_information_et_communication',
+                                            label:'Information et communication' },
+
+                                            { key:'09_loisirs_et_culture',
+                                            label:'Loisirs et culture' },
+
+                                            { key:'10_enseignement',
+                                            label:'Enseignement' },
+
+                                            { key:'11_restaurants_et_hotels',
+                                            label:'Restaurants et hôtels' },
+
+                                            { key:'12_assurance_et_services_financiers',
+                                            label:'Assurance et services financiers' },
+
+                                            { key:'13_protection_sociale_et_soins_personnels',
+                                            label:'Protection sociale et soins personnels' },
+
+                                            { key:'taux_mensuel_d_inflation',
+                                            label:'Taux mensuel d\'inflation (%)' },
+
+                                            { key:'indice_moyen_sur_12_mois',
+                                            label:'Indice moyen sur 12 mois' }
+
+                                            ]">
+
+                                <tr ng-repeat="ind in indicateurs">
+
+                                    <!-- INDICATEUR -->
+                                    <td>{{ ind.label }}</td>
+
+                                    <!-- VALEUR -->
+                                    <td style="text-align:center">
+                                        {{ dataIPC[0].fields[ind.key] | number:2 }}
+                                    </td>
+
+                                    <!-- TENDANCE -->
+                                    <td style="text-align:center"
+                                        ng-init="trend = dataIPC[0].fields[ind.key] - dataIPC[1].fields[ind.key]"
+                                        ng-style="{
+                                                  'color': trend > 0 ? '#2e7d32' :
+                                                  (trend < 0 ? '#c62828' : '#777')
+                                                  }">
+
+                                        <i class="fa"
+                                           ng-class="{
+                                                     'fa-arrow-up': trend > 0,
+                                                     'fa-arrow-down': trend < 0,
+                                                     'fa-minus': trend == 0
+                                                     }"></i>
+
+                                        {{ trend | number:2 }}
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+
+                    </div>
+
+                    <p style="text-align: center; font-size: 12px; color: #94A3B8; margin-top: 10px;"></p>
+                </div>
+
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title" ng-if="activeValeur == 'courant'">Courbe d’évolution des indicateurs</small></h3>
+                </div>
+                <ods-dataset-context context="ihpcbase23" ihpcbase23-dataset="1_ihpcbase23">
+                    <ods-chart timescale="year" scientific-display="false" align-month="true">
+                        <ods-chart-query context="ihpcbase23" field-x="mois_n" maxpoints="0" timescale="month">
+                            <ods-chart-serie expression-y="00_indice_global" chart-type="line" function-y="SUM" label-y="Indice global" color="#66c2a5" display-values="false" scientific-display="false">
+                            </ods-chart-serie>
+                            <ods-chart-serie expression-y="taux_mensuel_d_inflation" chart-type="line" function-y="SUM" label-y="Taux Mensuel d'Inflation" color="#fc8d62" scientific-display="true">
+                            </ods-chart-serie>
+                            <ods-chart-serie expression-y="indice_moyen_sur_12_mois" chart-type="line" function-y="SUM" color="#8da0cb" scientific-display="true">
+                            </ods-chart-serie>
+                        </ods-chart-query>
+                    </ods-chart>
+
+                </ods-dataset-context>
+
+                <p style="text-align: center; font-size: 12px; color: #94A3B8; margin-top: 10px;"></p>
+            </div>
+
+
+            </div>
+                
+                <div ng-if="activeTab == 'prix'">
+                   <div class="chart-card">
+                        <div class="offre2-pib">
+                                    <section class="secteurs-split secteurs-split-homemade"
+                                             ng-init="modalswitchstatus=false; selectedSecteur='Primaire'">
+
+                                        <!-- <h4>Analyse détaillée</h4>-->
+                                        <!-- 🔹 FILTRE ANNEE avec ETIQUETTE DYNAMIQUE -->
+                                        <!-- 🔹 BANDE PRIMAIRE -->
+                                        <div class="secteur-line">
+                                            <div class="secteur-bande primaire secteur-primaire"
+                                                 ng-class="{'active': selectedSecteur==='Primaire'}"
+                                                 ng-click="selectedSecteur = (selectedSecteur==='Primaire' ? null : 'Primaire');
+                                                           ctxoffre.parameters['refine.secteur'] = (selectedSecteur ? 'Primaire' : undefined)">
+                                               
+
+                                                <!-- KPI PIB secteur Primaire -->
+                                                <div class="kpi-bande" ng-if="activeValeur == 'courant'"
+                                                     ods-adv-analysis="resultPrimaire"
+                                                     ods-adv-analysis-context="ctxicac"
+                                                     ods-adv-analysis-select="SUM(commerce_et_reparation_d_automobiles_et_de_motocycles) AS total_pib"
+                                                     >
+                                                    <div><p id="activite">
+                                                        ACTIVITES INDUSTRIELLES
+                                                        </p></div>
+                                                    <div><h3 class="h3-pib"> <small></small></h3></div>
+                                                    <div></div>
+                                                </div>
+                                                <div class="kpi-bande" ng-if="activeValeur == 'courant'"
+                                                     ods-adv-analysis="resultPrimaire"
+                                                     ods-adv-analysis-context="ctxipi"
+                                                     ods-adv-analysis-select="AVG(total_idustrie) AS total_pib"
+                                                     >
+                                                    <div><p id="activite1">
+                                                        Indicateurs harmonisés de la production industrielle
+                                                        </p></div>
+                                                    <div><h3 class="h3-pib">{{ resultPrimaire[0].total_pib | number:0 }} <small></small></h3></div>
+                                                    <div></div>
+                                                </div>
+                                                
+                                                <div class="kpi-bande"
+                                                     ods-adv-analysis="resultPrimaire"
+                                                     ods-adv-analysis-context="ctxippi"
+                                                     ods-adv-analysis-select="AVG(total_idustrie) AS total_pib"
+                                                     >
+                                                    <div><p id="activite1">
+                                                        Indicateurs des prix à la production industrielle
+                                                        </p></div>
+                                                    <div><h3 class="h3-pib">{{ resultPrimaire[0].total_pib | number:1 }} </h3></div>
+                                                    <div></div>
+                                                </div>
+                                                
+                                                <div class="kpi-bande"
+                                                     ods-adv-analysis="resultPrimaire"
+                                                     ods-adv-analysis-context="ctxippi"
+                                                     ods-adv-analysis-select="AVG(total_idustrie) AS total_pib"
+                                                     >
+                                                    <div><p id="activite1">
+                                                        Indicateurs du chiffre d'affaires dans l'industrie
+                                                        </p></div>
+                                                    <div><h3 class="h3-pib">{{ resultPrimaire[0].total_pib | number:1 }} </h3></div>
+                                                    <div></div>
+                                                </div>
+                                                <!-- KPI Croissance secteur Primaire -->
+                                                
+                                                
+                                                
+                                                
+
+                                                <!-- Icône de déroulement -->
+                                                <div class="secteur-toggle-icon">
+                                                    <i class="fa"
+                                                       ng-class="{
+                                                                 'fa-chevron-down': selectedSecteur!=='Primaire',
+                                                                 'fa-chevron-up': selectedSecteur==='Primaire'
+                                                                 }"></i>
+                                                </div>
+                                            </div>
+
+                                            
+                                            
+                                            
+                                            <!-- 🔽 TABLEAU DÉTAIL POUR PRIMAIRE -->
+                                            <div class="secteur-detail"
+                                                 ng-if="selectedSecteur==='Primaire'">
+
+
+                                                <div class="table-secteur">
+                                                    <table class="table-custom t1"
+                                                           ods-results="rowsIPPI"
+                                                           ods-results-context="ctxipi"
+                                                           ods-results-max="1"
+                                                           ods-results-sort="annee desc">
+                                                        <!-- 🔎 FILTRE ANNEE + MOIS -->
+                                                        <!--<ods-dataset-context context="ctxipi"
+                                                                             ipi-maj
+                                                                             ctxipi-parameters="{
+                                                                                                 'refine.annee':'2025',
+                                                                                                 'refine.mois':'Janvier'
+                                                                                                 }">
+                                                        </ods-dataset-context> -->
+
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="text-align:left"></th>
+                                                                
+                                                                
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody ng-if="rowsIPPI.length">
+
+                                                            <!-- ================= EXTRACTIF ================= -->
+
+                                                            <tr>
+                                                                <td>Extraction d'hydrocarbures</td>
+                                                                
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td>Extraction de minerais métalliques</td>
+                                                                
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td>Autres activités extractives</td>
+                                                                
+                                                            </tr>
+
+                                                            <!-- ================= MANUFACTURE ================= -->
+
+                                                            <tr>
+                                                                <td>Fabrication de produits alimentaires</td>
+                                                                
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td>Fabrication de boissons</td>
+                                                                
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td>Fabrication de produits chimiques</td>
+                                                                
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td>Métallurgie</td>
+                                                                
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td>Fabrication de meubles et matelas</td>
+                                                                
+                                                            </tr>
+
+                                                            <!-- ================= ENERGIE / EAU ================= -->
+
+                                                            <tr>
+                                                                <td>Production et distribution d'électricité et de gaz</td>
+                                                                
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td>Captage et distribution d'eau</td>
+                                                                
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td>Collecte et traitement des déchets</td>
+                                                                
+                                                            </tr>
+
+                                                        </tbody>
+
+                                                    </table>
+                                                    
+                                                    
+                                                    <table class="table-custom t1"
+                                                           ods-results="rowsIPPI"
+                                                           ods-results-context="ctxipi"
+                                                           ods-results-max="1"
+                                                           ods-results-sort="annee desc">
+                                                        <!-- 🔎 FILTRE ANNEE + MOIS -->
+                                                        <!--<ods-dataset-context context="ctxipi"
+                                                                             ipi-maj
+                                                                             ctxipi-parameters="{
+                                                                                                 'refine.annee':'2025',
+                                                                                                 'refine.mois':'Janvier'
+                                                                                                 }">
+                                                        </ods-dataset-context> -->
+
+                                                        <thead>
+                                                            <tr>
+                                                                
+                                                                <th style="text-align:center"></th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody ng-if="rowsIPPI.length">
+
+                                                            <!-- ================= EXTRACTIF ================= -->
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.extraction_d_hydrocarbures | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.extraction_de_minerais_metalliques | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.autres_activites_extractives | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <!-- ================= MANUFACTURE ================= -->
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.fabrication_de_produits_alimentaires | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.fabrication_de_boissons | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.fabrication_de_produits_chimiques | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.metallurgie | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.fabrication_de_meubles_et_matelas | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <!-- ================= ENERGIE / EAU ================= -->
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.production_et_distribution_d_electricite_et_de_gaz | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.captage_traitement_et_distribution_d_eau | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.collecte_traitement_et_elimination_des_dechets_recuperation | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                        </tbody>
+
+                                                    </table>
+
+                                                    
+                                                    <table class="table-custom t1"
+                                                           ods-results="rowsIPPI"
+                                                           ods-results-context="ctxippi"
+                                                           ods-results-max="1"
+                                                           ods-results-sort="annee desc">
+                                                        <!-- 🔎 FILTRE ANNEE + MOIS -->
+                                                        <!--<ods-dataset-context context="ctxippi"
+                                                                             ippi-maj
+                                                                             ctxippi-parameters="{
+                                                                                                 'refine.annee':'2025',
+                                                                                                 'refine.mois':'Décembre'
+                                                                                                 }">
+                                                        </ods-dataset-context> -->
+
+                                                        <thead>
+                                                            <tr>
+                                                                
+                                                                <th style="text-align:center"></th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody ng-if="rowsIPPI.length">
+
+                                                            <!-- ================= EXTRACTIF ================= -->
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.extraction_d_hydrocarbures | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.extraction_de_minerais_metalliques | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.autres_activites_extractives | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <!-- ================= MANUFACTURE ================= -->
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.fabrication_de_produits_alimentaires | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.fabrication_de_boissons | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.fabrication_de_produits_chimiques | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.metallurgie | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.fabrication_de_meubles_et_matelas | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <!-- ================= ENERGIE / EAU ================= -->
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.production_et_distribution_d_electricite_et_de_gaz | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.captage_traitement_et_distribution_d_eau | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.collecte_traitement_et_elimination_des_dechets_recuperation | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                        </tbody>
+
+                                                    </table>
+                                                    
+                                                    
+                                                    <table class="table-custom t1"
+                                                           ods-results="rowsIPPI"
+                                                           ods-results-context="ctxicai"
+                                                           ods-results-max="1"
+                                                           ods-results-sort="annee desc">
+                                                        <!-- 🔎 FILTRE ANNEE + MOIS -->
+                                                       <!-- <ods-dataset-context context="ctxicai"
+                                                                             icai-maj
+                                                                             ctxicai-parameters="{
+                                                                                                 'refine.annee':'2025',
+                                                                                                 'refine.mois':'Décembre'
+                                                                                                 }">
+                                                        </ods-dataset-context> -->
+
+                                                        <thead>
+                                                            <tr>
+                                                                
+                                                                <th style="text-align:center"></th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody ng-if="rowsIPPI.length">
+
+                                                            <!-- ================= EXTRACTIF ================= -->
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.extraction_d_hydrocarbures | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.extraction_de_minerais_metalliques | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.autres_activites_extractives | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <!-- ================= MANUFACTURE ================= -->
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.fabrication_de_produits_alimentaires | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.fabrication_de_boissons | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.fabrication_de_produits_chimiques | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.metallurgie | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.fabrication_de_meubles_et_matelas | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <!-- ================= ENERGIE / EAU ================= -->
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.production_et_distribution_d_electricite_et_de_gaz | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.captage_traitement_et_distribution_d_eau | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                
+                                                                <td style="text-align:center">
+                                                                    {{ rowsIPPI[0].fields.collecte_traitement_et_elimination_des_dechets_recuperation | number:1 }}
+                                                                </td>
+                                                            </tr>
+
+                                                        </tbody>
+
+                                                    </table>
+                                                </div>
+
+                                            </div>
+                                        </div> <!-- /secteur-line Primaire -->
+
+                                    </section>
+
+
+                                </div>
+                    </div>
+                    
+                </div>
+                
+                <div ng-if="activeTab == 'echanges'">
+                
+                    <div class="chart-card">
+                        <div class="offre2-pib">
+                                    <section class="secteurs-split secteurs-split-homemade"
+                                             ng-init="modalswitchstatus=false; selectedSecteur='Primaire'">
+
+                                        <!-- <h4>Analyse détaillée</h4>-->
+                                        <!-- 🔹 FILTRE ANNEE avec ETIQUETTE DYNAMIQUE -->
+                                        <!-- 🔹 BANDE PRIMAIRE -->
+                                        <div class="secteur-line">
+                                            <div class="secteur-bande primaire secteur-primaire"
+                                                 ng-class="{'active': selectedSecteur==='Primaire'}"
+                                                 ng-click="selectedSecteur = (selectedSecteur==='Primaire' ? null : 'Primaire');
+                                                           ctxoffre.parameters['refine.secteur'] = (selectedSecteur ? 'Primaire' : undefined)">
+                                               
+
+                                                <!-- KPI PIB secteur Primaire -->
+                                                <div class="kpi-bande" ng-if="activeValeur == 'courant'"
+                                                     ods-adv-analysis="resultPrimaire"
+                                                     ods-adv-analysis-context="ctxicac"
+                                                     ods-adv-analysis-select="SUM(commerce_et_reparation_d_automobiles_et_de_motocycles) AS total_pib"
+                                                     >
+                                                    <div class="trafic1"><p>
+                                                        Commerce et réparation d'automobiles et de motocycles
+                                                        </p></div>
+                                                    <div><h3 class="h3-pib">{{ resultPrimaire[0].total_pib | number:0 }} <small></small></h3></div>
+                                                    <div></div>
+                                                </div>
+                                                
+                                                <div class="kpi-bande"
+                                                     ods-adv-analysis="resultPrimaire"
+                                                     ods-adv-analysis-context="ctxicac"
+                                                     ods-adv-analysis-select="AVG(commerce_de_detail) AS total_pib"
+                                                     >
+                                                    <div class="trafic1"><p>
+                                                        Commerce de détail
+                                                        </p></div>
+                                                    <div><h3 class="h3-pib">{{ resultPrimaire[0].total_pib | number:1 }} </h3></div>
+                                                    <div></div>
+                                                </div>
+                                                
+                                                <div class="kpi-bande"
+                                                     ods-adv-analysis="resultPrimaire"
+                                                     ods-adv-analysis-context="ctxicac"
+                                                     ods-adv-analysis-select="AVG(commerce_de_gros_et_activites_des_intermediaires) AS total_pib"
+                                                     >
+                                                    <div class="trafic1"><p>
+                                                        Commerce de gros et activités des intermédiaires
+                                                        </p></div>
+                                                    <div><h3 class="h3-pib">{{ resultPrimaire[0].total_pib | number:1 }} </h3></div>
+                                                    <div></div>
+                                                </div>
+                                                <!-- KPI Croissance secteur Primaire -->
+                                                
+                                                
+                                                
+                                                
+
+                                                <!-- Icône de déroulement -->
+                                                <div class="secteur-toggle-icon">
+                                                    <i class="fa"
+                                                       ng-class="{
+                                                                 'fa-chevron-down': selectedSecteur!=='Primaire',
+                                                                 'fa-chevron-up': selectedSecteur==='Primaire'
+                                                                 }"></i>
+                                                </div>
+                                            </div>
+
+                                            <!-- 🔽 TABLEAU DÉTAIL POUR PRIMAIRE -->
+                                            <div class="secteur-detail"
+                                                 ng-if="selectedSecteur==='Primaire'">
+
+
+                                                <div class="table-secteur">
+                                                    <table class="table-custom t1"
+                                                           ods-results="rowsPrimaire"
+                                                           ods-results-context="ctxicac1"
+                                                           ods-results-max="5000">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="text-align: center"></th>
+                                                                <th style="text-align: center"></th>
+                                                                
+                                                                
+                                                                
+                                                                
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="row in rowsPrimaire">
+                                                                <td 
+                                                                    data-label="Sous-secteur" 
+                                                                    >
+                                                                    {{ row.fields.commerce_et_reparation_dautomobiles_et_de_motocycles }}
+                                                                </td>
+                                                                <td data-label="Valeur" ng-if="activeValeur == 'courant'" style="text-align: center">
+                                                                    {{ row.fields.valeur1_auto | number:0 }}
+                                                                </td>
+                                                                
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    
+                                                    <table class="table-custom t1"
+                                                           ods-results="rowsPrimaire"
+                                                           ods-results-context="ctxicac3"
+                                                           ods-results-max="5000">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="text-align: center"></th>
+                                                                <th style="text-align: center"></th>
+                                                                
+                                                                
+                                                                
+                                                                
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="row in rowsPrimaire">
+                                                                <td 
+                                                                    data-label="Sous-secteur" 
+                                                                    >
+                                                                    {{ row.fields.detail }}
+                                                                </td>
+                                                                <td data-label="Valeur" ng-if="activeValeur == 'courant'" style="text-align: center">
+                                                                    {{ row.fields.value3_detail | number:0 }}
+                                                                </td>
+                                                                
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    
+                                                    <table class="table-custom t1"
+                                                           ods-results="rowsPrimaire"
+                                                           ods-results-context="ctxicac2"
+                                                           ods-results-max="5000">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="text-align: center"></th>
+                                                                <th style="text-align: center"></th>   
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="row in rowsPrimaire">
+                                                                <td 
+                                                                    data-label="Sous-secteur" 
+                                                                    >
+                                                                    {{ row.fields.gros }}
+                                                                </td>
+                                                                <td data-label="Valeur" ng-if="activeValeur == 'courant'" style="text-align: center">
+                                                                    {{ row.fields.value2_gros | number:0 }}
+                                                                </td>
+                                                                
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+                                        </div> <!-- /secteur-line Primaire -->
+
+                                    </section>
+
+
+                                </div>
+                    </div>
+                    
+
+                </div>
+                
+                <div ng-if="activeTab == 'echanges1'">
+                    
+                    
+                    
+
+                        <!-- CONTEXTE DATASET -->
+                       
+
+                        <!-- DERNIERE ANNEE -->
+                    <!-- ═══════════════════════════════════════════════════════ -->
+                    <!-- BLOC INDICATEURS COMBINÉS — ÉDUCATION & DÉMOGRAPHIE   -->
+                    <!-- ═══════════════════════════════════════════════════════ -->
+
+                    <div ods-results="comboData"
+                         class="stats-grid stats-grid-combo"
+                         ods-results-context="ctxsocio"
+                         ods-results-max="1"
+                         ods-results-sort="annee desc">
+
+                        <!-- ── ÉDUCATION ───────────────────────────────────── -->
+
+                        <!-- Taux net scolarisation - Secondaire -->
+                        
+
+                        <!-- Taux brut scolarisation - Primaire -->
+                        
+
+                        <!-- Taux achèvement - Primaire -->
+                        
+
+                        <!-- Taux achèvement - Secondaire -->
+                       
+
+                        <!-- ── DÉMOGRAPHIE ─────────────────────────────────── -->
+
+                        <!-- Taux de croissance démographique -->
+                        <div class="stat-card stat-card-hover-info" ng-if="comboData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-orange">
+                                    <i class="fa fa-chart-line stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Taux de croissance<br><small>Démographique</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ comboData[0].fields.taux_de_croissance_demographique | number:2 }}
+                                    <small>%</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Taux brut de reproduction -->
+                        <div class="stat-card stat-card-hover-info" ng-if="comboData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-pink">
+                                    <i class="fa fa-baby stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Taux brut de reproduction<br><small>(%)</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ comboData[0].fields.taux_brut_de_reproduction | number:2 }}
+                                    <small>%</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Espérance de vie à la naissance -->
+                        <div class="stat-card stat-card-hover-info" ng-if="comboData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-cyan">
+                                    <i class="fa fa-heartbeat stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Espérance de vie<br><small>à la naissance</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ comboData[0].fields.esperance_de_vie_a_la_naissance_totale | number:1 }}
+                                    <small>ans</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Taux d'accroissement naturel -->
+                        <div class="stat-card stat-card-hover-info" ng-if="comboData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-lime">
+                                    <i class="fa fa-seedling stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Taux d'accroissement<br><small>Naturel</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ comboData[0].fields.taux_d_accroissement_naturel | number:2 }}
+                                    <small>%</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rapport de masculinité -->
+                        <div class="stat-card stat-card-hover-info" ng-if="comboData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-blue">
+                                    <i class="fa fa-venus-mars stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Rapport de masculinité<br><small>de la population</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ comboData[0].fields.rapport_de_masculinite_de_la_population | number:2 }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Indice synthétique de fécondité -->
+                        <div class="stat-card stat-card-hover-info" ng-if="comboData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-rose">
+                                    <i class="fa fa-child stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Indice synthétique<br><small>de fécondité</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ comboData[0].fields.indice_synthetique_de_fecondite | number:2 }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Taux brut de natalité -->
+                        <div class="stat-card stat-card-hover-info" ng-if="comboData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-green">
+                                    <i class="fa fa-plus-circle stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Taux brut de natalité<br><small>(‰)</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ comboData[0].fields.taux_brut_de_natalite_0 | number:2 }}
+                                    <small>‰</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Taux brut de mortalité -->
+                        <div class="stat-card stat-card-hover-info" ng-if="comboData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-red">
+                                    <i class="fa fa-minus-circle stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Taux brut de mortalité<br><small>(‰)</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ comboData[0].fields.taux_brut_de_mortalite_0 | number:2 }}
+                                    <small>‰</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Taux de mortalité infantile -->
+                        <div class="stat-card stat-card-hover-info" ng-if="comboData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-purple">
+                                    <i class="fa fa-hospital stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Taux de mortalité<br><small>Infantile</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ comboData[0].fields.taux_de_mortalite_infentile | number:2 }}
+                                    <small>‰</small>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    
+                    
+                    <div ods-results="demoData" class="stats-grid" 
+                         ods-results-context="ctxdemo"
+                         ods-results-max="1"
+                         ods-results-sort="annee desc">
+
+                        <!-- ═══════════════════════════════════════════════════════ -->
+                        <!-- SECTION 1 — SCOLARISATION (Taux de couverture)         -->
+                        <!-- ═══════════════════════════════════════════════════════ 
+
+                        <div class="stats-section-title" ng-if="demoData.length">
+                            <i class="fa fa-book-open"></i> Scolarisation
+                        </div> -->
+
+                        <!-- Taux brut scolarisation - Primaire -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-blue">
+                                    <i class="fa fa-school stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Taux brut de scolarisation<br><small>Primaire</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ demoData[0].fields.taux_brut_de_scolarisation_au_primaire | number:1 }}
+                                    <small>%</small>
+                                </div>
+                                <div class="stat-progress-bar">
+                                    <div class="stat-progress-fill"
+                                         ng-style="{'width': demoData[0].fields.taux_brut_de_scolarisation_au_primaire + '%'}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stat-trend"
+                                 ng-init="diffTBP = demoData[0].fields.taux_brut_de_scolarisation_au_primaire - demoData[0].fields.taux_brut_de_scolarisation_au_primaire0"
+                                 ng-style="{'color': diffTBP >= 0 ? '#2e7d32' : '#c62828'}">
+                                <i class="fa" ng-class="{'fa-arrow-up': diffTBP >= 0, 'fa-arrow-down': diffTBP < 0}"></i>
+                                {{ diffTBP | number:1 }} pts
+                            </div>
+                        </div>
+
+                        <!-- Taux net scolarisation - Secondaire -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-indigo">
+                                    <i class="fa fa-graduation-cap stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Taux net de scolarisation<br><small>Secondaire</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ demoData[0].fields.taux_net_de_scolarisation_au_secondaire | number:1 }}
+                                    <small>%</small>
+                                </div>
+                                <div class="stat-progress-bar">
+                                    <div class="stat-progress-fill"
+                                         ng-style="{'width': demoData[0].fields.taux_net_de_scolarisation_au_secondaire + '%'}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stat-card-footer"></div>
+                        </div>
+
+
+                        <!-- ═══════════════════════════════════════════════════════ -->
+                        <!-- SECTION 2 — ACHÈVEMENT & DIPLOMATION                   -->
+                        <!-- ═══════════════════════════════════════════════════════ 
+
+                        <div class="stats-section-title" ng-if="demoData.length">
+                            <i class="fa fa-award"></i> Achèvement & Diplomation
+                        </div> -->
+
+                        <!-- Taux achèvement - Primaire -->
+                        <div class="stat-card stat-card-hover-success" ng-if="demoData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-green">
+                                    <i class="fa fa-check-circle stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Taux d'achèvement<br><small>Primaire</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ demoData[0].fields.taux_d_achevement_ou_de_diplomation_primaire *100 | number:1 }}
+                                    <small>%</small>
+                                </div>
+                                <div class="stat-progress-bar">
+                                    <div class="stat-progress-fill stat-progress-green"
+                                         ng-style="{'width': demoData[0].fields.taux_d_achevement_ou_de_diplomation_primaire + '%'}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Taux achèvement - Secondaire -->
+                        <div class="stat-card stat-card-hover-success" ng-if="demoData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-teal">
+                                    <i class="fa fa-certificate stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Taux d'achèvement<br><small>Secondaire</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ demoData[0].fields.taux_d_achevement_ou_de_diplomation_secondaire *100 | number:1 }}
+                                    <small>%</small>
+                                </div>
+                                <div class="stat-progress-bar">
+                                    <div class="stat-progress-fill stat-progress-teal"
+                                         ng-style="{'width': demoData[0].fields.taux_d_achevement_ou_de_diplomation_secondaire + '%'}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- ═══════════════════════════════════════════════════════ -->
+                        <!-- SECTION 3 — RÉSULTATS AUX EXAMENS                      -->
+                        <!-- ═══════════════════════════════════════════════════════ 
+
+                        <div class="stats-section-title" ng-if="demoData.length">
+                            <i class="fa fa-pen-alt"></i> Résultats aux Examens
+                        </div> -->
+
+                        <!-- Taux admission - Primaire -->
+                        <div class="stat-card stat-card-hover-warning" ng-if="demoData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-orange">
+                                    <i class="fa fa-pencil-alt stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Taux d'admission<br><small>Primaire (CEPE)</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ demoData[0].fields.resultats_de_l_examen_de_competence_primaire_taux_d_admissipon_au_primaire | number:1 }}
+                                    <small>%</small>
+                                </div>
+                                <div class="stat-progress-bar">
+                                    <div class="stat-progress-fill stat-progress-orange"
+                                         ng-style="{'width': demoData[0].fields.resultats_de_l_examen_de_competence_primaire_taux_d_admissipon_au_primaire + '%'}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Taux admission - Secondaire -->
+                        <div class="stat-card stat-card-hover-warning" ng-if="demoData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-amber">
+                                    <i class="fa fa-file-alt stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Taux d'admission<br><small>Secondaire (BEPC)</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ demoData[0].fields.resultats_de_l_examen_de_competence_secondaire_taux_d_admission_au_secondaire | number:1 }}
+                                    <small>%</small>
+                                </div>
+                                <div class="stat-progress-bar">
+                                    <div class="stat-progress-fill stat-progress-amber"
+                                         ng-style="{'width': demoData[0].fields.resultats_de_l_examen_de_competence_secondaire_taux_d_admission_au_secondaire + '%'}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- ═══════════════════════════════════════════════════════ -->
+                        <!-- SECTION 4 — PARITÉ GENRE                               -->
+                        <!-- ═══════════════════════════════════════════════════════ 
+
+                        <div class="stats-section-title" ng-if="demoData.length">
+                            <i class="fa fa-venus-mars"></i> Parité Filles / Garçons
+                        </div> -->
+
+                        <!-- Parité - Préscolaire -->
+                        <div class="stat-card stat-card-hover-pink" ng-if="demoData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-pink">
+                                    <i class="fa fa-child stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Indice de parité F/G<br><small>Préscolaire</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ demoData[0].fields.indice_de_parite_hommes_femmes_prescolaire_ratio_fille_garcon | number:2 }}
+                                </div>
+                            </div>
+                            <div class="stat-card-footer">
+                                <span ng-if="demoData[0].fields.indice_de_parite_hommes_femmes_prescolaire_ratio_fille_garcon >= 0.97 
+                                             && demoData[0].fields.indice_de_parite_hommes_femmes_prescolaire_ratio_fille_garcon <= 1.03"
+                                      style="color:#2e7d32"><i class="fa fa-check"></i> Parité atteinte</span>
+                                <span ng-if="demoData[0].fields.indice_de_parite_hommes_femmes_prescolaire_ratio_fille_garcon < 0.97"
+                                      style="color:#c62828"><i class="fa fa-exclamation-triangle"></i> Défavorable aux filles</span>
+                                <span ng-if="demoData[0].fields.indice_de_parite_hommes_femmes_prescolaire_ratio_fille_garcon > 1.03"
+                                      style="color:#e65100"><i class="fa fa-exclamation-triangle"></i> Défavorable aux garçons</span>
+                            </div>
+                        </div>
+
+                        <!-- Parité - Primaire -->
+                        <div class="stat-card stat-card-hover-pink" ng-if="demoData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-pink">
+                                    <i class="fa fa-venus-mars stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Indice de parité F/G<br><small>Primaire</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ demoData[0].fields.indice_de_parite_hommes_femmes_primaire_ratio_fille_garcon | number:2 }}
+                                </div>
+                            </div>
+                            <div class="stat-card-footer">
+                                <span ng-if="demoData[0].fields.indice_de_parite_hommes_femmes_primaire_ratio_fille_garcon >= 0.97 
+                                             && demoData[0].fields.indice_de_parite_hommes_femmes_primaire_ratio_fille_garcon <= 1.03"
+                                      style="color:#2e7d32"><i class="fa fa-check"></i> Parité atteinte</span>
+                                <span ng-if="demoData[0].fields.indice_de_parite_hommes_femmes_primaire_ratio_fille_garcon < 0.97"
+                                      style="color:#c62828"><i class="fa fa-exclamation-triangle"></i> Défavorable aux filles</span>
+                                <span ng-if="demoData[0].fields.indice_de_parite_hommes_femmes_primaire_ratio_fille_garcon > 1.03"
+                                      style="color:#e65100"><i class="fa fa-exclamation-triangle"></i> Défavorable aux garçons</span>
+                            </div>
+                        </div>
+
+                        <!-- Parité - Secondaire -->
+                        <div class="stat-card stat-card-hover-pink" ng-if="demoData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-purple">
+                                    <i class="fa fa-venus-mars stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Indice de parité F/G<br><small>Secondaire</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ demoData[0].fields.indice_de_parite_hommes_femmes_secondaire_ratio_fille_garcon | number:2 }}
+                                </div>
+                            </div>
+                            <div class="stat-card-footer">
+                                <span ng-if="demoData[0].fields.indice_de_parite_hommes_femmes_secondaire_ratio_fille_garcon >= 0.97 
+                                             && demoData[0].fields.indice_de_parite_hommes_femmes_secondaire_ratio_fille_garcon <= 1.03"
+                                      style="color:#2e7d32"><i class="fa fa-check"></i> Parité atteinte</span>
+                                <span ng-if="demoData[0].fields.indice_de_parite_hommes_femmes_secondaire_ratio_fille_garcon < 0.97"
+                                      style="color:#c62828"><i class="fa fa-exclamation-triangle"></i> Défavorable aux filles</span>
+                                <span ng-if="demoData[0].fields.indice_de_parite_hommes_femmes_secondaire_ratio_fille_garcon > 1.03"
+                                      style="color:#e65100"><i class="fa fa-exclamation-triangle"></i> Défavorable aux garçons</span>
+                            </div>
+                        </div>
+
+
+                        <!-- ═══════════════════════════════════════════════════════ -->
+                        <!-- SECTION 5 — EFFECTIFS ÉLÈVES                           -->
+                        <!-- ═══════════════════════════════════════════════════════ 
+
+                        <div class="stats-section-title" ng-if="demoData.length">
+                            <i class="fa fa-users"></i> Effectifs Élèves
+                        </div> -->
+
+                        <!-- Élèves Primaire - Filles -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-pink">
+                                    <i class="fa fa-female stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Élèves - Filles<br><small>Primaire</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ demoData[0].fields.nombre_d_eleve_du_primaire_de_sexe_feminin | number:0 }}
+                                </div>
+                            </div>
+                            <div class="stat-trend"
+                                 ng-init="diffEPF = demoData[0].fields.nombre_d_eleve_du_primaire_de_sexe_feminin - demoData[0].fields.nombre_d_eleve_du_primaire_de_sexe_feminin0"
+                                 ng-style="{'color': diffEPF >= 0 ? '#2e7d32' : '#c62828'}">
+                                <i class="fa" ng-class="{'fa-arrow-up': diffEPF >= 0, 'fa-arrow-down': diffEPF < 0}"></i>
+                                {{ diffEPF | number:0 }}
+                            </div>
+                        </div>
+
+                        <!-- Élèves Primaire - Garçons -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-blue">
+                                    <i class="fa fa-male stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Élèves - Garçons<br><small>Primaire</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ demoData[0].fields.nombre_d_eleve_du_primaire_de_sexe_masculin | number:0 }}
+                                </div>
+                            </div>
+                            <div class="stat-trend"
+                                 ng-init="diffEPM = demoData[0].fields.nombre_d_eleve_du_primaire_de_sexe_masculin - demoData[0].fields.nombre_d_eleve_du_primaire_de_sexe_masculin0"
+                                 ng-style="{'color': diffEPM >= 0 ? '#2e7d32' : '#c62828'}">
+                                <i class="fa" ng-class="{'fa-arrow-up': diffEPM >= 0, 'fa-arrow-down': diffEPM < 0}"></i>
+                                {{ diffEPM | number:0 }}
+                            </div>
+                        </div>
+
+                        <!-- Élèves Secondaire - Filles -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-pink">
+                                    <i class="fa fa-female stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Élèves - Filles<br><small>Secondaire</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ demoData[0].fields.nombre_d_eleve_du_secondaire_de_sexe_feminin | number:0 }}
+                                </div>
+                            </div>
+                            <div class="stat-trend"
+                                 ng-init="diffESF = demoData[0].fields.nombre_d_eleve_du_secondaire_de_sexe_feminin - demoData[0].fields.nombre_d_eleve_du_secondaire_de_sexe_feminin0"
+                                 ng-style="{'color': diffESF >= 0 ? '#2e7d32' : '#c62828'}">
+                                <i class="fa" ng-class="{'fa-arrow-up': diffESF >= 0, 'fa-arrow-down': diffESF < 0}"></i>
+                                {{ diffESF | number:0 }}
+                            </div>
+                        </div>
+
+                        <!-- Élèves Secondaire - Garçons -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-blue">
+                                    <i class="fa fa-male stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Élèves - Garçons<br><small>Secondaire</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ demoData[0].fields.nombre_d_eleve_du_secondaire_de_sexe_masculin | number:0 }}
+                                </div>
+                            </div>
+                            <div class="stat-trend"
+                                 ng-init="diffESM = demoData[0].fields.nombre_d_eleve_du_secondaire_de_sexe_masculin - demoData[0].fields.nombre_d_eleve_du_secondaire_de_sexe_masculin0"
+                                 ng-style="{'color': diffESM >= 0 ? '#2e7d32' : '#c62828'}">
+                                <i class="fa" ng-class="{'fa-arrow-up': diffESM >= 0, 'fa-arrow-down': diffESM < 0}"></i>
+                                {{ diffESM | number:0 }}
+                            </div>
+                        </div>
+
+
+                        <!-- ═══════════════════════════════════════════════════════ -->
+                        <!-- SECTION 6 — CORPS ENSEIGNANT                           -->
+                        <!-- ═══════════════════════════════════════════════════════ 
+
+                        <div class="stats-section-title" ng-if="demoData.length">
+                            <i class="fa fa-chalkboard-teacher"></i> Corps Enseignant
+                        </div> -->
+
+                        <!-- Enseignants Primaire - Femmes -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-pink">
+                                    <i class="fa fa-chalkboard-teacher stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Enseignants - Femmes<br><small>Primaire</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ demoData[0].fields.nombre_d_enseignants_femmes_du_niveau_primaire | number:0 }}
+                                </div>
+                            </div>
+                            <div class="stat-trend"
+                                 ng-init="diffEnsPF = demoData[0].fields.nombre_d_enseignants_femmes_du_niveau_primaire - demoData[0].fields.nombre_d_enseignants_femmes_du_niveau_primaire0"
+                                 ng-style="{'color': diffEnsPF >= 0 ? '#2e7d32' : '#c62828'}">
+                                <i class="fa" ng-class="{'fa-arrow-up': diffEnsPF >= 0, 'fa-arrow-down': diffEnsPF < 0}"></i>
+                                {{ diffEnsPF | number:0 }}
+                            </div>
+                        </div>
+
+                        <!-- Enseignants Primaire - Hommes -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-blue">
+                                    <i class="fa fa-chalkboard-teacher stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Enseignants - Hommes<br><small>Primaire</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ demoData[0].fields.nombre_d_enseignants_hommes_du_niveau_primaire | number:0 }}
+                                </div>
+                            </div>
+                            <div class="stat-trend"
+                                 ng-init="diffEnsPM = demoData[0].fields.nombre_d_enseignants_hommes_du_niveau_primaire - demoData[0].fields.nombre_d_enseignants_hommes_du_niveau_primaire0"
+                                 ng-style="{'color': diffEnsPM >= 0 ? '#2e7d32' : '#c62828'}">
+                                <i class="fa" ng-class="{'fa-arrow-up': diffEnsPM >= 0, 'fa-arrow-down': diffEnsPM < 0}"></i>
+                                {{ diffEnsPM | number:0 }}
+                            </div>
+                        </div>
+
+                        <!-- Enseignants Secondaire - Femmes -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-pink">
+                                    <i class="fa fa-chalkboard-teacher stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Enseignants - Femmes<br><small>Secondaire</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ demoData[0].fields.nombre_d_enseignants_femmes_du_niveau_secondaire | number:0 }}
+                                </div>
+                            </div>
+                            <div class="stat-card-footer"></div>
+                        </div>
+
+                        <!-- Enseignants Secondaire - Hommes -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoData.length">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-blue">
+                                    <i class="fa fa-chalkboard-teacher stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Enseignants - Hommes<br><small>Secondaire</small></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">
+                                    {{ demoData[0].fields.nombre_d_enseignants_hommes_du_niveau_secondaire | number:0 }}
+                                </div>
+                            </div>
+                            <div class="stat-card-footer"></div>
+                        </div>
+
+                    </div>
+
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title" ng-if="activeValeur == 'courant'">Evolution de la population Totale</h3>
+                        </div>
+                        <ods-dataset-context context="populationparsexe" populationparsexe-dataset="population-par-sexe">
+                            <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                <ods-chart-query context="populationparsexe" field-x="annee" maxpoints="0" timescale="year">
+                                    <ods-chart-serie expression-y="population_totale" chart-type="line" function-y="SUM" label-y="Population Totale" color="#000000" scientific-display="true">
+                                    </ods-chart-serie>
+                                </ods-chart-query>
+                            </ods-chart>
+
+                        </ods-dataset-context>
+
+                        <p style="text-align: center; font-size: 12px; color: #94A3B8; margin-top: 10px;"></p>
+                    </div>
+
+                    
+
+                
+                </div>
+                
+                <div ng-if="activeTab == 'pauvrete'">
+                    
+                        <!-- DERNIERE ANNEE DISPONIBLE -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title" ng-if="activeValeur == 'courant'">Evolution du taux de pauvreté (%)</h3>
+                        </div>
+                        <ods-dataset-context context="evolutiondutauxdepauvrete1" evolutiondutauxdepauvrete1-dataset="evolution-du-taux-de-pauvrete-1">
+                            <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                <ods-chart-query context="evolutiondutauxdepauvrete1" field-x="annee" maxpoints="0" timescale="year">
+                                    <ods-chart-serie expression-y="taux_de_pauvrete" chart-type="line" function-y="AVG" label-y="Taux de Pauvreté" color="#66c2a5" scientific-display="true">
+                                    </ods-chart-serie>
+                                </ods-chart-query>
+                            </ods-chart>
+
+                        </ods-dataset-context>
+
+                        <p style="text-align: center; font-size: 12px; color: #94A3B8; margin-top: 10px;"></p>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title" ng-if="activeValeur == 'courant'">Evolution du taux Chômage (%)</h3>
+                        </div>
+                        <h2>
+                            Données en Attente de reception...
+                        </h2>
+
+                        <p style="text-align: center; font-size: 12px; color: #94A3B8; margin-top: 10px;"></p>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title" ng-if="activeValeur == 'courant'">Evolution du salaire moyen</h3>
+                        </div>
+                        <h2>
+                            Données en Attente de reception...
+                        </h2>
+
+                        <p style="text-align: center; font-size: 12px; color: #94A3B8; margin-top: 10px;"></p>
+                    </div>
+
+                    
+
+                </div>
+                
+                
+
+            </div>
+
+        </main>
+    </div>
+
+</ods-dataset-context>

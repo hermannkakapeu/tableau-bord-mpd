@@ -1,0 +1,1522 @@
+/* --- VARIABLES GLOBALES (THEME) --- */
+:root {
+    --primary-color: #0F7705; /*#008745 Vert DGE - À changer pour chaque direction */
+    --sidebar-bg: #EF7D00;   /*#1A2B3C Bleu foncé menu */
+    --bg-light: #F9FAFC;      /* Gris très clair fond de page */
+    --text-dark: #333333;
+    --text-grey: #666666;
+    --card-radius: 12px;
+    --sidebar-width: 80px;
+    --header-height: 70px;
+    /*--primary-color:#00bfa5; VERT */
+    --secondary-color: #EF7D00;    /* ORANGE */
+    --background-light: #f6f8fa;   /* LIGHT */
+    --orange: #FFA858;     
+}
+
+/* --- RESET & LAYOUT GLOBAL --- */
+body, .ods-box {
+    margin: 0;
+    padding: 0;
+    font-family: 'Alegreya Sans', sans-serif; /* Ou la police de la charte */
+    /* background-color: var(--bg-light); */
+    background: #FFF7ED ;
+
+}
+
+main {
+    margin:0;
+}
+
+.ods-front-header {
+    display:none; 
+}
+
+a:hover {
+    text-decoration:none;
+}
+
+/* Le conteneur global qui tient tout l'écran */
+.dashboard-layout {
+    height: auto;
+    width: 100%;
+    overflow: visible;
+    display: flex;
+}
+
+/* --- SIDEBAR (GAUCHE) --- */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--sidebar-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    flex-shrink: 0; /* Ne rétrécit jamais */
+    z-index: 100;
+}
+
+.logo-me {
+    width: 40px;
+    height: 40px;
+    background-color: #fff; /* Vert logo ME */
+    color: var(--primary-color);
+    border-radius: 50%; /* Cercle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 40px;
+    cursor: pointer;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #8A9BA8; /* Gris icône inactif */
+    text-decoration: none;
+    margin-bottom: 30px;
+    font-size: 10px;
+    transition: 0.3s;
+    cursor: pointer;
+    color: #fff;
+}
+
+.nav-item:hover, .nav-item.active {
+    color: white;
+}
+
+/* Cercle vert pour l'item actif */
+.nav-icon-box {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    margin-bottom: 5px;
+    transition: 0.3s;
+    background-color: var(--primary-color);
+}
+
+.nav-item.active .nav-icon-box {
+    background-color: var(--primary-color);
+    box-shadow: 0 4px 10px rgba(0, 135, 69, 0.3);
+}
+
+.nav-icon {
+    font-size: 18px; /* Taille icône */
+}
+
+/* --- MAIN CONTENT (DROITE) --- */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* Scroll vertical si le contenu dépasse */
+    position: relative; 
+}
+
+/* --- CONTENT WRAPPER --- */
+/* C'est ici que le contenu spécifique ira */
+.page-container {
+    padding: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Utilitaires typographiques */
+h1, h2, h3 { margin: 0; }
+
+/* --- HEADER SPÉCIFIQUE (HOMEPAGE) --- */
+
+/* Ajustement du conteneur global du header pour l'alignement */
+.top-header {
+    height: 80px; /* Un peu plus haut que le standard pour accueillir les logos */
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03); /* Ombre très légère */
+    position: sticky;
+    top: 0;
+    z-index: 90;
+}
+
+/* Partie Gauche : Logo MEPD + Texte */
+.header-left-section {
+    display: flex;
+    align-items: center;
+    gap: 25px; /* Espace entre le logo et le texte */
+}
+
+.logo-mepd {
+    height: 50px; /* Taille ajustée selon la maquette */
+    width: auto;
+    object-fit: contain;
+}
+
+.header-welcome-text {
+    font-size: 24px;
+    font-weight: 700; /* Gras */
+    color: #1A2B3C; /* Couleur sombre (celle du menu) ou noir */
+    margin: 0;
+    letter-spacing: -0.5px; /* Légèrement resserré pour un look moderne */
+}
+
+/* Partie Droite : Armoiries */
+.header-right-section {
+    display: flex;
+    align-items: center;
+}
+
+.logo-armoiries {
+    height: 65px; /* Les armoiries sont souvent plus hautes */
+    width: auto;
+    object-fit: contain;
+}
+
+/* RESPONSIVE : Si l'écran est petit, on réduit un peu */
+@media (max-width: 768px) {
+    .header-welcome-text {
+        font-size: 18px;
+    }
+    .logo-mepd {
+        height: 35px;
+    }
+    .logo-armoiries {
+        height: 45px;
+    }
+}
+
+
+/* --- HOMEPAGE - STYLES SPÉCIFIQUES --- */
+
+/* Titres des sections */
+h2.section-title {
+    font-size: 18px;
+    color: #64748B; /* Gris bleuté */
+    margin-bottom: 20px;
+    margin-top: 40px;
+    font-weight: 600;
+}
+h2.section-title:first-child {
+    margin-top: 0;
+}
+
+/* --- 1. GRILLE DIRECTIONS GENERALES --- */
+.directions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colonnes égales */
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.direction-card {
+    background: white;
+    padding: 20px;
+    border-radius: var(--card-radius);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none; /* Pour que le lien ne souligne pas le texte */
+    display: block;
+    color: inherit;
+    border: 1px solid transparent;
+}
+
+.direction-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    border-color: #e0e0e0;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.dir-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: #F0FDF4; /* Vert très clair par défaut */
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.dir-title {
+    font-weight: 700;
+    font-size: 16px;
+    color: #1A2B3C;
+}
+
+.dir-subtitle {
+    font-size: 13px;
+    color: #64748B;
+    margin-bottom: 20px;
+    display: block;
+    min-height: 36px; /* Pour aligner les hauteurs si le texte est court */
+}
+
+/* Barre de progression */
+.data-status {
+    margin-top: 15px;
+}
+.status-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 5px;
+    color: #64748B;
+}
+.status-value {
+    font-weight: 700;
+}
+.progress-track {
+    background-color: #E2E8F0;
+    height: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+.progress-fill {
+    height: 100%;
+    border-radius: 3px;
+}
+
+/* Couleurs de statut */
+.status-green { color: #00A651; }
+.bg-green { background-color: #00A651; }
+.icon-bg-green { background-color: #DCFCE7; color: #00A651; }
+
+.status-orange { color: #F59E0B; }
+.bg-orange { background-color: #F59E0B; }
+.icon-bg-orange { background-color: #FEF3C7; color: #F59E0B; }
+
+.status-red { color: #B91C1C; }
+.bg-red { background-color: #B91C1C; }
+.icon-bg-red { background-color: #FEE2E2; color: #B91C1C; }
+
+
+/* --- 2. INDICATEURS CLES --- */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.kpi-simple-card {
+    background: white;
+    padding: 25px;
+    border-radius: var(--card-radius);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    display: block; /* Nécessaire pour les balises <a> */
+    text-decoration: none; /* Enlève le soulignement */
+    color: inherit; /* Garde la couleur du texte */
+    border: 1px solid transparent; /* Prépare la bordure au survol */
+    transition: transform 0.2s, box-shadow 0.2s; /* Animation fluide */
+    cursor: pointer;
+}
+
+.kpi-simple-card:hover {
+    transform: translateY(-3px); /* Monte légèrement */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Ombre plus marquée */
+    border-color: #e0e0e0; /* Bordure subtile */
+}
+
+.kpi-label {
+    font-size: 14px;
+    color: #64748B;
+    margin-bottom: 10px;
+}
+
+.kpi-value-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.kpi-big-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1A2B3C;
+}
+
+.kpi-unit {
+    font-size: 14px;
+    color: #64748B;
+    font-weight: 400;
+}
+
+.trend-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-left: auto; /* Pousse à droite si besoin, sinon laisser vide */
+}
+.trend-positive { color: #00A651; }
+.trend-negative { color: #EF4444; }
+.trend-label {
+    font-size: 11px;
+    color: #94A3B8;
+    font-weight: 400;
+}
+
+
+/* --- 3. CENTRE D'ACTION (ALERTE) --- */
+.action-center-box {
+    background: white;
+    border-radius: var(--card-radius);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    overflow: hidden;
+}
+
+.action-header {
+    background: linear-gradient(90deg, #D97706 0%, #B45309 100%); /* Dégradé orange foncé */
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+}
+
+.action-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.action-item {
+    padding: 15px 20px;
+    border-bottom: 1px solid #F1F5F9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.action-item:last-child { border-bottom: none; }
+
+.action-info h4 {
+    font-size: 14px;
+    color: #1A2B3C;
+    margin-bottom: 4px;
+}
+.action-info span {
+    font-size: 12px;
+    color: #64748B;
+}
+
+.alert-pill {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+}
+.pill-orange { background-color: #F59E0B; }
+.pill-red { background-color: #B91C1C; }
+
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+    .directions-grid { grid-template-columns: repeat(2, 1fr); }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+    .directions-grid { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: 1fr; }
+}
+
+/* --- PAGE DGE - STYLES SPÉCIFIQUES --- */
+
+/* --- BLOC THÉMATIQUES (CORRIGÉ) --- */
+
+.thematics-card {
+    background: white;
+    border-radius: var(--card-radius);
+    padding: 25px; /* Espace intérieur */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espace vertical entre les éléments */
+}
+
+/* Titre "Thématiques" avec l'icône */
+.thematics-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1A2B3C;
+    margin-bottom: 5px;
+}
+
+/* Ligne des onglets */
+.tabs-row {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap; /* Permet de passer à la ligne sur petit écran */
+}
+
+.tab-pill {
+    border: none;
+    background: #F1F5F9; /* Gris clair par défaut */
+    color: #1A2B3C;
+    padding: 10px 24px;
+    border-radius: 8px; /* Coins arrondis comme sur la maquette */
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tab-pill:hover {
+    background: #E2E8F0;
+}
+
+.tab-pill.active {
+    background-color: var(--primary-color); /* Vert DGE */
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 135, 69, 0.2);
+}
+
+/* Ligne des filtres (en dessous) */
+.filters-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #F1F5F9; /* Petit trait de séparation optionnel */
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.filter-label {
+    font-size: 14px;
+    color: #64748B; /* Gris texte */
+    font-weight: 400;
+}
+
+/* Toggle Switch (FCFA / USD) style maquette */
+.currency-toggle {
+    display: flex;
+    background: #F8FAFC;
+    border-radius: 6px;
+    padding: 3px;
+    border: 1px solid #E2E8F0;
+}
+
+.currency-btn {
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 4px;
+    color: #64748B;
+    background: transparent;
+    border: none;
+    transition: 0.2s;
+}
+
+.currency-btn.active {
+    background-color: #1A2B3C;        /* var(--secondary-color);  Noir/Bleu foncé */
+    color: white;
+}
+
+
+
+/* Dropdown Année (Noir) */
+.year-selector {
+    background: #1A2B3C;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* --- CARTES KPI (DGE) --- */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: white;
+    padding: 25px;
+    border-radius: var(--card-radius);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    transition: 0.3s;
+    cursor: default;
+
+}
+
+/* État Hover ou Actif (Vert) 
+.stat-card:hover, .stat-card.active-state {
+background-color: var(--primary-color);
+color: white;
+transform: translateY(-5px);
+box-shadow: 0 10px 20px rgba(0, 135, 69, 0.2);
+} */
+
+.stat-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #64748B;
+    margin-bottom: 10px;
+}
+/* Changement de couleur du texte au survol 
+.stat-card:hover .stat-title, .stat-card.active-state .stat-title {
+color: rgba(255, 255, 255, 0.8);
+}*/
+
+.stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #1A2B3C;
+    display:flex;
+    flex-direction: row;
+    align-items: flex-end;;
+
+
+}
+/*
+.stat-card:hover .stat-value, .stat-card.active-state .stat-value {
+color: white;
+}*/
+
+.stat-subtext {
+    font-size: 0.8rem;
+    color: #94A3B8;
+    margin-bottom: 0.5rem;
+    margin-left: 0.2rem;
+    display:flex;
+    align-items: flex-end;
+    height: 80%;
+
+
+}
+/*
+.stat-card:hover .stat-subtext, .stat-card.active-state .stat-subtext {
+color: rgba(255, 255, 255, 0.7);
+}*/
+
+.stat-trend {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 700;
+    border-top: 1px solid #E5E7EB;
+    padding-top: 12px;
+}
+/* Gestion des badges trend sur fond vert */
+/*
+.stat-card:hover .stat-trend, .stat-card.active-state .stat-trend {*/
+/* color: white !important; */  /* Force le blanc sur fond vert */
+/*}*/
+
+
+/* --- CONTENEURS GRAPHIQUES --- */
+.chart-card {
+    background:  white;
+    border-radius: var(--card-radius);
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.07);
+    display: flex;
+    flex-direction: column;
+}
+
+.chartline1{
+    height: 100%;
+    width: 100%;
+}
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.chart-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1A2B3C;
+}
+
+.chart-kpi-group {
+    display: flex;
+    gap: 20px;
+}
+
+.mini-kpi {
+    border-radius: 0.875rem;
+    background: #F4F6F8;
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+}
+.mini-kpi-val {
+    font-weight: 700;
+    font-size: 16px;
+    color: #1A2B3C;
+    padding-right: 3px;
+}
+.mini-kpi-trend {
+    font-size: 12px;
+}
+
+/* Grille pour les graphiques du bas (2 colonnes) */
+.charts-split-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Placeholder pour simuler le ods-chart */
+.chart-placeholder {
+    width: 100%;
+    height: 300px;
+    background-color: #F8FAFC;
+    border: 1px  #CBD5E1;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748B;
+    font-size: 14px;
+}
+
+chart-placeholder1 {
+    width: 100%;
+    height: 375px;
+    background-color: #F8FAFC;
+    border: 1px  #CBD5E1;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748B;
+    font-size: 14px;
+}
+.chart-placeholder.h-small { height: 250px; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .charts-split-row { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 70px;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        padding-top: 0;
+        border-top: 1px solid rgba(0,0,0,0.05);
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+        background-color: var(--sidebar-bg);
+    }
+
+    .logo-me {
+        order: 3;
+        margin: 0;
+        width: 35px;
+        height: 35px;
+        font-size: 11px;
+    }
+
+    .nav-item:nth-of-type(1) { order: 1; }
+    .nav-item:nth-of-type(2) { order: 2; }
+
+    .nav-item {
+        margin-bottom: 0;
+        justify-content: center;
+        padding: 5px 10px;
+        min-width: 60px;
+    }
+
+    .nav-icon-box {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        margin-bottom: 4px;
+    }
+
+    .nav-item span { font-size: 10px; }
+
+    .main-content {
+        padding-bottom: 80px; /* Espace pour le menu fixe */
+    }
+
+    /* --- 2. LAYOUT GLOBAL & HEADER --- */
+    .page-container {
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    .top-header {
+        padding: 10px 15px;
+        height: auto; /* Hauteur flexible pour le contenu */
+        min-height: 60px;
+    }
+
+    /* Ajustement logos et titres */
+    .header-welcome-text {
+        font-size: 16px; /* Réduit pour éviter que ça casse tout */
+        line-height: 1.2;
+    }
+    .logo-mepd { height: 35px; }
+    .logo-armoiries { height: 40px; }
+    .header-left-section { gap: 15px; }
+
+
+    /* --- 3. BLOC THÉMATIQUES & FILTRES --- */
+    .thematics-card {
+        padding: 20px 15px;
+        gap: 20px;
+    }
+
+    /* Les onglets (Pills) */
+    .tabs-row {
+        gap: 10px;
+    }
+    .tab-pill {
+        flex: 1 1 auto; /* Permet aux boutons de s'agrandir */
+        text-align: center;
+        padding: 12px 10px; /* Plus facile à cliquer */
+        font-size: 14px; /* Texte plus grand */
+    }
+
+    /* Les filtres : On les stack verticalement */
+    .filters-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .filter-group {
+        width: 100%;
+        justify-content: space-between; /* Label à gauche, input à droite */
+        /* IMPORTANT : On annule le margin-left inline du HTML */
+        margin-left: 0 !important; 
+    }
+
+    /* --- 4. KPIs (STATS GRID) --- */
+    .stats-grid {
+        grid-template-columns: 1fr; /* 1 seule colonne */
+        gap: 15px;
+    }
+
+    .stat-card {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* Texte agrandi comme demandé */
+    .stat-title {
+        font-size: 16px;
+    }
+    .stat-value {
+        font-size: 42px; /* Très gros pour l'impact */
+        margin-bottom: 5px;
+    }
+    .stat-trend {
+        font-size: 14px;
+        width: 100%;
+        margin-top: 10px;
+        padding-top: 10px;
+    }
+
+    /* --- 5. GRAPHIQUES --- */
+
+    /* Header des graphiques : Titre en haut, Mini-KPIs en dessous */
+    .chart-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .chart-title {
+        font-size: 20px;
+    }
+
+    /* Groupe de Mini KPIs dans le header du chart */
+    .chart-kpi-group {
+        width: 100%;
+        flex-direction: row; /* On garde en ligne si possible */
+        flex-wrap: wrap; /* Mais on autorise le retour à la ligne */
+        gap: 10px;
+    }
+
+    .mini-kpi {
+        flex: 1; /* Chaque mini KPI prend la même largeur */
+        min-width: 140px; /* Largeur min pour lisibilité */
+    }
+
+    .charts-split-row {
+        grid-template-columns: 1fr; /* Les graphiques côte à côte passent l'un sous l'autre */
+        gap: 20px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.disabled-filter {
+    opacity: 0.4;
+    pointer-events: none;
+    cursor: not-allowed !important;
+}
+
+.disabled-filter1 {
+    opacity: 0.4;
+    cursor: not-allowed !important;
+}
+
+.boite{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 3px;
+    align-items: center;
+    gap: 2px;
+}
+
+/* Type de valeur : Réel, Estimatif & Prévisionnel */
+.kpi-type-valeur {
+    display: inline-flex;
+    align-items: flex-start;
+    padding: 6px 6px;
+    margin-top: 1px;
+    border-radius: 999px; /* pastille arrondie */
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* ✅ Réel : vert */
+.kpi-type-valeur.type-reel {
+    background: #e6f4ea;
+    color: #137333;
+    border-left: 4px solid #137333;
+}
+
+/* 🟧 Estimatif : orange */
+.kpi-type-valeur.type-estimatif {
+    background: #fff7e6;
+    color: #b06000;
+    border-left: 4px solid #b06000;
+}
+
+/* 🔴 Prévisionnel : rouge */
+.kpi-type-valeur.type-previsionnel {
+    background: #fde8e8;
+    color: #b3261e;
+    border-left: 4px solid #b3261e;
+}
+
+
+
+
+
+
+
+/* --- Conteneur principal Offre PIB --- */
+.offre2-pib {
+    width: 100%;
+}
+
+/* --- Split secteur --- */
+.secteurs-split {
+}
+
+.secteurs-split-homemade {
+}
+
+/* --- Ligne secteur --- */
+.secteur-line {
+    margin-bottom: 1.3rem;
+}
+
+/* --- Bande secteur (primaire / secondaire / etc.) --- */
+.secteur-bande {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform .2s ease, box-shadow .2s ease;
+    background: #fff;
+    border: 0.5px solid #a0a0a0; 
+    color: #333;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+}
+
+.secteur-bande.active {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+}
+
+/* --- Bande Primaire --- */
+.primaire {
+    border-left: 6px solid var(--primary-color);
+}
+
+.fbcf {
+    border-left: 6px solid #ee7e61;
+}
+
+
+.primaire h3 {
+    color: var(--primary-color);
+}
+
+/* --- Bande Secondaire --- */
+.secondaire {
+    border-left: 6px solid blue;
+}
+
+.secondaire h3 {
+    color: blue;
+}
+.conso {
+    border-left: #f0b888;
+}
+
+/* --- Bande Tertiaire --- */
+.tertiaire {
+    border-left: 6px solid var(--secondary-color);
+}
+.export {
+    border-left: 6px solid var(--secondary-color);
+}
+.tertiaire h3 {
+    color: var(--secondary-color);
+}
+
+/* --- Bande Autre --- */
+.autre {
+    border-left: 6px solid black;
+}
+.import {
+    border-left: 6px solid black;
+}
+
+.autre h3 {
+    color: black;
+}
+
+/* --- Info secteur --- */
+.secteur-info {
+    width: auto;
+}
+
+/* --- Titre secteur (dans les bandes) --- */
+.nom-secteur {
+
+}
+
+/* --- Bande KPI --- */
+.kpi-bande{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 14%;
+}
+
+.kpi-bande p{
+    text-align: center;
+}
+
+.bande-in{
+    width: 14%;
+}
+
+
+/* --- Valeur KPI PIB --- */
+.h3-pib1 {
+    color: #ee7e61;
+}
+.h3-pib2 {
+    color: #f0b888;
+}
+.h3-pib3 {
+    color: #b0353e;
+}
+.h3-pib3 {
+    color: #d89a9f ;
+}
+
+/* --- Tableau secteurs (scroll + styling complet) --- */
+.table-secteur {
+    background: #ffffff;
+    border: 1px solid #e4e7eb;
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    max-height: 380px;
+    overflow-y: auto;
+    overflow-x: auto;
+    width: 100%;
+}
+
+.table-secteur ods-table table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    font-size: 14px;
+    color: #2a2e37;
+}
+
+.table-secteur ods-table thead th {
+    background: #f5f7fa !important;
+    color: #1a1c1f !important;
+    font-weight: 600;
+    padding: 12px 10px !important;
+    border-bottom: 2px solid #e4e7eb !important;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    text-align: center;
+    width : 14%;
+}
+
+.table-secteur ods-table tbody tr td{
+    text-align: center;
+}
+
+.table-secteur ods-table tbody td {
+    padding: 10px 10px !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.table-secteur ods-table tbody tr:nth-child(even) {
+    background: #fafafa !important;
+}
+
+.table-secteur ods-table tbody tr:nth-child(odd) {
+    background: #ffffff !important;
+}
+
+.table-secteur ods-table tbody tr:hover {
+    background: #e8f0fe !important;
+    cursor: pointer;
+}
+
+.table-secteur ::-webkit-scrollbar {
+    width: 8px;
+}
+
+.table-secteur ::-webkit-scrollbar-thumb {
+    background: #c3cad4;
+    border-radius: 8px;
+}
+
+.table-secteur ::-webkit-scrollbar-thumb:hover {
+    background: #9aa4b2;
+}
+
+/* --- Tableau compact --- */
+.table-custom {
+    font-size: 12px;
+}
+
+/* --- Cellule cliquable --- */
+.clickable {
+    cursor: pointer;
+}
+
+
+.secteur-detail {
+    margin-top: 8px;
+    margin-bottom: 16px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    animation: slideDown .2s ease-out;
+}
+
+
+/* ==========================================================================
+13. TABLES SECTEUR & TABLEAU GÉNÉRIQUE .TABLE-CUSTOM
+========================================================================== */
+
+/* --- ancien conteneur .secteur-table (tableau ODS) --- */
+.secteur-table {
+    display: table;
+    border-collapse: collapse;
+    width: 900px;
+    overflow-x: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    background: #fff;
+    padding: 10px;
+}
+
+.secteur-table ods-table {
+    width: 900px;
+    border-collapse: collapse;
+}
+
+.secteur-table table {
+    table-layout: auto;
+    width: 100%;
+}
+
+.secteur-table table th,
+.secteur-table table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #e5e7eb;
+    white-space: nowrap;
+}
+
+.secteur-table table th {
+    background-color: #f9fafb;
+    font-weight: 700;
+    color: #333;
+}
+
+.secteur-table table tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* --- Nouveau conteneur .table-secteur (scroll + sticky header) --- */
+.table-secteur {
+
+    background: #ffffff;
+    border: 1px solid #e4e7eb;
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    max-height: 380px;
+    overflow-y: auto;
+    overflow-x: auto;
+    width: 100%;
+}
+
+.nom-secteur{
+
+}
+
+.table-secteur ods-table table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    font-size: 14px;
+    color: #2a2e37;
+}
+
+.table-secteur ods-table thead th {
+    background: #f5f7fa !important;
+    color: #1a1c1f !important;
+    font-weight: 600;
+    padding: 12px 10px !important;
+    border-bottom: 2px solid #e4e7eb !important;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.table-secteur ods-table tbody td {
+    padding: 10px 10px !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.table-secteur ods-table tbody tr:nth-child(even) {
+    background: #fafafa !important;
+}
+
+.table-secteur ods-table tbody tr:nth-child(odd) {
+    background: #ffffff !important;
+}
+
+.table-secteur ods-table tbody tr:hover {
+    background: #e8f0fe !important;
+    cursor: pointer;
+}
+
+.table-secteur ods-table table {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Scroll custom */
+.table-secteur ::-webkit-scrollbar {
+    width: 8px;
+}
+.table-secteur ::-webkit-scrollbar-thumb {
+    background: #c3cad4;
+    border-radius: 8px;
+}
+.table-secteur ::-webkit-scrollbar-thumb:hover {
+    background: #9aa4b2;
+}
+
+/* --- Table générique .table-custom (croissance / offre / demande) --- */
+.table-custom {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: auto;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    font-family: "Poppins", sans-serif;
+}
+
+.table-custom thead {
+    position: sticky;
+
+    color: #fff;
+
+}
+
+.t1 thead{ background: linear-gradient(90deg, var(--primary-color), #34495e); 
+    position: sticky;
+    color: #fff;}
+.t2 thead{ background: linear-gradient(90deg, blue, #34495e); 
+    position: sticky;
+    color: #fff;}
+.t3 thead{ background: linear-gradient(90deg, var(--secondary-color), #34495e); 
+    position: sticky;
+    color: #fff;}
+
+.table-custom thead th {
+    position: sticky;
+    padding: 7px 8px;
+    font-size: 11px;
+
+    letter-spacing: 0.2px;
+    font-weight: 300px;
+    top: 0;
+}
+
+.table-custom tbody tr {
+    transition: background 0.2s;
+}
+
+.table-custom tbody tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+.table-custom tbody tr:hover {
+    background: #e8f0fe;
+    cursor: pointer;
+}
+
+.table-custom tbody td {
+    padding: 5px 7px;
+    font-size: 11px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+}
+
+.table-custom td.clickable {
+    color: #2b6cb0;
+    font-weight: 600;
+}
+.table-custom td.clickable:hover {
+    color: #1a4f80;
+    text-decoration: underline;
+}
+
+/* Responsive table-custom */
+@media (max-width: 600px) {
+    .table-custom thead {
+        display: none;
+    }
+
+    .table-custom tbody tr {
+        display: block;
+        margin-bottom: 12px;
+        border-radius: 8px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+        background: #fff;
+        padding: 12px;
+    }
+
+    .table-custom tbody td {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px dashed #ddd;
+    }
+
+    .table-custom tbody td:last-child {
+        border-bottom: none;
+    }
+
+    .table-custom tbody td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #555;
+    }
+}
+
+.trend-up{
+    color: var(--primary-color);
+}
+
+.trend-down{
+    color: red;
+}
+
+.white{
+    color: white;
+}
+
+
+/* --- Overlay pure CSS pour stat-card --- */
+.stat-card-hover-info {
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.35);                                  /* var(--primary-color);  */
+    backdrop-filter: blur(2.7px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition: opacity .4s ease, visibility .4s ease;
+}
+
+.stat-card-hover-info:hover .stat-overlay {
+    opacity: 1;
+    visibility: visible;
+    animation: statOverlayStay 5s forwards;
+}
+
+@keyframes statOverlayStay {
+    0% { opacity: 1; visibility: visible; }
+    95% { opacity: 1; visibility: visible; }
+    100% { opacity: 0; visibility: hidden; }
+}
+
+/* --- Contenu overlay --- */
+.stat-overlay-content {
+    text-align: center;
+    max-width: 90%;
+    color: white;
+    padding: 10px;
+}
+
+.stat-overlay-icon {
+    font-size: 24px;
+    color: var(--secondary-color);
+    margin-bottom: 6px;
+}
+
+.stat-overlay-title {
+    font-size: .9rem;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.stat-overlay-text {
+    font-size: .7rem;
+    line-height: 1.25;
+    color: rgba(255,255,255,.9);
+}
+
+
+
+/* Responsive table-custom */
+@media (max-width: 600px) {
+    .table-custom thead {
+        display: none;
+    }
+
+    .table-custom tbody tr {
+        display: block;
+        margin-bottom: 12px;
+        border-radius: 8px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+        background: #fff;
+        padding: 12px;
+    }
+
+    .table-custom tbody td {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px dashed #ddd;
+    }
+
+    .table-custom tbody td:last-child {
+        border-bottom: none;
+    }
+
+    .table-custom tbody td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #555;
+    }
+}
+
+
+.trend-up{
+    color: var(--primary-color);
+}
+
+.trend-down{
+    color: red;
+}
+

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Logo Ordre de Melchisédek</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #ffffff;
+  }
+  .logo-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 520px;
+  }
+  .logo-text {
+    text-align: center;
+    margin-top: 5px;
+    font-family: Arial, sans-serif;
+  }
+  .t1 {
+    display: block;
+    font-size: 34px;
+    font-weight: 700;
+    color: #000;
+  }
+  .t2 {
+    display: block;
+    font-size: 46px;
+    font-weight: 900;
+    color: #000;
+    letter-spacing: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="logo-wrap">
+
+<svg viewBox="0 0 560 360" width="560" xmlns="http://www.w3.org/2000/svg">
+<defs>
+
+  <!-- OR PRINCIPAL -->
+  <linearGradient id="g1" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%"   stop-color="#fff0a0"/>
+    <stop offset="15%"  stop-color="#f0c840"/>
+    <stop offset="40%"  stop-color="#c89010"/>
+    <stop offset="65%"  stop-color="#e0b030"/>
+    <stop offset="85%"  stop-color="#b07808"/>
+    <stop offset="100%" stop-color="#806005"/>
+  </linearGradient>
+
+  <!-- OR DIAGONAL GAUCHE -->
+  <linearGradient id="gL" x1="100%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%"   stop-color="#fff0a0"/>
+    <stop offset="30%"  stop-color="#d4a010"/>
+    <stop offset="70%"  stop-color="#b07808"/>
+    <stop offset="100%" stop-color="#705005"/>
+  </linearGradient>
+
+  <!-- OR DIAGONAL DROIT -->
+  <linearGradient id="gR" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%"   stop-color="#fff0a0"/>
+    <stop offset="30%"  stop-color="#d4a010"/>
+    <stop offset="70%"  stop-color="#b07808"/>
+    <stop offset="100%" stop-color="#705005"/>
+  </linearGradient>
+
+  <!-- OR BANDEAU -->
+  <linearGradient id="gBand" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%"   stop-color="#f5e070"/>
+    <stop offset="30%"  stop-color="#d4a010"/>
+    <stop offset="70%"  stop-color="#c09010"/>
+    <stop offset="100%" stop-color="#7a5500"/>
+  </linearGradient>
+
+  <!-- OR LOSANGE -->
+  <linearGradient id="gDia" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%"   stop-color="#fff3b0"/>
+    <stop offset="25%"  stop-color="#e8c030"/>
+    <stop offset="55%"  stop-color="#b88010"/>
+    <stop offset="80%"  stop-color="#d4a820"/>
+    <stop offset="100%" stop-color="#8a6005"/>
+  </linearGradient>
+
+  <!-- CALICE OR -->
+  <linearGradient id="gCup" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%"   stop-color="#fff5c0"/>
+    <stop offset="30%"  stop-color="#e8c030"/>
+    <stop offset="60%"  stop-color="#c09018"/>
+    <stop offset="100%" stop-color="#907010"/>
+  </linearGradient>
+
+  <!-- OMBRE -->
+  <filter id="dropshadow">
+    <feDropShadow dx="1" dy="3" stdDeviation="3" flood-color="rgba(0,0,0,0.25)"/>
+  </filter>
+
+  <!-- CLIP LOSANGE -->
+  <clipPath id="clipDia">
+    <polygon points="280,58 352,130 280,202 208,130"/>
+  </clipPath>
+
+</defs>
+
+<!-- ================================================ -->
+<!-- GROUPE PRINCIPAL avec ombre                      -->
+<!-- ================================================ -->
+<g filter="url(#dropshadow)">
+
+<!-- ================================================ -->
+<!-- ÉPÉE / LAME GAUCHE                              -->
+<!-- Pointe fine à gauche, s'élargit vers le centre  -->
+<!-- ================================================ -->
+<!--
+  Le logo montre deux lames qui partent des coins bas gauche/droit
+  et montent en diagonale vers le haut avec une pointe effilée
+  elles se croisent DEVANT la couronne
+-->
+
+<!-- Lame gauche - corps principal -->
+<polygon
+  points="
+    15,100
+    95,148
+    80,215
+    38,215
+  "
+  fill="url(#gL)"
+  stroke="#906800" stroke-width="0.8"
+/>
+<!-- Lame gauche - tranche supérieure brillante -->
+<polygon
+  points="15,100  95,148  90,142  22,100"
+  fill="rgba(255,248,180,0.55)"
+/>
+<!-- Lame gauche - tranche sombre inférieure -->
+<polygon
+  points="95,148  80,215  72,215  88,150"
+  fill="rgba(80,50,0,0.25)"
+/>
+
+<!-- Lame droite - corps principal -->
+<polygon
+  points="
+    545,100
+    465,148
+    480,215
+    522,215
+  "
+  fill="url(#gR)"
+  stroke="#906800" stroke-width="0.8"
+/>
+<!-- Lame droite - tranche supérieure brillante -->
+<polygon
+  points="545,100  465,148  470,142  538,100"
+  fill="rgba(255,248,180,0.55)"
+/>
+<!-- Lame droite - tranche sombre inférieure -->
+<polygon
+  points="465,148  480,215  488,215  472,150"
+  fill="rgba(80,50,0,0.25)"
+/>
+
+<!-- ================================================ -->
+<!-- BANDEAU BAS COURBÉ                              -->
+<!-- ================================================ -->
+<path
+  d="M 75,230
+     Q 280,258 485,230
+     L 485,252
+     Q 280,282 75,252
+     Z"
+  fill="url(#gBand)"
+  stroke="#906800" stroke-width="1"
+/>
+<!-- Reflet haut bandeau -->
+<path
+  d="M 78,230 Q 280,256 482,230 Q 280,242 78,236 Z"
+  fill="rgba(255,248,160,0.45)"
+/>
+<!-- Ombre bas bandeau -->
+<path
+  d="M 78,250 Q 280,279 482,250 Q 280,260 78,255 Z"
+  fill="rgba(0,0,0,0.12)"
+/>
+
+<!-- ================================================ -->
+<!-- CORPS COURONNE EN W                             -->
+<!-- ================================================ -->
+<!--
+  Structure :
+  - Base : de x=75 à x=485, y=230
+  - Montée gauche externe vers (75,230) → (130,148)
+  - Pointe gauche du W : creux à (175,205) → remontée à (215,148)
+  - Pointe centrale haute : (280,50)
+  - Descente droite vers (345,148) → creux à (385,205)
+  - Montée droite externe vers (430,148)
+  - Retour base droite (485,230)
+
+  Largeur couronne : épaisseur ~38px
+-->
+
+<!-- FACE PRINCIPALE DE LA COURONNE (remplie or) -->
+<path
+  d="
+    M  75,230
+    L  75,218
+    L 130,148
+    L 175,195
+    L 215,148
+    L 215,125
+    L 280,50
+    L 345,125
+    L 345,148
+    L 385,195
+    L 430,148
+    L 485,218
+    L 485,230
+    Q 280,258 75,230
+    Z
+  "
+  fill="url(#g1)"
+  stroke="#906800" stroke-width="1.2"
+/>
+
+<!-- ÉPAISSEUR INTÉRIEURE - vide blanc gauche (creux W gauche) -->
+<polygon
+  points="108,228  130,148  175,195  158,228"
+  fill="white"
+/>
+
+<!-- ÉPAISSEUR INTÉRIEURE - vide blanc droit (creux W droit) -->
+<polygon
+  points="402,228  430,148  385,195  422,228"
+  fill="white"
+/>
+
+<!-- REFLET FACE GAUCHE MONTANTE -->
+<polygon
+  points="75,218  130,148  137,155  82,222"
+  fill="rgba(255,248,170,0.5)"
+/>
+
+<!-- REFLET FACE DROITE MONTANTE -->
+<polygon
+  points="485,218  430,148  423,155  478,222"
+  fill="rgba(255,248,170,0.3)"
+/>
+
+<!-- REFLET POINTE CENTRALE -->
+<polygon
+  points="280,50  288,90  280,65"
+  fill="rgba(255,252,200,0.75)"
+/>
+
+<!-- REFLET GAUCHE POINTE CENTRALE -->
+<polygon
+  points="280,50  215,125  222,130  280,62"
+  fill="rgba(255,248,170,0.35)"
+/>
+
+<!-- OMBRE DROITE POINTE CENTRALE -->
+<polygon
+  points="280,50  345,125  338,130  280,62"
+  fill="rgba(0,0,0,0.08)"
+/>
+
+<!-- ================================================ -->
+<!-- LOSANGE CENTRAL                                 -->
+<!-- Bordure épaisse or, intérieur blanc             -->
+<!-- ================================================ -->
+
+<!-- Intérieur blanc losange -->
+<polygon
+  points="280,58 352,130 280,202 208,130"
+  fill="white"
+/>
+
+<!-- Bordure losange épaisse or -->
+<polygon
+  points="280,58 352,130 280,202 208,130"
+  fill="none"
+  stroke="url(#gDia)"
+  stroke-width="22"
+  stroke-linejoin="miter"
+/>
+
+<!-- Reflet haut-gauche du losange -->
+<line x1="208" y1="130" x2="280" y2="58"
+  stroke="rgba(255,252,200,0.6)" stroke-width="6"/>
+
+<!-- Ombre bas-droite du losange -->
+<line x1="280" y1="202" x2="352" y2="130"
+  stroke="rgba(100,70,0,0.2)" stroke-width="4"/>
+
+<!-- ================================================ -->
+<!-- CALICE ET PAIN DANS LE LOSANGE                 -->
+<!-- ================================================ -->
+
+<!-- TABLE / SOL -->
+<ellipse cx="280" cy="188" rx="52" ry="7"
+  fill="#e8d090" opacity="0.5"/>
+
+<!-- ===== PAIN ===== -->
+<!-- Corps pain -->
+<ellipse cx="302" cy="180" rx="30" ry="19"
+  fill="#b87020"/>
+<!-- Dessus pain -->
+<ellipse cx="299" cy="172" rx="24" ry="14"
+  fill="#d08830"/>
+<!-- Croûte claire pain -->
+<ellipse cx="296" cy="168" rx="16" ry="9"
+  fill="#e8a840"/>
+<!-- Reflet pain -->
+<ellipse cx="291" cy="164" rx="8" ry="5"
+  fill="rgba(255,220,130,0.55)"/>
+<!-- Incision pain -->
+<path d="M 284,170 Q 299,160 314,170"
+  fill="none" stroke="#906020" stroke-width="1.8" stroke-linecap="round"/>
+
+<!-- ===== CALICE ===== -->
+<!-- Ombre calice sur sol -->
+<ellipse cx="263" cy="187" rx="14" ry="4"
+  fill="rgba(0,0,0,0.15)"/>
+
+<!-- Socle calice -->
+<ellipse cx="263" cy="185" rx="15" ry="4"
+  fill="#c09010"/>
+<ellipse cx="263" cy="184" rx="15" ry="3"
+  fill="#e8c030"/>
+<!-- Reflet socle -->
+<ellipse cx="260" cy="183" rx="6" ry="1.5"
+  fill="rgba(255,248,180,0.7)"/>
+
+<!-- Tige calice -->
+<path d="M 257,152 L 255,184 L 271,184 L 269,152 Z"
+  fill="url(#gCup)"/>
+<!-- Nœud tige -->
+<ellipse cx="263" cy="168" rx="7" ry="5"
+  fill="#d4a820"/>
+<ellipse cx="263" cy="167" rx="5" ry="3.5"
+  fill="#f0d050"/>
+
+<!-- Coupe calice - forme évasée -->
+<path d="
+  M 247,128
+  Q 244,150 249,155
+  L 263,157
+  L 277,155
+  Q 282,150 279,128
+  Z"
+  fill="url(#gCup)"
+  stroke="#906800" stroke-width="0.8"
+/>
+
+<!-- Intérieur coupe (vin rouge foncé) -->
+<path d="
+  M 249,130
+  Q 247,150 251,153
+  L 263,155
+  L 275,153
+  Q 279,150 277,130
+  Z"
+  fill="#7a1010"
+/>
+<!-- Surface vin -->
+<ellipse cx="263" cy="131" rx="14" ry="3"
+  fill="#9a2020"/>
+<!-- Reflet sur le vin -->
+<ellipse cx="258" cy="130" rx="5" ry="1.5"
+  fill="rgba(255,150,150,0.4)"/>
+
+<!-- Reflet gauche coupe externe -->
+<path d="M 248,130 Q 246,148 250,153 L 252,151 Q 248,147 249,131 Z"
+  fill="rgba(255,248,160,0.55)"/>
+
+<!-- Reflet droit coupe (ombre) -->
+<path d="M 278,130 Q 280,148 276,153 L 274,151 Q 278,147 277,131 Z"
+  fill="rgba(0,0,0,0.1)"/>
+
+<!-- Bord supérieur coupe -->
+<path d="M 247,128 Q 263,122 279,128"
+  fill="none" stroke="rgba(255,248,160,0.8)" stroke-width="2"/>
+
+</g>
+<!-- fin groupe shadow -->
+
+</svg>
+
+<!-- TEXTE -->
+<div class="logo-text">
+  <span class="t1">L'ordre de</span>
+  <span class="t2">MELCHISÉDEK</span>
+</div>
+
+</div>
+</body>
+</html>

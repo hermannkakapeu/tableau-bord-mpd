@@ -1,0 +1,996 @@
+<ods-dataset-context
+    context="ctxoffre,ctxdemande,ctxagreg,ctxagregprev,ctxagregNoYear,
+             ctxonp1,ctxonp1prev,ctxonp2,ctxonp3,
+             ctxpop,ctxpib,ctxpib2,pibseries2,
+             ctxsocio,ctxicai,ctxicaiprev,ctxicac,ctxicacprev,ctxicac1,ctxicac2,ctxicac3,
+             ctxippi,ctxipi,ctxdemo,ctxihpc,ctxihpcprev,ctxpauvrete,ctxpauvreteprev,ctxcomext,ctxcomext1"
+
+    ctxoffre-dataset="valeur-ajoute-nominal-pib-offre-francs-courants"
+    ctxdemande-dataset="valeur-ajoutee-demande-en-francs-courants-dm"
+
+    ctxagreg-dataset="principaux-aggregats-dge-dm"
+    ctxagreg-parameters="{'refine.annee':'2025','disjunctive.annee':true}"
+    ctxagregprev-dataset="principaux-aggregats-dge-dm"
+    ctxagregprev-parameters="{'refine.annee':'2024','disjunctive.annee':true}"
+
+    ctxagregNoYear-dataset="principaux-aggregats-dge-dm"
+
+    ctxonp1-dataset="onp"
+    ctxonp1-parameters="{'refine.annee':'2025','disjunctive.annee':true}"
+    ctxonp1prev-dataset="onp"
+    ctxonp1prev-parameters="{'refine.annee':'2024','disjunctive.annee':true}"
+    ctxonp2-dataset="onp-2"
+    ctxonp2-parameters="{'refine.annee':'2025','disjunctive.annee':true}"
+    ctxonp3-dataset="onp-3"
+
+    ctxpop-dataset="population-par-sexe"
+    ctxpib-dataset="pib-series_agregat"
+    ctxpib2-dataset="pib-series"
+    pibseries2-dataset="pib-series2"
+    ctxsocio-dataset="maj-indicateurs-socio-demographiques"
+    ctxicai-dataset="maj-icai"
+    ctxicaiprev-dataset="maj-icai"
+    ctxicaiprev-parameters="{'refine.annee':'2024','disjunctive.annee':true}"
+    ctxicac-dataset="maj-icac"
+    ctxicacprev-dataset="maj-icac"
+    ctxicacprev-parameters="{'refine.annee':'2024','disjunctive.annee':true}"
+    ctxicac1-dataset="maj-icac-copie"
+    ctxicac2-dataset="maj-icac-copie0"
+    ctxicac3-dataset="maj-icac-copie1"
+    ctxippi-dataset="ippi-maj"
+    ctxipi-dataset="ipi-maj"
+    ctxdemo-dataset="indicateurs-demographiques-copie"
+    ctxihpc-dataset="ihpcbase23"
+    ctxihpcprev-dataset="ihpcbase23"
+    ctxihpcprev-parameters="{'refine.annee':'2024','disjunctive.annee':true}"
+    ctxpauvrete-dataset="evolution-du-taux-de-pauvrete-1"
+    ctxpauvreteprev-dataset="evolution-du-taux-de-pauvrete-1"
+    ctxpauvreteprev-parameters="{'refine.annee':'2024','disjunctive.annee':true}"
+    ctxcomext-dataset="2-commerce-exterieur"
+    ctxcomext1-dataset="commerce-exterieur">
+
+    <div class="dashboard-layout">
+
+        <nav class="sidebar">
+            
+            <!---->
+            <div ods-current-user class="logo-me">
+                {{ currentUser.first_name | limitTo:1 }}{{ currentUser.last_name | limitTo:1 }}
+            </div>
+            
+
+            <a href="/pages/accueil-tableau-de-bord/" class="nav-item active">
+                <div class="nav-icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard-icon lucide-layout-dashboard"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                </div>
+                <span>Tableau de bord</span>
+            </a>
+            
+            <!--<a href="/pages/budget/" class="nav-item">-->
+            <a href="#" class="nav-item">
+                <div class="nav-icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="5" width="20" height="14" rx="2"/>
+                        <line x1="2" y1="10" x2="22" y2="10"/>
+                    </svg>
+                </div>
+                <span>Budget</span>
+            </a>
+
+            <a href="/pages/page-explorer/" class="nav-item">
+                <div class="nav-icon-box">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </div>
+                <span>Explorer</span>
+            </a>
+        </nav>
+
+        <main class="main-content">
+
+            <header class="top-header">
+                <div class="header-left-section">
+
+                     <img src="/assets/theme_image/logo-mpd.png" 
+             alt="Ministère de l'Économie, du Plan et du Développement" 
+             class="logo-armoiries"> 
+
+                    <h1 class="header-welcome-text">Tableau de bord décisionnel MPD</h1>
+                </div>
+
+                <div class="header-right-section">
+                    <img src="/assets/theme_image/Carte%20CIV.png" 
+                         alt="Drapeau" 
+                         class="logo-armoiries">
+                </div>
+            </header>
+
+            <div class="page-container">
+
+                <div class="align">
+                    
+                        <h2 class="section-title">📊 Indicateurs Clés</h2>
+                   
+                    
+                    <div class="boite">
+                            <!-- 🔽 Sélecteur d'année -->
+                            <div 
+                                 ods-facet-results="filtreannee"
+                                 ods-facet-results-facet-name="annee"
+                                 ods-facet-results-context="ctxagreg">
+                                <ods-select options="filtreannee"
+                                            selected-values="ctxagreg.parameters['refine.annee']"
+                                            label-modifier="name"
+                                            value-modifier="name"
+                                            placeholder="Filtrer sur une année"
+                                            multiple="false">
+                                </ods-select>
+
+                                <!-- Synchronisation année N -->
+                                {{ ctxoffre.parameters['refine.annee'] = ctxdemande.parameters['refine.annee'] = ctxpauvrete.parameters['refine.annee'] = ctxihpc.parameters['refine.annee'] = ctxicai.parameters['refine.annee'] = ctxicac.parameters['refine.annee'] = ctxonp1.parameters['refine.annee'] = ctxagreg.parameters['refine.annee']; "" }}
+                                <!-- Synchronisation année N-1 (pour les variations) -->
+                                {{ ctxagregprev.parameters['refine.annee'] = ctxpauvreteprev.parameters['refine.annee'] = ctxihpcprev.parameters['refine.annee'] = ctxicaiprev.parameters['refine.annee'] = ctxicacprev.parameters['refine.annee'] = ctxonp1prev.parameters['refine.annee'] = '' + (ctxagreg.parameters['refine.annee'] * 1 - 1); "" }}
+
+                            </div>
+
+                            <!-- 🔍 Label dynamique : Réel / Estimatif / Prévisionnel -->
+                            <div class="kpi-type-valeur"
+                                 ods-results="rows"
+                                 ods-results-context="ctxoffre"
+                                 ng-class="{
+                                           'type-reel': rows[0].fields.type_valeur === 'Réel',
+                                           'type-estimatif': rows[0].fields.type_valeur === 'Estimatif',
+                                           'type-previsionnel': rows[0].fields.type_valeur === 'Prévisionnel'
+                                           }">
+
+                                <div>
+                                    {{ rows[0].fields.type_valeur }}
+                                </div>
+
+                            </div> 
+                        </div>
+                </div>
+
+                <!-- ===== KPIs PAR DIRECTION ===== -->
+                <div class="kpi-direction-tabs" ng-init="activeKpiTab='dge'; activeKpiChart=null">
+
+                    <div class="kpi-dir-tabs-header">
+                        <span class="kpi-dir-tabs-label">Indicateurs par Direction</span>
+                        <div class="kpi-dir-tabs-nav">
+                            <button class="kpi-dir-tab" ng-class="{'active': activeKpiTab==='dge'}"    ng-click="activeKpiTab='dge';    activeKpiChart=null">DGE</button>
+                            <button class="kpi-dir-tab" ng-class="{'active': activeKpiTab==='anstat'}" ng-click="activeKpiTab='anstat'; activeKpiChart=null">ANStat</button>
+                            <button class="kpi-dir-tab" ng-class="{'active': activeKpiTab==='onp'}"    ng-click="activeKpiTab='onp';    activeKpiChart=null">ONP</button>
+                        </div>
+                    </div>
+
+                    <div class="kpi-dir-tabs-content">
+
+                        <!-- ══════════════════════════════════════
+                             DGE — dataset : principaux-aggregats-dge-dm
+                             KPI card  → ctxagreg (filtré 2025)
+                             KPI chart → ctxagregNoYear (toutes années)
+                        ══════════════════════════════════════ -->
+                        <div ng-show="activeKpiTab==='dge'">
+                            <div class="kpi-mini-grid kpi-mini-grid-4">
+
+                                <!-- DGE 1 : PIB Nominal -->
+                                <div class="kpi-mini-card" ng-class="{'kpi-mini-card-active': activeKpiChart==='dge_1'}"
+                                     ng-click="activeKpiChart = (activeKpiChart==='dge_1' ? null : 'dge_1')">
+                                    <div class="kpi-mini-top">
+                                        <div class="kpi-mini-icon icon-bg-green">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
+                                        </div>
+                                        <span class="kpi-mini-label">PIB Nominal</span>
+                                        <span class="kpi-mini-chevron" ng-class="{'open': activeKpiChart==='dge_1'}">›</span>
+                                    </div>
+                                    <div class="kpi-mini-value-row">
+                                        <span class="kpi-mini-value"
+                                              ods-adv-analysis="resDge1" ods-adv-analysis-context="ctxagreg"
+                                              ods-adv-analysis-select="SUM(pib_nominal) AS val">{{ resDge1[0].val | number:0 }}</span>
+                                        <span class="kpi-mini-unit">Mds FCFA</span>
+                                    </div>
+                                    <div class="kpi-variation"
+                                         ods-adv-analysis="prevDge1" ods-adv-analysis-context="ctxagregprev"
+                                         ods-adv-analysis-select="SUM(pib_nominal) AS val"
+                                         ng-show="resDge1[0] && prevDge1[0]">
+                                        <span ng-class="{'var-up': resDge1[0].val >= prevDge1[0].val, 'var-down': resDge1[0].val < prevDge1[0].val}">
+                                            {{ resDge1[0].val >= prevDge1[0].val ? '▲' : '▼' }}
+                                            {{ ((resDge1[0].val - prevDge1[0].val) / prevDge1[0].val * 100) | number:1 }}%
+                                        </span>
+                                        <span class="var-label">vs {{ ctxagreg.parameters['refine.annee'] - 1 }}</span>
+                                    </div>
+                                </div>
+
+                                <!-- DGE 2 : Taux de croissance PIB réel — Seuil : <5% orange, <3% rouge (cible PND ~7%) -->
+                                <div class="kpi-mini-card"
+                                     ng-class="{'kpi-mini-card-active': activeKpiChart==='dge_2',
+                                                'kpi-alert-orange': resDge2[0].val < 5 && resDge2[0].val >= 3,
+                                                'kpi-alert-red':    resDge2[0].val < 3}"
+                                     ng-click="activeKpiChart = (activeKpiChart==='dge_2' ? null : 'dge_2')">
+                                    <div class="kpi-mini-top">
+                                        <div class="kpi-mini-icon icon-bg-green">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                                        </div>
+                                        <span class="kpi-mini-label">Taux de croissance du PIB réel</span>
+                                        <span class="kpi-mini-chevron" ng-class="{'open': activeKpiChart==='dge_2'}">›</span>
+                                    </div>
+                                    <div class="kpi-mini-value-row">
+                                        <span class="kpi-mini-value"
+                                              ods-adv-analysis="resDge2" ods-adv-analysis-context="ctxagreg"
+                                              ods-adv-analysis-select="AVG(taux_de_croissance_du_pib_reel) AS val">{{ resDge2[0].val | number:1 }}</span>
+                                        <span class="kpi-mini-unit">%</span>
+                                    </div>
+                                    <div class="kpi-variation"
+                                         ods-adv-analysis="prevDge2" ods-adv-analysis-context="ctxagregprev"
+                                         ods-adv-analysis-select="AVG(taux_de_croissance_du_pib_reel) AS val"
+                                         ng-show="resDge2[0] && prevDge2[0]">
+                                        <span ng-class="{'var-up': resDge2[0].val >= prevDge2[0].val, 'var-down': resDge2[0].val < prevDge2[0].val}">
+                                            {{ resDge2[0].val >= prevDge2[0].val ? '▲' : '▼' }}
+                                            {{ (resDge2[0].val - prevDge2[0].val) | number:1 }} pt
+                                        </span>
+                                        <span class="var-label">vs {{ ctxagreg.parameters['refine.annee'] - 1 }}</span>
+                                    </div>
+                                </div>
+
+                                <!-- DGE 3 : PIB par habitant -->
+                                <div class="kpi-mini-card" ng-class="{'kpi-mini-card-active': activeKpiChart==='dge_3'}"
+                                     ng-click="activeKpiChart = (activeKpiChart==='dge_3' ? null : 'dge_3')">
+                                    <div class="kpi-mini-top">
+                                        <div class="kpi-mini-icon icon-bg-orange">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                        </div>
+                                        <span class="kpi-mini-label">PIB par habitant (courant)</span>
+                                        <span class="kpi-mini-chevron" ng-class="{'open': activeKpiChart==='dge_3'}">›</span>
+                                    </div>
+                                    <div class="kpi-mini-value-row">
+                                        <span class="kpi-mini-value"
+                                              ods-adv-analysis="resDge3" ods-adv-analysis-context="ctxagreg"
+                                              ods-adv-analysis-select="SUM(pib_par_habitant_prix_courant) AS val">{{ resDge3[0].val | number:0 }}</span>
+                                        <span class="kpi-mini-unit">k FCFA</span>
+                                    </div>
+                                    <div class="kpi-variation"
+                                         ods-adv-analysis="prevDge3" ods-adv-analysis-context="ctxagregprev"
+                                         ods-adv-analysis-select="SUM(pib_par_habitant_prix_courant) AS val"
+                                         ng-show="resDge3[0] && prevDge3[0]">
+                                        <span ng-class="{'var-up': resDge3[0].val >= prevDge3[0].val, 'var-down': resDge3[0].val < prevDge3[0].val}">
+                                            {{ resDge3[0].val >= prevDge3[0].val ? '▲' : '▼' }}
+                                            {{ ((resDge3[0].val - prevDge3[0].val) / prevDge3[0].val * 100) | number:1 }}%
+                                        </span>
+                                        <span class="var-label">vs {{ ctxagreg.parameters['refine.annee'] - 1 }}</span>
+                                    </div>
+                                </div>
+
+                                <!-- DGE 4 : Inflation IHPC — Seuil UEMOA : >3% orange, >5% rouge -->
+                                <div class="kpi-mini-card"
+                                     ng-class="{'kpi-mini-card-active': activeKpiChart==='dge_4',
+                                                'kpi-alert-orange': resDge4[0].val > 3 && resDge4[0].val <= 5,
+                                                'kpi-alert-red':    resDge4[0].val > 5}"
+                                     ng-click="activeKpiChart = (activeKpiChart==='dge_4' ? null : 'dge_4')">
+                                    <div class="kpi-mini-top">
+                                        <div class="kpi-mini-icon icon-bg-orange">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l5-5 4 3 6-7"/><path d="M14 4h6v6"/></svg>
+                                        </div>
+                                        <span class="kpi-mini-label">Inflation (IHPC moyen annuel)</span>
+                                        <span class="kpi-mini-chevron" ng-class="{'open': activeKpiChart==='dge_4'}">›</span>
+                                    </div>
+                                    <div class="kpi-mini-value-row">
+                                        <span class="kpi-mini-value"
+                                              ods-adv-analysis="resDge4" ods-adv-analysis-context="ctxagreg"
+                                              ods-adv-analysis-select="SUM(ihpc_moyenne_annuelle) AS val">{{ resDge4[0].val | number:1 }}</span>
+                                        <span class="kpi-mini-unit">%</span>
+                                    </div>
+                                    <div class="kpi-variation"
+                                         ods-adv-analysis="prevDge4" ods-adv-analysis-context="ctxagregprev"
+                                         ods-adv-analysis-select="SUM(ihpc_moyenne_annuelle) AS val"
+                                         ng-show="resDge4[0] && prevDge4[0]">
+                                        <span ng-class="{'var-up': resDge4[0].val <= prevDge4[0].val, 'var-down': resDge4[0].val > prevDge4[0].val}">
+                                            {{ resDge4[0].val <= prevDge4[0].val ? '▼' : '▲' }}
+                                            {{ (resDge4[0].val - prevDge4[0].val) | number:1 }} pt
+                                        </span>
+                                        <span class="var-label">vs {{ ctxagreg.parameters['refine.annee'] - 1 }}</span>
+                                    </div>
+                                </div>
+
+                            </div><!-- fin kpi-mini-grid DGE -->
+
+                            <!-- Panneau graphique DGE -->
+                            <div class="kpi-chart-panel" ng-class="{'open': activeKpiChart==='dge_1' || activeKpiChart==='dge_2' || activeKpiChart==='dge_3' || activeKpiChart==='dge_4'}">
+                                <div class="kpi-chart-inner">
+                                    <div class="kpi-chart-header">
+                                        <span class="kpi-chart-title" ng-show="activeKpiChart==='dge_1'">Évolution — PIB Nominal (Mds FCFA)</span>
+                                        <span class="kpi-chart-title" ng-show="activeKpiChart==='dge_2'">Évolution — Taux de croissance du PIB réel (%)</span>
+                                        <span class="kpi-chart-title" ng-show="activeKpiChart==='dge_3'">Évolution — PIB par habitant, prix courants (k FCFA)</span>
+                                        <span class="kpi-chart-title" ng-show="activeKpiChart==='dge_4'">Évolution — Inflation IHPC moyenne annuelle (%)</span>
+                                        <button class="kpi-chart-close" ng-click="activeKpiChart=null">✕</button>
+                                    </div>
+                                    <ods-dataset-context context="dgeagregatschart" dgeagregatschart-dataset="principaux-aggregats-dge-dm">
+                                        <ods-chart ng-if="activeKpiChart==='dge_1'" timescale="year" scientific-display="false" align-month="true">
+                                            <ods-chart-query context="dgeagregatschart" field-x="annee" maxpoints="0" timescale="year">
+                                                <ods-chart-serie expression-y="pib_nominal" chart-type="bar" function-y="SUM" color="#0F7705" scientific-display="true"></ods-chart-serie>
+                                            </ods-chart-query>
+                                        </ods-chart>
+                                        <ods-chart ng-if="activeKpiChart==='dge_2'" timescale="year" scientific-display="false" align-month="true">
+                                            <ods-chart-query context="dgeagregatschart" field-x="annee" maxpoints="0" timescale="year">
+                                                <ods-chart-serie expression-y="taux_de_croissance_du_pib_reel" chart-type="line" function-y="AVG" color="#EF7D00"></ods-chart-serie>
+                                            </ods-chart-query>
+                                        </ods-chart>
+                                        <ods-chart ng-if="activeKpiChart==='dge_3'" timescale="year" scientific-display="false" align-month="true">
+                                            <ods-chart-query context="dgeagregatschart" field-x="annee" maxpoints="0" timescale="year">
+                                                <ods-chart-serie expression-y="pib_par_habitant_prix_courant" chart-type="line" function-y="SUM" color="#0F7705" scientific-display="true"></ods-chart-serie>
+                                            </ods-chart-query>
+                                        </ods-chart>
+                                        <ods-chart ng-if="activeKpiChart==='dge_4'" timescale="year" scientific-display="false" align-month="true">
+                                            <ods-chart-query context="dgeagregatschart" field-x="annee" maxpoints="0" timescale="year">
+                                                <ods-chart-serie expression-y="ihpc_moyenne_annuelle" chart-type="line" function-y="SUM" color="#EF7D00"></ods-chart-serie>
+                                            </ods-chart-query>
+                                        </ods-chart>
+                                    </ods-dataset-context>
+                                </div>
+                            </div>
+                        </div><!-- fin DGE -->
+
+                        <!-- ══════════════════════════════════════
+                             ANStat
+                             ctxicac → maj-icac                   → total_commerce
+                             ctxpauvrete → evolution-du-taux-de-pauvrete-1 → taux_de_pauvrete
+                             ctxihpc → ihpcbase23                 → indice_moyen_sur_12_mois
+                             ctxicai → maj-icai                   → total_idustrie
+                        ══════════════════════════════════════ -->
+                        <div ng-show="activeKpiTab==='anstat'">
+                            <div class="kpi-mini-grid kpi-mini-grid-4">
+
+                                <!-- ANStat 1 : Indice Total Commerce (ICAC) -->
+                                <div class="kpi-mini-card" ng-class="{'kpi-mini-card-active': activeKpiChart==='anstat_1'}"
+                                     ng-click="activeKpiChart = (activeKpiChart==='anstat_1' ? null : 'anstat_1')">
+                                    <div class="kpi-mini-top">
+                                        <div class="kpi-mini-icon icon-bg-green">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                                        </div>
+                                        <span class="kpi-mini-label">Indice Total Commerce</span>
+                                        <span class="kpi-mini-chevron" ng-class="{'open': activeKpiChart==='anstat_1'}">›</span>
+                                    </div>
+                                    <div class="kpi-mini-value-row">
+                                        <span class="kpi-mini-value"
+                                              ods-adv-analysis="resAnstat1" ods-adv-analysis-context="ctxicac"
+                                              ods-adv-analysis-select="AVG(total_commerce) AS val">{{ resAnstat1[0].val | number:1 }}</span>
+                                        <span class="kpi-mini-unit">pts</span>
+                                    </div>
+                                    <div class="kpi-variation"
+                                         ods-adv-analysis="prevAnstat1" ods-adv-analysis-context="ctxicacprev"
+                                         ods-adv-analysis-select="AVG(total_commerce) AS val"
+                                         ng-show="resAnstat1[0] && prevAnstat1[0]">
+                                        <span ng-class="{'var-up': resAnstat1[0].val >= prevAnstat1[0].val, 'var-down': resAnstat1[0].val < prevAnstat1[0].val}">
+                                            {{ resAnstat1[0].val >= prevAnstat1[0].val ? '▲' : '▼' }}
+                                            {{ (resAnstat1[0].val - prevAnstat1[0].val) | number:1 }} pt
+                                        </span>
+                                        <span class="var-label">vs {{ ctxagreg.parameters['refine.annee'] - 1 }}</span>
+                                    </div>
+                                </div>
+
+                                <!-- ANStat 2 : Taux de pauvreté — Seuil : >40% rouge, 20-40% orange -->
+                                <div class="kpi-mini-card"
+                                     ng-class="{'kpi-mini-card-active': activeKpiChart==='anstat_2',
+                                                'kpi-alert-orange': resAnstat2[0].val > 20 && resAnstat2[0].val <= 40,
+                                                'kpi-alert-red':    resAnstat2[0].val > 40}"
+                                     ng-click="activeKpiChart = (activeKpiChart==='anstat_2' ? null : 'anstat_2')">
+                                    <div class="kpi-mini-top">
+                                        <div class="kpi-mini-icon icon-bg-orange">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                                        </div>
+                                        <span class="kpi-mini-label">Taux de pauvreté</span>
+                                        <span class="kpi-mini-chevron" ng-class="{'open': activeKpiChart==='anstat_2'}">›</span>
+                                    </div>
+                                    <div class="kpi-mini-value-row">
+                                        <span class="kpi-mini-value"
+                                              ods-adv-analysis="resAnstat2" ods-adv-analysis-context="ctxpauvrete"
+                                              ods-adv-analysis-select="AVG(taux_de_pauvrete) AS val">{{ resAnstat2[0].val | number:1 }}</span>
+                                        <span class="kpi-mini-unit">%</span>
+                                    </div>
+                                    <div class="kpi-variation"
+                                         ods-adv-analysis="prevAnstat2" ods-adv-analysis-context="ctxpauvreteprev"
+                                         ods-adv-analysis-select="AVG(taux_de_pauvrete) AS val"
+                                         ng-show="resAnstat2[0] && prevAnstat2[0]">
+                                        <!-- Pour la pauvreté, une baisse est positive -->
+                                        <span ng-class="{'var-up': resAnstat2[0].val <= prevAnstat2[0].val, 'var-down': resAnstat2[0].val > prevAnstat2[0].val}">
+                                            {{ resAnstat2[0].val <= prevAnstat2[0].val ? '▼' : '▲' }}
+                                            {{ (resAnstat2[0].val - prevAnstat2[0].val) | number:1 }} pt
+                                        </span>
+                                        <span class="var-label">vs {{ ctxagreg.parameters['refine.annee'] - 1 }}</span>
+                                    </div>
+                                </div>
+
+                                <!-- ANStat 3 : IHPC moyen sur 12 mois -->
+                                <div class="kpi-mini-card" ng-class="{'kpi-mini-card-active': activeKpiChart==='anstat_3'}"
+                                     ng-click="activeKpiChart = (activeKpiChart==='anstat_3' ? null : 'anstat_3')">
+                                    <div class="kpi-mini-top">
+                                        <div class="kpi-mini-icon icon-bg-orange">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l5-5 4 3 6-7"/><path d="M14 4h6v6"/></svg>
+                                        </div>
+                                        <span class="kpi-mini-label">Indice IHPC (moy. 12 mois)</span>
+                                        <span class="kpi-mini-chevron" ng-class="{'open': activeKpiChart==='anstat_3'}">›</span>
+                                    </div>
+                                    <div class="kpi-mini-value-row">
+                                        <span class="kpi-mini-value"
+                                              ods-adv-analysis="resAnstat3" ods-adv-analysis-context="ctxihpc"
+                                              ods-adv-analysis-select="AVG(indice_moyen_sur_12_mois) AS val">{{ resAnstat3[0].val | number:1 }}</span>
+                                        <span class="kpi-mini-unit">pts</span>
+                                    </div>
+                                    <div class="kpi-variation"
+                                         ods-adv-analysis="prevAnstat3" ods-adv-analysis-context="ctxihpcprev"
+                                         ods-adv-analysis-select="AVG(indice_moyen_sur_12_mois) AS val"
+                                         ng-show="resAnstat3[0] && prevAnstat3[0]">
+                                        <span ng-class="{'var-up': resAnstat3[0].val >= prevAnstat3[0].val, 'var-down': resAnstat3[0].val < prevAnstat3[0].val}">
+                                            {{ resAnstat3[0].val >= prevAnstat3[0].val ? '▲' : '▼' }}
+                                            {{ (resAnstat3[0].val - prevAnstat3[0].val) | number:1 }} pt
+                                        </span>
+                                        <span class="var-label">vs {{ ctxagreg.parameters['refine.annee'] - 1 }}</span>
+                                    </div>
+                                </div>
+
+                                <!-- ANStat 4 : Total Industrie (ICAI) -->
+                                <div class="kpi-mini-card" ng-class="{'kpi-mini-card-active': activeKpiChart==='anstat_4'}"
+                                     ng-click="activeKpiChart = (activeKpiChart==='anstat_4' ? null : 'anstat_4')">
+                                    <div class="kpi-mini-top">
+                                        <div class="kpi-mini-icon icon-bg-green">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                        </div>
+                                        <span class="kpi-mini-label">Indice Production Industrielle</span>
+                                        <span class="kpi-mini-chevron" ng-class="{'open': activeKpiChart==='anstat_4'}">›</span>
+                                    </div>
+                                    <div class="kpi-mini-value-row">
+                                        <span class="kpi-mini-value"
+                                              ods-adv-analysis="resAnstat4" ods-adv-analysis-context="ctxicai"
+                                              ods-adv-analysis-select="AVG(total_idustrie) AS val">{{ resAnstat4[0].val | number:1 }}</span>
+                                        <span class="kpi-mini-unit">pts</span>
+                                    </div>
+                                    <div class="kpi-variation"
+                                         ods-adv-analysis="prevAnstat4" ods-adv-analysis-context="ctxicaiprev"
+                                         ods-adv-analysis-select="AVG(total_idustrie) AS val"
+                                         ng-show="resAnstat4[0] && prevAnstat4[0]">
+                                        <span ng-class="{'var-up': resAnstat4[0].val >= prevAnstat4[0].val, 'var-down': resAnstat4[0].val < prevAnstat4[0].val}">
+                                            {{ resAnstat4[0].val >= prevAnstat4[0].val ? '▲' : '▼' }}
+                                            {{ (resAnstat4[0].val - prevAnstat4[0].val) | number:1 }} pt
+                                        </span>
+                                        <span class="var-label">vs {{ ctxagreg.parameters['refine.annee'] - 1 }}</span>
+                                    </div>
+                                </div>
+
+                            </div><!-- fin kpi-mini-grid ANStat -->
+
+                            <!-- Panneau graphique ANStat -->
+                            <div class="kpi-chart-panel" ng-class="{'open': activeKpiChart==='anstat_1' || activeKpiChart==='anstat_2' || activeKpiChart==='anstat_3' || activeKpiChart==='anstat_4'}">
+                                <div class="kpi-chart-inner">
+                                    <div class="kpi-chart-header">
+                                        <span class="kpi-chart-title" ng-show="activeKpiChart==='anstat_1'">Évolution — Indice Total Commerce (ICAC)</span>
+                                        <span class="kpi-chart-title" ng-show="activeKpiChart==='anstat_2'">Évolution — Taux de pauvreté (%)</span>
+                                        <span class="kpi-chart-title" ng-show="activeKpiChart==='anstat_3'">Évolution — Indice IHPC moyen sur 12 mois</span>
+                                        <span class="kpi-chart-title" ng-show="activeKpiChart==='anstat_4'">Évolution — Indice de Production Industrielle (Total)</span>
+                                        <button class="kpi-chart-close" ng-click="activeKpiChart=null">✕</button>
+                                    </div>
+                                    <ods-dataset-context context="majicacchart" majicacchart-dataset="maj-icac">
+                                        <ods-chart ng-if="activeKpiChart==='anstat_1'" timescale="year" scientific-display="false" align-month="true">
+                                            <ods-chart-query context="majicacchart" field-x="annee" maxpoints="0" timescale="year">
+                                                <ods-chart-serie expression-y="total_commerce" chart-type="line" function-y="AVG" color="#0F7705"></ods-chart-serie>
+                                            </ods-chart-query>
+                                        </ods-chart>
+                                    </ods-dataset-context>
+                                    <ods-dataset-context context="tauxpauvretechart" tauxpauvretechart-dataset="evolution-du-taux-de-pauvrete-1">
+                                        <ods-chart ng-if="activeKpiChart==='anstat_2'" timescale="year" scientific-display="false" align-month="true">
+                                            <ods-chart-query context="tauxpauvretechart" field-x="annee" maxpoints="0" timescale="year">
+                                                <ods-chart-serie expression-y="taux_de_pauvrete" chart-type="line" function-y="AVG" color="#EF7D00"></ods-chart-serie>
+                                            </ods-chart-query>
+                                        </ods-chart>
+                                    </ods-dataset-context>
+                                    <ods-dataset-context context="ihpcbase23chart" ihpcbase23chart-dataset="ihpcbase23">
+                                        <ods-chart ng-if="activeKpiChart==='anstat_3'" timescale="year" scientific-display="false" align-month="true">
+                                            <ods-chart-query context="ihpcbase23chart" field-x="annee" maxpoints="0" timescale="year">
+                                                <ods-chart-serie expression-y="indice_moyen_sur_12_mois" chart-type="line" function-y="AVG" color="#EF7D00"></ods-chart-serie>
+                                            </ods-chart-query>
+                                        </ods-chart>
+                                    </ods-dataset-context>
+                                    <ods-dataset-context context="majicaichart" majicaichart-dataset="maj-icai">
+                                        <ods-chart ng-if="activeKpiChart==='anstat_4'" timescale="year" scientific-display="false" align-month="true">
+                                            <ods-chart-query context="majicaichart" field-x="annee" maxpoints="0" timescale="year">
+                                                <ods-chart-serie expression-y="total_idustrie" chart-type="line" function-y="AVG" color="#0F7705"></ods-chart-serie>
+                                            </ods-chart-query>
+                                        </ods-chart>
+                                    </ods-dataset-context>
+                                </div>
+                            </div>
+                        </div><!-- fin ANStat -->
+
+                        <!-- ══════════════════════════════════════
+                             ONP — datasets : onp / onp-2 / onp-3
+                             KPI card  → ctxonp1 (filtré 2021, dernière année dispo)
+                             KPI chart → ctxonp1/ctxonp2/ctxonp3 sans filtre
+                        ══════════════════════════════════════ -->
+                        <div ng-show="activeKpiTab==='onp'">
+                            <div class="kpi-mini-grid kpi-mini-grid-4">
+
+                                <!-- ONP 1 : Population totale -->
+                                <div class="kpi-mini-card" ng-class="{'kpi-mini-card-active': activeKpiChart==='onp_1'}"
+                                     ng-click="activeKpiChart = (activeKpiChart==='onp_1' ? null : 'onp_1')">
+                                    <div class="kpi-mini-top">
+                                        <div class="kpi-mini-icon icon-bg-green">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                        </div>
+                                        <span class="kpi-mini-label">Population totale</span>
+                                        <span class="kpi-mini-chevron" ng-class="{'open': activeKpiChart==='onp_1'}">›</span>
+                                    </div>
+                                    <div class="kpi-mini-value-row">
+                                        <span class="kpi-mini-value"
+                                              ods-adv-analysis="resOnp1" ods-adv-analysis-context="ctxonp1"
+                                              ods-adv-analysis-select="SUM(population_totale) AS val">{{ resOnp1[0].val | number:0 }}</span>
+                                        <span class="kpi-mini-unit">hab.</span>
+                                    </div>
+                                    <div class="kpi-variation"
+                                         ods-adv-analysis="prevOnp1" ods-adv-analysis-context="ctxonp1prev"
+                                         ods-adv-analysis-select="SUM(population_totale) AS val"
+                                         ng-show="resOnp1[0] && prevOnp1[0]">
+                                        <span ng-class="{'var-up': resOnp1[0].val >= prevOnp1[0].val, 'var-down': resOnp1[0].val < prevOnp1[0].val}">
+                                            {{ resOnp1[0].val >= prevOnp1[0].val ? '▲' : '▼' }}
+                                            {{ ((resOnp1[0].val - prevOnp1[0].val) / prevOnp1[0].val * 100) | number:1 }}%
+                                        </span>
+                                        <span class="var-label">vs {{ ctxagreg.parameters['refine.annee'] - 1 }}</span>
+                                    </div>
+                                </div>
+
+                                <!-- ONP 2 : Espérance de vie — Seuil : <55 ans orange, <50 rouge -->
+                                <div class="kpi-mini-card"
+                                     ng-class="{'kpi-mini-card-active': activeKpiChart==='onp_2',
+                                                'kpi-alert-orange': resOnp2[0].val < 55 && resOnp2[0].val >= 50,
+                                                'kpi-alert-red':    resOnp2[0].val < 50}"
+                                     ng-click="activeKpiChart = (activeKpiChart==='onp_2' ? null : 'onp_2')">
+                                    <div class="kpi-mini-top">
+                                        <div class="kpi-mini-icon icon-bg-green">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                                        </div>
+                                        <span class="kpi-mini-label">Espérance de vie à la naissance</span>
+                                        <span class="kpi-mini-chevron" ng-class="{'open': activeKpiChart==='onp_2'}">›</span>
+                                    </div>
+                                    <div class="kpi-mini-value-row">
+                                        <span class="kpi-mini-value"
+                                              ods-adv-analysis="resOnp2" ods-adv-analysis-context="ctxonp1"
+                                              ods-adv-analysis-select="AVG(esperance_de_vie_a_la_naissance) AS val">{{ resOnp2[0].val | number:1 }}</span>
+                                        <span class="kpi-mini-unit">ans</span>
+                                    </div>
+                                    <div class="kpi-variation"
+                                         ods-adv-analysis="prevOnp2" ods-adv-analysis-context="ctxonp1prev"
+                                         ods-adv-analysis-select="AVG(esperance_de_vie_a_la_naissance) AS val"
+                                         ng-show="resOnp2[0] && prevOnp2[0]">
+                                        <span ng-class="{'var-up': resOnp2[0].val >= prevOnp2[0].val, 'var-down': resOnp2[0].val < prevOnp2[0].val}">
+                                            {{ resOnp2[0].val >= prevOnp2[0].val ? '▲' : '▼' }}
+                                            {{ (resOnp2[0].val - prevOnp2[0].val) | number:1 }} an
+                                        </span>
+                                        <span class="var-label">vs {{ ctxagreg.parameters['refine.annee'] - 1 }}</span>
+                                    </div>
+                                </div>
+
+                                <!-- ONP 3 : ISF — Seuil : >5 rouge (très élevé), 4-5 orange -->
+                                <div class="kpi-mini-card"
+                                     ng-class="{'kpi-mini-card-active': activeKpiChart==='onp_3',
+                                                'kpi-alert-orange': resOnp3[0].val >= 4 && resOnp3[0].val < 5,
+                                                'kpi-alert-red':    resOnp3[0].val >= 5}"
+                                     ng-click="activeKpiChart = (activeKpiChart==='onp_3' ? null : 'onp_3')">
+                                    <div class="kpi-mini-top">
+                                        <div class="kpi-mini-icon icon-bg-orange">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                                        </div>
+                                        <span class="kpi-mini-label">Indice Synthétique de Fécondité</span>
+                                        <span class="kpi-mini-chevron" ng-class="{'open': activeKpiChart==='onp_3'}">›</span>
+                                    </div>
+                                    <div class="kpi-mini-value-row">
+                                        <span class="kpi-mini-value"
+                                              ods-adv-analysis="resOnp3" ods-adv-analysis-context="ctxonp1"
+                                              ods-adv-analysis-select="AVG(indice_synthetique_de_fecondite_isf) AS val">{{ resOnp3[0].val | number:2 }}</span>
+                                        <span class="kpi-mini-unit">enf./fem.</span>
+                                    </div>
+                                    <div class="kpi-variation"
+                                         ods-adv-analysis="prevOnp3" ods-adv-analysis-context="ctxonp1prev"
+                                         ods-adv-analysis-select="AVG(indice_synthetique_de_fecondite_isf) AS val"
+                                         ng-show="resOnp3[0] && prevOnp3[0]">
+                                        <!-- Pour l'ISF, une baisse est positive (transition démographique) -->
+                                        <span ng-class="{'var-up': resOnp3[0].val <= prevOnp3[0].val, 'var-down': resOnp3[0].val > prevOnp3[0].val}">
+                                            {{ resOnp3[0].val <= prevOnp3[0].val ? '▼' : '▲' }}
+                                            {{ (resOnp3[0].val - prevOnp3[0].val) | number:2 }}
+                                        </span>
+                                        <span class="var-label">vs {{ ctxagreg.parameters['refine.annee'] - 1 }}</span>
+                                    </div>
+                                </div>
+
+                                <!-- ONP 4 : Dividende démographique -->
+                                <div class="kpi-mini-card" ng-class="{'kpi-mini-card-active': activeKpiChart==='onp_4'}"
+                                     ng-click="activeKpiChart = (activeKpiChart==='onp_4' ? null : 'onp_4')">
+                                    <div class="kpi-mini-top">
+                                        <div class="kpi-mini-icon icon-bg-orange">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                                        </div>
+                                        <span class="kpi-mini-label">Indice du Dividende Démographique</span>
+                                        <span class="kpi-mini-chevron" ng-class="{'open': activeKpiChart==='onp_4'}">›</span>
+                                    </div>
+                                    <div class="kpi-mini-value-row">
+                                        <span class="kpi-mini-value"
+                                              ods-adv-analysis="resOnp4" ods-adv-analysis-context="ctxonp1"
+                                              ods-adv-analysis-select="AVG(indice_du_dividende_demographique) AS val">{{ resOnp4[0].val | number:2 }}</span>
+                                        <span class="kpi-mini-unit"></span>
+                                    </div>
+                                    <div class="kpi-variation"
+                                         ods-adv-analysis="prevOnp4" ods-adv-analysis-context="ctxonp1prev"
+                                         ods-adv-analysis-select="AVG(indice_du_dividende_demographique) AS val"
+                                         ng-show="resOnp4[0] && prevOnp4[0]">
+                                        <span ng-class="{'var-up': resOnp4[0].val >= prevOnp4[0].val, 'var-down': resOnp4[0].val < prevOnp4[0].val}">
+                                            {{ resOnp4[0].val >= prevOnp4[0].val ? '▲' : '▼' }}
+                                            {{ (resOnp4[0].val - prevOnp4[0].val) | number:2 }}
+                                        </span>
+                                        <span class="var-label">vs {{ ctxagreg.parameters['refine.annee'] - 1 }}</span>
+                                    </div>
+                                </div>
+
+                            </div><!-- fin kpi-mini-grid ONP -->
+
+                            <!-- Panneau graphique ONP -->
+                            <div class="kpi-chart-panel" ng-class="{'open': activeKpiChart==='onp_1' || activeKpiChart==='onp_2' || activeKpiChart==='onp_3' || activeKpiChart==='onp_4'}">
+                                <div class="kpi-chart-inner">
+                                    <div class="kpi-chart-header">
+                                        <span class="kpi-chart-title" ng-show="activeKpiChart==='onp_1'">Évolution — Population totale</span>
+                                        <span class="kpi-chart-title" ng-show="activeKpiChart==='onp_2'">Évolution — Espérance de vie à la naissance (ans)</span>
+                                        <span class="kpi-chart-title" ng-show="activeKpiChart==='onp_3'">Évolution — Indice Synthétique de Fécondité (ISF)</span>
+                                        <span class="kpi-chart-title" ng-show="activeKpiChart==='onp_4'">Évolution — Indice du Dividende Démographique</span>
+                                        <button class="kpi-chart-close" ng-click="activeKpiChart=null">✕</button>
+                                    </div>
+                                    <ods-dataset-context context="onpchart" onpchart-dataset="onp">
+                                        <ods-chart ng-if="activeKpiChart==='onp_1'" timescale="year" scientific-display="false" align-month="true">
+                                            <ods-chart-query context="onpchart" field-x="annee" maxpoints="0" timescale="year">
+                                                <ods-chart-serie expression-y="population_totale" chart-type="bar" function-y="SUM" color="#0F7705" scientific-display="true"></ods-chart-serie>
+                                            </ods-chart-query>
+                                        </ods-chart>
+                                        <ods-chart ng-if="activeKpiChart==='onp_2'" timescale="year" scientific-display="false" align-month="true">
+                                            <ods-chart-query context="onpchart" field-x="annee" maxpoints="0" timescale="year">
+                                                <ods-chart-serie expression-y="esperance_de_vie_a_la_naissance" chart-type="line" function-y="AVG" color="#0F7705"></ods-chart-serie>
+                                            </ods-chart-query>
+                                        </ods-chart>
+                                        <ods-chart ng-if="activeKpiChart==='onp_3'" timescale="year" scientific-display="false" align-month="true">
+                                            <ods-chart-query context="onpchart" field-x="annee" maxpoints="0" timescale="year">
+                                                <ods-chart-serie expression-y="indice_synthetique_de_fecondite_isf" chart-type="line" function-y="AVG" color="#EF7D00"></ods-chart-serie>
+                                            </ods-chart-query>
+                                        </ods-chart>
+                                        <ods-chart ng-if="activeKpiChart==='onp_4'" timescale="year" scientific-display="false" align-month="true">
+                                            <ods-chart-query context="onpchart" field-x="annee" maxpoints="0" timescale="year">
+                                                <ods-chart-serie expression-y="indice_du_dividende_demographique" chart-type="line" function-y="AVG" color="#EF7D00"></ods-chart-serie>
+                                            </ods-chart-query>
+                                        </ods-chart>
+                                    </ods-dataset-context>
+                                </div>
+                            </div>
+                        </div><!-- fin ONP -->
+
+                    </div><!-- fin kpi-dir-tabs-content -->
+                </div><!-- fin kpi-direction-tabs -->
+                <!-- ===== FIN KPIs PAR DIRECTION ===== -->
+
+                <h2 class="section-title">🏛️ Thématiques</h2>
+
+                <div class="directions-grid">
+                    <a href="#" class="direction-card">
+                        <div class="card-header">
+                            <div class="dir-icon icon-bg-green">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="9" y1="22" x2="9" y2="22.01"></line><line x1="15" y1="22" x2="15" y2="22.01"></line><line x1="12" y1="22" x2="12" y2="22.01"></line><line x1="12" y1="2" x2="12" y2="22"></line><line x1="4" y1="10" x2="20" y2="10"></line><line x1="4" y1="18" x2="20" y2="18"></line></svg>
+                            </div>
+                            <span class="dir-title">INDICATEURS DE SUIVI DU PND</span>
+                        </div>
+                        <span class="dir-subtitle">Indicateurs de suivi du plan national de développement</span>
+
+                        <div class="data-status">
+                            <div class="status-header">
+                                <span></span>
+                                <span class="status-value status-green"></span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill bg-green" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="/pages/economie/" class="direction-card">
+                        <div class="card-header">
+                            <div class="dir-icon icon-bg-green">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            </div>
+                            <span class="dir-title">ECONOMIE</span>
+                        </div>
+                        <span class="dir-subtitle"> PIB, Investissements, commerce extérieur, Inflation... </span>
+
+                        <div class="data-status">
+                            <div class="status-header">
+                                <span></span>
+                                <span class="status-value status-green"></span> 
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill bg-orange" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/pages/indicateurs-conjoncturels/" class="direction-card">
+                        <div class="card-header">
+                            <div class="dir-icon icon-bg-green">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="9" y1="22" x2="9" y2="22.01"></line><line x1="15" y1="22" x2="15" y2="22.01"></line><line x1="12" y1="22" x2="12" y2="22.01"></line><line x1="12" y1="2" x2="12" y2="22"></line><line x1="4" y1="10" x2="20" y2="10"></line><line x1="4" y1="18" x2="20" y2="18"></line></svg>
+                            </div>
+                            <span class="dir-title">INDICATEURS CONJONCTURELS </span>
+                        </div>
+                        <span class="dir-subtitle">Secteur industriel, Commerce et services...</span>
+
+                        <div class="data-status">
+                            <div class="status-header">
+                                <span></span>
+                                <span class="status-value status-green"></span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill bg-green" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </a>
+                     <a href="/pages/socio-demographique/" class="direction-card">
+                        <div class="card-header">
+                            <div class="dir-icon icon-bg-green">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                            </div>
+                            <span class="dir-title">SOCIO-DEMOGRAPHIQUE</span>
+                        </div>
+                        <span class="dir-subtitle">Démographie, dividende démographique...</span>
+
+                        <div class="data-status">
+                            <div class="status-header">
+                                <span></span>
+                                <span class="status-value status-green"></span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill bg-green" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    
+                    <a href="/pages/pauvrete/" class="direction-card">
+                        <div class="card-header">
+                            <div class="dir-icon icon-bg-orange">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                            </div>
+                            <span class="dir-title">EMPLOI & PAUVRETE</span>
+                        </div>
+                        <span class="dir-subtitle">Suivi du taux de pauvreté, emploi, chômage...</span>
+
+                        <div class="data-status">
+                            <div class="status-header">
+                                <span></span>
+                                <span class="status-value status-orange"></span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill bg-orange" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    
+
+                   
+                    
+
+                </div>
+
+                <h2 class="section-title">🏛️ Directions Générales / Structures sous tutelle</h2>
+
+                <div class="directions-grid">
+                    <!--DIRECTIONS-->
+                    <a href="/pages/accueil_test/" class="direction-card">
+                        <div class="card-header">
+                            <div class="dir-icon icon-bg-green">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            </div>
+                            <span class="dir-title">DGE</span>
+                        </div>
+                        <span class="dir-subtitle"> Direction Générale de l’Économie </span>
+
+                        <div class="data-status">
+                            <div class="status-header">
+                                <span></span>
+                                <span class="status-value status-green"></span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill bg-orange" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </a>
+                     <a href="#" class="direction-card">
+                        <div class="card-header">
+                            <div class="dir-icon icon-bg-green">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                            </div>
+                            <span class="dir-title">DGP</span>
+                        </div>
+                        <span class="dir-subtitle">Direction Générale du Plan</span>
+
+                        <div class="data-status">
+                            <div class="status-header">
+                                <span></span>
+                                <span class="status-value status-green"></span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill bg-orange" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/pages/dgcod0/" class="direction-card">
+                        <div class="card-header">
+                            <div class="dir-icon icon-bg-orange">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                            </div>
+                            <span class="dir-title">DGCoD</span>
+                        </div>
+                        <span class="dir-subtitle">Direction Générale de la Coopération au Développement</span>
+
+                        <div class="data-status">
+                            <div class="status-header">
+                                <span></span>
+                                <span class="status-value status-orange"></span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill bg-orange" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/pages/page-dgatdlr/" class="direction-card">
+                        <div class="card-header">
+                            <div class="dir-icon icon-bg-green">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="9" y1="22" x2="9" y2="22.01"></line><line x1="15" y1="22" x2="15" y2="22.01"></line><line x1="12" y1="22" x2="12" y2="22.01"></line><line x1="12" y1="2" x2="12" y2="22"></line><line x1="4" y1="10" x2="20" y2="10"></line><line x1="4" y1="18" x2="20" y2="18"></line></svg>
+                            </div>
+                            <span class="dir-title">DGATDRL</span>
+                        </div>
+                        <span class="dir-subtitle">Direction Générale de l’Aménagement du Territoire, du Développement Régional et Local</span>
+
+                        <div class="data-status">
+                            <div class="status-header">
+                                <span></span>
+                                <span class="status-value status-green"></span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill bg-orange" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </a>
+
+                   
+                    <!--STRUCTURES SOUS TUTELLES-->
+                    <a href="/pages/bnpvs/" class="direction-card">
+                        <div class="card-header">
+                            <div class="dir-icon icon-bg-orange">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            </div>
+                            <span class="dir-title">BNPVS</span>
+                        </div>
+                        <span class="dir-subtitle">Bureau National de la Prospective et de la Veille Stratégique</span>
+
+                        <div class="data-status">
+                            <div class="status-header">
+                                <span></span>
+                                <span class="status-value status-orange"></span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill bg-green" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/pages/anstat/" class="direction-card">
+                        <div class="card-header">
+                            <div class="dir-icon icon-bg-green">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                            </div>
+                            <span class="dir-title">ANStat</span>
+                        </div>
+                        <span class="dir-subtitle">Agence Nationale de la Statistique</span>
+
+                        <div class="data-status">
+                            <div class="status-header">
+                                <span></span>
+                                <span class="status-value status-green"></span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill bg-green" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/pages/page-onp/" class="direction-card">
+                        <div class="card-header">
+                            <div class="dir-icon icon-bg-orange">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
+                            </div>
+                            <span class="dir-title">ONP</span>
+                        </div>
+                        <span class="dir-subtitle">Office National de la Population</span>
+
+                        <div class="data-status">
+                            <div class="status-header">
+                                <span></span>
+                                <span class="status-value status-orange"></span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill bg-green" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="direction-card">
+                        <div class="card-header">
+                            <div class="dir-icon icon-bg-orange">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            </div>
+                            <span class="dir-title">ENSEA</span>
+                        </div>
+                        <span class="dir-subtitle">Ecole Nationale Supérieure de Statistique et d'Économie Appliquée</span>
+
+                        <div class="data-status">
+                            <div class="status-header">
+                                <span></span>
+                                <span class="status-value status-orange"></span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill bg-green" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+
+                <h2 class="section-title">Centre d'Action sur les Données</h2>
+
+                <div class="action-center-box">
+                    <div class="action-header">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                        <span>4 jeux de données nécessitent une mise à jour urgente</span>
+                    </div>
+
+                    <div class="action-list">
+
+                        <div class="action-item">
+                            <div class="action-info">
+                                <h4>Épargne intérieure brute en Francs courants</h4>
+                                <span>Direction : DGE</span>
+                            </div>
+                            <div class="alert-pill pill-orange">il y a 16 mois</div>
+                        </div>
+
+                        <div class="action-item">
+                            <div class="action-info">
+                                <h4>Investissement étranger direct en Francs courants</h4>
+                                <span>Direction : DGE</span>
+                            </div>
+                            <div class="alert-pill pill-red">+ de 2 ans</div>
+                        </div>
+
+                        <div class="action-item">
+                            <div class="action-info">
+                                <h4>Taux d'inflation annuel (%)</h4>
+                                <span>Direction : DGE</span>
+                            </div>
+                            <div class="alert-pill pill-red">+ de 2 ans</div>
+                        </div>
+
+                        <div class="action-item">
+                            <div class="action-info">
+                                <h4>Croissance du PIB en Francs courants</h4>
+                                <span>Direction : DGE</span>
+                            </div>
+                            <div class="alert-pill pill-red">+ de 2 ans</div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+</ods-dataset-context>

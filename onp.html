@@ -1,0 +1,806 @@
+<ods-dataset-context
+    context="ctxonp1,ctxonp2,ctxonp3"
+    ctxonp1-dataset="onp"
+    ctxonp2-dataset="onp-2"
+    ctxonp3-dataset="onp-3"
+    ctxonp1-parameters="{'refine.annee':'2021','disjunctive.annee':true}"
+    ctxonp2-parameters="{'refine.annee':'2020','disjunctive.annee':true}">
+
+    <div class="dashboard-layout">
+
+        <nav class="sidebar">
+            <div ods-current-user class="logo-me">
+                {{ currentUser.first_name | limitTo:1 }}{{ currentUser.last_name | limitTo:1 }}
+            </div>
+
+            <a href="/pages/accueil-tableau-de-bord/" class="nav-item active">
+                <div class="nav-icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="7" height="9" x="3" y="3" rx="1"/>
+                        <rect width="7" height="5" x="14" y="3" rx="1"/>
+                        <rect width="7" height="9" x="14" y="12" rx="1"/>
+                        <rect width="7" height="5" x="3" y="16" rx="1"/>
+                    </svg>
+                </div>
+                <span>Tableau de bord</span>
+            </a>
+
+            <a href="/pages/page-explorer/" class="nav-item">
+                <div class="nav-icon-box">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </div>
+                <span>Explorer</span>
+            </a>
+        </nav>
+
+        <main class="main-content">
+
+            <header class="top-header">
+                <div class="header-left-section">
+                    <a href="/pages/page-accueil-mpd/" style="line-height: 0;">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMxYTJiM2MiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1hcnJvdy1sZWZ0LWljb24gbHVjaWRlLWFycm93LWxlZnQiPjxwYXRoIGQ9Im0xMiAxOS03LTcgNy03Ii8+PHBhdGggZD0iTTE5IDEySDUiLz48L3N2Zz4=">
+                    </a>
+                    <h1 class="header-welcome-text">Office National de la Population</h1>
+                </div>
+                <div class="header-right-section">
+                    <img src="/assets/theme_image/onp.png"
+                         alt="Office National de la Population"
+                         class="logo-armoiries">
+                </div>
+            </header>
+
+            <div class="page-container" ng-init="activeTab = 'population'">
+
+                <!-- ============================================================ -->
+                <!-- BARRE THEMATIQUES                                            -->
+                <!-- ============================================================ -->
+                <div class="thematics-card">
+                    <div class="thematics-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                        </svg>
+                        Thématiques
+                    </div>
+
+                    <div class="tab-pills">
+                        <button class="tab-pill"
+                                ng-class="{'active': activeTab == 'population'}"
+                                ng-click="activeTab = 'population'">
+                            <i class="fa fa-users" style="margin-right:5px;"></i>
+                            Population
+                        </button>
+                        <button class="tab-pill"
+                                ng-class="{'active': activeTab == 'fecondite'}"
+                                ng-click="activeTab = 'fecondite'">
+                            <i class="fa fa-heart" style="margin-right:5px;"></i>
+                            Fécondité &amp; Santé
+                        </button>
+                        <button class="tab-pill"
+                                ng-class="{'active': activeTab == 'dividende'}"
+                                ng-click="activeTab = 'dividende'">
+                            <i class="fa fa-line-chart" style="margin-right:5px;"></i>
+                            Dividende Démographique
+                        </button>
+                    </div>
+
+                    <!-- Filtre année -->
+                    <div class="filters-row" ng-init="activeDevise = 'FCFA'; activeValeur = 'courant'">
+                        <div class="filter-group" style="margin-left: 20px;">
+                            <span class="filter-label">Filtrez sur une année :</span>
+                        </div>
+                        <div class="kpi-filter-year" ng-if="activeTab != 'dividende'">
+                            <div class="boite">
+                                <div ods-facet-results="filtreannee" 
+                                     ods-facet-results-facet-name="annee"
+                                     ods-facet-results-context="ctxonp1">
+                                    <ods-select options="filtreannee"
+                                                selected-values="ctxonp1.parameters['refine.annee']"
+                                                label-modifier="name"
+                                                value-modifier="name"
+                                                placeholder="Filtrer sur une année"
+                                                multiple="false">
+                                    </ods-select>
+                                    {{ ctxonp2.parameters['refine.annee'] = ctxonp3.parameters['refine.annee'] = ctxonp1.parameters['refine.annee']; "" }}
+                                </div>
+                            </div>
+                        </div>
+                         <div class="kpi-filter-year" ng-if="activeTab == 'dividende'">
+                            <div class="boite">
+                                <div ods-facet-results="filtreannee" 
+                                     ods-facet-results-facet-name="annee"
+                                     ods-facet-results-context="ctxonp2">
+                                    <ods-select options="filtreannee"
+                                                selected-values="ctxonp2.parameters['refine.annee']"
+                                                label-modifier="name"
+                                                value-modifier="name"
+                                                placeholder="Filtrer sur une année"
+                                                multiple="false">
+                                    </ods-select>
+                                    {{ ctxonp1.parameters['refine.annee'] = ctxonp3.parameters['refine.annee'] = ctxonp2.parameters['refine.annee']; "" }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- ============================================================ -->
+                <!-- ONGLET 1 : POPULATION                                        -->
+                <!-- ============================================================ -->
+                <div ng-if="activeTab == 'population'">
+
+                    <h2 class="section-title">
+                        <i class="fa fa-users" style="color: var(--primary-color); margin-right: 8px;"></i>
+                        Indicateurs de Population
+                    </h2>
+
+                    <div class="stats-grid"
+                         ods-results="popData"
+                         ods-results-context="ctxonp1"
+                         ods-results-max="1"
+                         ods-results-sort="annee desc">
+
+                        <!-- POPULATION TOTALE -->
+                        <div class="stat-card stat-card-hover-info" ng-if="popData.length">
+                            <div class="stat-title">
+                                <i class="fa fa-globe stat-card-icon"></i>
+                                Population totale
+                            </div>
+                            <div class="stat-value">
+                                {{ popData[0].fields.population_totale | number:0 }}
+                                <small class="stat-subtext">hab.</small>
+                            </div>
+                            <div class="stat-trend">
+                                <span style="color:#64748B; font-size:11px;">Estimation annuelle</span>
+                            </div>
+                            <div class="stat-overlay">
+                                <div class="stat-overlay-content">
+                                    <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                    <h4 class="stat-overlay-title">Population totale</h4>
+                                    <p class="stat-overlay-text">
+                                        Estimation de la population totale de Côte d'Ivoire pour l'année sélectionnée.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TAUX DE CROISSANCE -->
+                        <div class="stat-card stat-card-hover-info" ng-if="popData.length">
+                            <div class="stat-title">
+                                <i class="fa fa-line-chart stat-card-icon"></i>
+                                Taux de croissance annuel moyen
+                            </div>
+                            <div class="stat-value">
+                                {{ popData[0].fields.taux_de_croissance_annuel_moyen | number:2 }}
+                                <small class="stat-subtext">%</small>
+                            </div>
+                            <div class="stat-trend">
+                                <span style="color:#64748B; font-size:11px;">Croissance démographique</span>
+                            </div>
+                            <div class="stat-overlay">
+                                <div class="stat-overlay-content">
+                                    <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                    <h4 class="stat-overlay-title">Taux de croissance</h4>
+                                    <p class="stat-overlay-text">
+                                        Taux de croissance annuel moyen de la population (%).
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- POPULATION MOINS DE 15 ANS -->
+                        <div class="stat-card stat-card-hover-info" ng-if="popData.length">
+                            <div class="stat-title">
+                                <i class="fa fa-child stat-card-icon"></i>
+                                Population moins de 15 ans
+                            </div>
+                            <div class="stat-value">
+                                {{ popData[0].fields.population_moins_de_15_ans | number:0 }}
+                                <small class="stat-subtext">hab.</small>
+                            </div>
+                            <div class="stat-trend">
+                                <span style="color:#64748B; font-size:11px;">Jeunesse démographique</span>
+                            </div>
+                            <div class="stat-overlay">
+                                <div class="stat-overlay-content">
+                                    <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                    <h4 class="stat-overlay-title">Moins de 15 ans</h4>
+                                    <p class="stat-overlay-text">
+                                        Population âgée de moins de 15 ans.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- POPULATION ACTIVE 15-64 ANS -->
+                        <div class="stat-card stat-card-hover-info" ng-if="popData.length">
+                            <div class="stat-title">
+                                <i class="fa fa-briefcase stat-card-icon"></i>
+                                Population active (15–64 ans)
+                            </div>
+                            <div class="stat-value">
+                                {{ popData[0].fields.popualtion_active_15_64_ans | number:0 }}
+                                <small class="stat-subtext">hab.</small>
+                            </div>
+                            <div class="stat-trend">
+                                <span style="color:#64748B; font-size:11px;">Tranche d'âge active</span>
+                            </div>
+                            <div class="stat-overlay">
+                                <div class="stat-overlay-content">
+                                    <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                    <h4 class="stat-overlay-title">Population active</h4>
+                                    <p class="stat-overlay-text">
+                                        Population en âge de travailler (15 à 64 ans).
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- POPULATION 65 ANS ET PLUS -->
+                        <div class="stat-card stat-card-hover-info" ng-if="popData.length">
+                            <div class="stat-title">
+                                <i class="fa fa-wheelchair stat-card-icon"></i>
+                                Population 65 ans et plus
+                            </div>
+                            <div class="stat-value">
+                                {{ popData[0].fields.population_65_ans_et_plus | number:0 }}
+                                <small class="stat-subtext">hab.</small>
+                            </div>
+                            <div class="stat-trend">
+                                <span style="color:#64748B; font-size:11px;">Population âgée</span>
+                            </div>
+                            <div class="stat-overlay">
+                                <div class="stat-overlay-content">
+                                    <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                    <h4 class="stat-overlay-title">65 ans et plus</h4>
+                                    <p class="stat-overlay-text">
+                                        Population âgée de 65 ans et plus.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- POPULATION JEUNES MOINS DE 35 ANS -->
+                        <div class="stat-card stat-card-hover-info" ng-if="popData.length">
+                            <div class="stat-title">
+                                <i class="fa fa-user-o stat-card-icon"></i>
+                                Population jeunes (moins de 35 ans)
+                            </div>
+                            <div class="stat-value">
+                                {{ popData[0].fields.population_jeunes_moins_de_35_ans | number:0 }}
+                                <small class="stat-subtext">hab.</small>
+                            </div>
+                            <div class="stat-trend">
+                                <span style="color:#64748B; font-size:11px;">Jeunes de moins de 35 ans</span>
+                            </div>
+                            <div class="stat-overlay">
+                                <div class="stat-overlay-content">
+                                    <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                    <h4 class="stat-overlay-title">Population jeunes</h4>
+                                    <p class="stat-overlay-text">
+                                        Population âgée de moins de 35 ans.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /stats-grid population -->
+
+                    <!-- GRAPHE EVOLUTION POPULATION -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">
+                                <i class="fa fa-area-chart" style="margin-right:6px; color:var(--primary-color);"></i>
+                                Évolution de la Population Totale
+                            </h3>
+                        </div>
+                       
+                        
+                        
+                        
+                        
+                        
+                        <ods-dataset-context context="ctxonp1,ctxonp2,ctxonp3" ctxonp1-dataset="onp" ctxonp2-dataset="onp-2" ctxonp3-dataset="onp-3">
+
+                            <ods-chart timescale="year" scientific-display="false">
+                                <ods-chart-query context="ctxonp1"
+                                                 field-x="annee"
+                                                 maxpoints="0"
+                                                 timescale="year">
+                                    <ods-chart-serie expression-y="population_totale"
+                                                     chart-type="line"
+                                                     function-y="SUM"
+                                                     label-y="Population totale"
+                                                     color="#0A71B5"
+                                                     scientific-display="true">
+                                    </ods-chart-serie>
+                                </ods-chart-query>
+                            </ods-chart>
+                        </ods-dataset-context>
+                        <p style="text-align:center; font-size:12px; color:#94A3B8; margin-top:10px;"></p>
+                    </div>
+
+                    <!-- GRAPHE STRUCTURE DE LA POPULATION -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">
+                                <i class="fa fa-bar-chart" style="margin-right:6px; color:var(--primary-color);"></i>
+                                Structure de la Population par Tranche d'Âge
+                            </h3>
+                        </div>
+                        <ods-dataset-context context="ctxonp1,ctxonp2,ctxonp3" ctxonp1-dataset="onp" ctxonp2-dataset="onp-2" ctxonp3-dataset="onp-3">
+                        <ods-chart scientific-display="false">
+                            <ods-chart-query context="ctxonp1"
+                                             field-x="annee"
+                                             maxpoints="0"
+                                             timescale="year"
+                                             stacked="normal">
+                                <ods-chart-serie expression-y="population_moins_de_15_ans"
+                                                 chart-type="column"
+                                                 function-y="SUM"
+                                                 label-y="Moins de 15 ans"
+                                                 color="#F98C44"
+                                                 scientific-display="true">
+                                </ods-chart-serie>
+                                <ods-chart-serie expression-y="popualtion_active_15_64_ans"
+                                                 chart-type="column"
+                                                 function-y="SUM"
+                                                 label-y="15–64 ans"
+                                                 color="#0A71B5"
+                                                 scientific-display="true">
+                                </ods-chart-serie>
+                                <ods-chart-serie expression-y="population_65_ans_et_plus"
+                                                 chart-type="column"
+                                                 function-y="SUM"
+                                                 label-y="65 ans et plus"
+                                                 color="#19630A"
+                                                 scientific-display="true">
+                                </ods-chart-serie>
+                            </ods-chart-query>
+                        </ods-chart>
+                        </ods-dataset-context>
+                        <p style="text-align:center; font-size:12px; color:#94A3B8; margin-top:10px;"></p>
+                    </div>
+
+                </div><!-- /onglet population -->
+
+
+                <!-- ============================================================ -->
+                <!-- ONGLET 2 : FECONDITE & SANTE                                -->
+                <!-- ============================================================ -->
+                <div ng-if="activeTab == 'fecondite'">
+
+                    <h2 class="section-title">
+                        <i class="fa fa-heartbeat" style="color: var(--primary-color); margin-right: 8px;"></i>
+                        Fécondité &amp; Santé Maternelle
+                    </h2>
+
+                    <!-- KPI ISF + ESPERANCE DE VIE (depuis ctxonp1) -->
+                    <div class="stats-grid"
+                         ods-results="popData2"
+                         ods-results-context="ctxonp1"
+                         ods-results-max="1"
+                         ods-results-sort="annee desc">
+
+                        <!-- INDICE SYNTHETIQUE DE FECONDITE -->
+                        <div class="stat-card stat-card-hover-info" ng-if="popData2.length">
+                            <div class="stat-title">
+                                <i class="fa fa-leaf stat-card-icon"></i>
+                                Indice Synthétique de Fécondité (ISF)
+                            </div>
+                            <div class="stat-value">
+                                {{ popData2[0].fields.indice_synthetique_de_fecondite_isf | number:2 }}
+                                <small class="stat-subtext">enfants/femme</small>
+                            </div>
+                            <div class="stat-trend">
+                                <span style="color:#64748B; font-size:11px;">Nombre moyen d'enfants par femme</span>
+                            </div>
+                            <div class="stat-overlay">
+                                <div class="stat-overlay-content">
+                                    <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                    <h4 class="stat-overlay-title">ISF</h4>
+                                    <p class="stat-overlay-text">
+                                        L'Indice Synthétique de Fécondité représente le nombre moyen
+                                        d'enfants qu'aurait une femme au cours de sa vie.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ESPERANCE DE VIE -->
+                        <div class="stat-card stat-card-hover-info" ng-if="popData2.length">
+                            <div class="stat-title">
+                                <i class="fa fa-medkit stat-card-icon"></i>
+                                Espérance de vie à la naissance
+                            </div>
+                            <div class="stat-value">
+                                {{ popData2[0].fields.esperance_de_vie_a_la_naissance | number:1 }}
+                                <small class="stat-subtext">ans</small>
+                            </div>
+                            <div class="stat-trend">
+                                <span style="color:#64748B; font-size:11px;">Années de vie espérées à la naissance</span>
+                            </div>
+                            <div class="stat-overlay">
+                                <div class="stat-overlay-content">
+                                    <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                    <h4 class="stat-overlay-title">Espérance de vie</h4>
+                                    <p class="stat-overlay-text">
+                                        Nombre moyen d'années qu'un nouveau-né peut espérer vivre
+                                        si les conditions de mortalité actuelles demeurent constantes.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /stats-grid ISF + espérance -->
+
+                    <!-- KPI MORTALITE MATERNELLE (depuis ctxonp3) -->
+                    <div class="stats-grid"
+                         ods-results="mortData"
+                         ods-results-context="ctxonp3"
+                         ods-results-max="1"
+                         ods-results-sort="annee desc">
+
+                        <!-- RAPPORT MORTALITE MATERNELLE -->
+                        <div class="stat-card stat-card-hover-info" ng-if="mortData.length">
+                            <div class="stat-title">
+                                <i class="fa fa-hospital-o stat-card-icon"></i>
+                                Rapport de mortalité maternelle
+                            </div>
+                            <div class="stat-value">
+                                {{ mortData[0].fields.rapport_de_mortalite_maternelle_pour_100_000_naissances_vivantes | number:0 }}
+                                <small class="stat-subtext">/ 100 000 naissances</small>
+                            </div>
+                            <div class="stat-trend">
+                                <span style="color:#64748B; font-size:11px;">Pour 100 000 naissances vivantes</span>
+                            </div>
+                            <div class="stat-overlay">
+                                <div class="stat-overlay-content">
+                                    <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                    <h4 class="stat-overlay-title">Mortalité maternelle</h4>
+                                    <p class="stat-overlay-text">
+                                        Nombre de décès maternels pour 100 000 naissances vivantes.
+                                        Indicateur clé de la santé reproductive.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /stats-grid mortalité -->
+
+                    <!-- GRAPHE ISF 
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">
+                                <i class="fa fa-line-chart" style="margin-right:6px; color:var(--primary-color);"></i>
+                                Évolution de l'Indice Synthétique de Fécondité (ISF)
+                            </h3>
+                        </div>
+                        <ods-dataset-context context="ctxonp1,ctxonp2,ctxonp3" ctxonp1-dataset="onp" ctxonp2-dataset="onp-2" ctxonp3-dataset="onp-3">
+                        <ods-chart timescale="year" scientific-display="false">
+                            <ods-chart-query context="ctxonp1"
+                                             field-x="annee"
+                                             maxpoints="0"
+                                             timescale="year">
+                                <ods-chart-serie expression-y="indice_synthetique_de_fecondite_isf"
+                                                 chart-type="line"
+                                                 function-y="AVG"
+                                                 label-y="ISF (enfants/femme)"
+                                                 color="#E74C3C">
+                                </ods-chart-serie>
+                            </ods-chart-query>
+                        </ods-chart>
+                        </ods-dataset-context>
+                        <p style="text-align:center; font-size:12px; color:#94A3B8; margin-top:10px;"></p>
+                    </div> -->
+
+                    <!-- GRAPHE ESPERANCE DE VIE -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">
+                                <i class="fa fa-heartbeat" style="margin-right:6px; color:var(--primary-color);"></i>
+                                Évolution de l'Espérance de Vie à la Naissance
+                            </h3>
+                        </div>
+                        <ods-dataset-context context="ctxonp1,ctxonp2,ctxonp3" ctxonp1-dataset="onp" ctxonp2-dataset="onp-2" ctxonp3-dataset="onp-3">
+                        <ods-chart timescale="year" scientific-display="false">
+                            <ods-chart-query context="ctxonp1"
+                                             field-x="annee"
+                                             maxpoints="0"
+                                             timescale="year">
+                                <ods-chart-serie expression-y="esperance_de_vie_a_la_naissance"
+                                                 chart-type="line"
+                                                 function-y="AVG"
+                                                 label-y="Espérance de vie (ans)"
+                                                 color="#19630A">
+                                </ods-chart-serie>
+                            </ods-chart-query>
+                        </ods-chart>
+                        </ods-dataset-context>
+                        <p style="text-align:center; font-size:12px; color:#94A3B8; margin-top:10px;"></p>
+                    </div>
+
+                    <!-- GRAPHE MORTALITE MATERNELLE 
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">
+                                <i class="fa fa-hospital-o" style="margin-right:6px; color:var(--primary-color);"></i>
+                                Évolution du Rapport de Mortalité Maternelle
+                            </h3>
+                        </div>
+                        <ods-dataset-context context="ctxonp1,ctxonp2,ctxonp3" ctxonp1-dataset="onp" ctxonp2-dataset="onp-2" ctxonp3-dataset="onp-3">
+                        <ods-chart timescale="year" scientific-display="false">
+                            <ods-chart-query context="ctxonp3"
+                                             field-x="annee"
+                                             maxpoints="0"
+                                             timescale="year">
+                                <ods-chart-serie expression-y="rapport_de_mortalite_maternelle_pour_100_000_naissances_vivantes"
+                                                 chart-type="column"
+                                                 function-y="AVG"
+                                                 label-y="Mortalité maternelle (/ 100 000)"
+                                                 color="#E67E22">
+                                </ods-chart-serie>
+                            </ods-chart-query>
+                        </ods-chart>
+                        </ods-dataset-context>
+                        <p style="text-align:center; font-size:12px; color:#94A3B8; margin-top:10px;"></p>
+                    </div>-->
+
+                    <!-- TABLEAU RECAPITULATIF SANTE -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">
+                                <i class="fa fa-table" style="margin-right:6px; color:var(--primary-color);"></i>
+                                Tableau récapitulatif — Fécondité &amp; Santé
+                            </h3>
+                        </div>
+                        <ods-dataset-context context="ctxonp1,ctxonp2,ctxonp3" ctxonp1-dataset="onp" ctxonp2-dataset="onp-2" ctxonp3-dataset="onp-3">
+                        <div class="table-secteur">
+                            <table class="table-custom t1"
+                                   ods-results="tablePopData"
+                                   ods-results-context="ctxonp1"
+                                   ods-results-max="20"
+                                   ods-results-sort="annee desc">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:center;">Année</th>
+                                        <th style="text-align:center;">ISF (enfants/femme)</th>
+                                        <th style="text-align:center;">Espérance de vie (ans)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="row in tablePopData">
+                                        <td style="text-align:center;">{{ row.fields.annee }}</td>
+                                        <td style="text-align:center;">{{ row.fields.indice_synthetique_de_fecondite_isf | number:2 }}</td>
+                                        <td style="text-align:center;">{{ row.fields.esperance_de_vie_a_la_naissance | number:1 }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        </ods-dataset-context>
+                    </div>
+
+                </div><!-- /onglet fecondite -->
+
+
+                <!-- ============================================================ -->
+                <!-- ONGLET 3 : DIVIDENDE DEMOGRAPHIQUE                           -->
+                <!-- ============================================================ -->
+                <div ng-if="activeTab == 'dividende'">
+
+                    <h2 class="section-title">
+                        <i class="fa fa-line-chart" style="color: var(--primary-color); margin-right: 8px;"></i>
+                        Dividende Démographique
+                    </h2>
+
+                    <!-- KPI DIVIDENDE -->
+                    <div class="stats-grid"
+                         ods-results="divData"
+                         ods-results-context="ctxonp2"
+                         ods-results-max="1"
+                         ods-results-sort="annee desc">
+
+                        <div class="stat-card stat-card-hover-info" ng-if="divData.length">
+                            <div class="stat-title">
+                                <i class="fa fa-balance-scale stat-card-icon"></i>
+                                Indice du Dividende Démographique
+                            </div>
+                            <div class="stat-value">
+                                {{ divData[0].fields.indice_du_dividende_demographique | number:2 }}
+                            </div>
+                            <div class="stat-trend">
+                                <span style="color:#64748B; font-size:11px;">Rapport actifs / dépendants</span>
+                            </div>
+                            <div class="stat-overlay">
+                                <div class="stat-overlay-content">
+                                    <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                    <h4 class="stat-overlay-title">Dividende Démographique</h4>
+                                    <p class="stat-overlay-text">
+                                        L'indice du dividende démographique mesure le potentiel
+                                        de croissance économique lié à la structure d'âge de la population,
+                                        notamment le rapport entre la population active et les dépendants.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- POPULATION ACTIVE (rappel) 
+                        <div class="stat-card stat-card-hover-info"
+                             ods-results="popDiv"
+                             ods-results-context="ctxonp1"
+                             ods-results-max="1"
+                             ods-results-sort="annee desc"
+                             ng-if="popDiv.length">
+                            <div class="stat-title">
+                                <i class="fa fa-briefcase stat-card-icon"></i>
+                                Population active (15–64 ans)
+                            </div>
+                            <div class="stat-value">
+                                {{ popDiv[0].fields.popualtion_active_15_64_ans | number:0 }}
+                                <small class="stat-subtext">hab.</small>
+                            </div>
+                            <div class="stat-trend">
+                                <span style="color:#64748B; font-size:11px;">Moteur du dividende démographique</span>
+                            </div>
+                            <div class="stat-overlay">
+                                <div class="stat-overlay-content">
+                                    <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                    <h4 class="stat-overlay-title">Population active</h4>
+                                    <p class="stat-overlay-text">
+                                        La population active (15–64 ans) est le principal moteur
+                                        du dividende démographique.
+                                    </p>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <!-- POPULATION JEUNES (rappel) 
+                        <div class="stat-card stat-card-hover-info"
+                             ods-results="popJeunes"
+                             ods-results-context="ctxonp1"
+                             ods-results-max="1"
+                             ods-results-sort="annee desc"
+                             ng-if="popJeunes.length">
+                            <div class="stat-title">
+                                <i class="fa fa-user-o stat-card-icon"></i>
+                                Population jeunes (moins de 35 ans)
+                            </div>
+                            <div class="stat-value">
+                                {{ popJeunes[0].fields.population_jeunes_moins_de_35_ans | number:0 }}
+                                <small class="stat-subtext">hab.</small>
+                            </div>
+                            <div class="stat-trend">
+                                <span style="color:#64748B; font-size:11px;">Potentiel futur de main-d'œuvre</span>
+                            </div>
+                            <div class="stat-overlay">
+                                <div class="stat-overlay-content">
+                                    <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                    <h4 class="stat-overlay-title">Population jeunes</h4>
+                                    <p class="stat-overlay-text">
+                                        Les jeunes de moins de 35 ans représentent
+                                        le potentiel futur de main-d'œuvre.
+                                    </p>
+                                </div>
+                            </div>
+                        </div> -->
+
+                    </div><!-- /stats-grid dividende -->
+
+                    <!-- GRAPHE EVOLUTION DIVIDENDE -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">
+                                <i class="fa fa-line-chart" style="margin-right:6px; color:var(--primary-color);"></i>
+                                Évolution de l'Indice du Dividende Démographique
+                            </h3>
+                        </div>
+                        <ods-dataset-context context="ctxonp1,ctxonp2,ctxonp3" ctxonp1-dataset="onp" ctxonp2-dataset="onp-2" ctxonp3-dataset="onp-3">
+                        <ods-chart timescale="year" scientific-display="false">
+                            <ods-chart-query context="ctxonp2"
+                                             field-x="annee"
+                                             maxpoints="0"
+                                             timescale="year">
+                                <ods-chart-serie expression-y="indice_du_dividende_demographique"
+                                                 chart-type="line"
+                                                 function-y="AVG"
+                                                 label-y="Indice du dividende démographique"
+                                                 color="#0A71B5">
+                                </ods-chart-serie>
+                            </ods-chart-query>
+                        </ods-chart>
+                        </ods-dataset-context>
+                        <p style="text-align:center; font-size:12px; color:#94A3B8; margin-top:10px;"></p>
+                    </div>
+
+                    <!-- GRAPHE COMPARATIF TRANCHES D'AGE 
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">
+                                <i class="fa fa-bar-chart" style="margin-right:6px; color:var(--primary-color);"></i>
+                                Évolution comparée des Tranches d'Âge
+                            </h3>
+                        </div>
+                        <ods-dataset-context context="ctxonp1,ctxonp2,ctxonp3" ctxonp1-dataset="onp" ctxonp2-dataset="onp-2" ctxonp3-dataset="onp-3">
+                        <ods-chart timescale="year" scientific-display="false">
+                            <ods-chart-query context="ctxonp1"
+                                             field-x="annee"
+                                             maxpoints="0"
+                                             timescale="year">
+                                <ods-chart-serie expression-y="population_moins_de_15_ans"
+                                                 chart-type="line"
+                                                 function-y="SUM"
+                                                 label-y="Moins de 15 ans"
+                                                 color="#F98C44"
+                                                 scientific-display="true">
+                                </ods-chart-serie>
+                                <ods-chart-serie expression-y="popualtion_active_15_64_ans"
+                                                 chart-type="line"
+                                                 function-y="SUM"
+                                                 label-y="15–64 ans"
+                                                 color="#0A71B5"
+                                                 scientific-display="true">
+                                </ods-chart-serie>
+                                <ods-chart-serie expression-y="population_65_ans_et_plus"
+                                                 chart-type="line"
+                                                 function-y="SUM"
+                                                 label-y="65 ans et plus"
+                                                 color="#19630A"
+                                                 scientific-display="true">
+                                </ods-chart-serie>
+                                <ods-chart-serie expression-y="population_jeunes_moins_de_35_ans"
+                                                 chart-type="line"
+                                                 function-y="SUM"
+                                                 label-y="Moins de 35 ans"
+                                                 color="#9B59B6"
+                                                 scientific-display="true">
+                                </ods-chart-serie>
+                            </ods-chart-query>
+                        </ods-chart>
+                        </ods-dataset-context>
+                        <p style="text-align:center; font-size:12px; color:#94A3B8; margin-top:10px;"></p>
+                    </div> -->
+
+                    <!-- TABLEAU RECAPITULATIF DIVIDENDE -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">
+                                <i class="fa fa-table" style="margin-right:6px; color:var(--primary-color);"></i>
+                                Tableau récapitulatif — Dividende Démographique
+                            </h3>
+                        </div>
+                        <div class="table-secteur">
+                            <ods-dataset-context context="ctxonp1,ctxonp2,ctxonp3" ctxonp1-dataset="onp" ctxonp2-dataset="onp-2" ctxonp3-dataset="onp-3">
+                            <table class="table-custom t1"
+                                   ods-results="tableDivData"
+                                   ods-results-context="ctxonp2"
+                                   ods-results-max="20"
+                                   ods-results-sort="annee desc">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:center;">Année</th>
+                                        <th style="text-align:center;">Indice du Dividende Démographique</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="row in tableDivData">
+                                        <td style="text-align:center;">{{ row.fields.annee }}</td>
+                                        <td style="text-align:center;">{{ row.fields.indice_du_dividende_demographique | number:2 }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </ods-dataset-context>
+                        </div>
+                    </div>
+
+                </div><!-- /onglet dividende -->
+
+            </div><!-- /page-container -->
+
+        </main>
+    </div>
+
+</ods-dataset-context>
