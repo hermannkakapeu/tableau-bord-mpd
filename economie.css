@@ -1711,3 +1711,38 @@ chart-placeholder1 {
     line-height: 1;
 }
 .stat-chart-close:hover { background: #F1F5F9; color: #1A2B3C; }
+
+/* ===== TABLEAU INFLATION 3 BANDES ===== */
+.inflation-bandes { border-collapse: collapse; width: 100%; }
+.inflation-bandes thead tr { background: #1A2B3C; color: white; }
+.inflation-bandes thead th { padding: 11px 14px; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; }
+
+/* Bandes parentes */
+.infl-bande { cursor: default; transition: opacity 0.15s; }
+.infl-bande td { padding: 13px 14px; font-size: 14px; border-bottom: 1px solid #E2E8F0; }
+
+/* Bande 1 — Indice Global (vert) */
+.infl-bande-global { background: #F0FDF4; border-left: 5px solid #0F7705; cursor: pointer; }
+.infl-bande-global:hover { background: #DCFCE7; }
+
+/* Bande 2 — Taux mensuel (orange) */
+.infl-bande-taux { background: #FFF7ED; border-left: 5px solid #EF7D00; }
+
+/* Bande 3 — Indice moyen 12 mois (bleu) */
+.infl-bande-moy { background: #EFF6FF; border-left: 5px solid #0A71B5; }
+
+/* Sous-lignes */
+.infl-sous-ligne td { padding: 9px 14px 9px 14px; font-size: 13px; background: #FAFAFA; border-bottom: 1px solid #F1F5F9; color: #374151; }
+.infl-sous-ligne:hover td { background: #F1F5F9; }
+.infl-sous-ligne td:first-child { padding-left: 20px; }
+
+/* Déco */
+.infl-chevron { display: inline-block; width: 22px; font-size: 11px; color: #64748B; }
+.infl-no-expand { color: #CBD5E1; }
+.infl-badge { display: inline-block; margin-left: 8px; font-size: 11px; font-weight: 500; color: #0F7705; background: #DCFCE7; padding: 2px 8px; border-radius: 10px; }
+.infl-sous-indent { color: #94A3B8; margin-right: 6px; }
+
+/* Variations */
+.infl-var-hausse { color: #c0392b; font-weight: 700; }
+.infl-var-baisse { color: #0F7705; font-weight: 700; }
+.infl-var-stable  { color: #94A3B8; font-weight: 500; }

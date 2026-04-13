@@ -1,5 +1,5 @@
 <ods-dataset-context 
-                     context="annee,ctxoffre,ctxdemande,ctxagreg,ctxagregprev,ctxagregWithoutYear,ctxpop,ctxpib,ctxpib2,pibseries2,ctxsocio,ctxicai,ctxicac,ctxicac1,ctxicac2,ctxicac3,ctxippi,ctxipi,ctxdemo,ctxihpc,ctxpauvrete,ctxcomext,ctxcomext1"
+                     context="annee,ctxoffre,ctxdemande,ctxagreg,ctxagregprev,ctxagregWithoutYear,ctxpop,ctxpib,ctxpib2,pibseries2,ctxsocio,ctxicai,ctxicac,ctxicac1,ctxicac2,ctxicac3,ctxippi,ctxipi,ctxdemo,ctxihpc,ctxihpcprev,ctxpauvrete,ctxcomext,ctxcomext1"
                      
                      
                      ctxoffre-dataset="valeur-ajoute-nominal-pib-offre-francs-courants"
@@ -26,6 +26,8 @@
                      ctxipi-dataset="ipi-maj"
                      ctxdemo-dataset="indicateurs-demographiques-copie"
                      ctxihpc-dataset="ihpcbase23"
+                     ctxihpcprev-dataset="ihpcbase23"
+                     ctxihpcprev-parameters="{'refine.annee':'2024','disjunctive.annee':true,'refine.mois':'Janvier','disjunctive.mois':true}"
                      ctxpauvrete-dataset="evolution-du-taux-de-pauvrete-1"
                      ctxcomext-dataset="2-commerce-exterieur"
                      ctxcomext1-dataset="commerce-exterieur"
@@ -339,7 +341,8 @@
                                     </ods-select>
 
                                     <!-- Synchronisation des 3 contextes                 ctxihpc.parameters['refine.mois'] = -->
-                                    {{   ctxcomext.parameters['refine.mois'] = ctxippi.parameters['refine.mois'] = ctxipi.parameters['refine.mois'] = ctxsocio.parameters['refine.mois'] = ctxicac3.parameters['refine.mois'] = ctxicac2.parameters['refine.mois'] = ctxicac.parameters['refine.mois'] = ctxicac1.parameters['refine.mois'] = ctxihpc.parameters['refine.mois'] ; "" }}
+                                    {{   ctxcomext.parameters['refine.mois'] = ctxippi.parameters['refine.mois'] = ctxipi.parameters['refine.mois'] = ctxsocio.parameters['refine.mois'] = ctxicac3.parameters['refine.mois'] = ctxicac2.parameters['refine.mois'] = ctxicac.parameters['refine.mois'] = ctxicac1.parameters['refine.mois'] = ctxihpcprev.parameters['refine.mois'] = ctxihpc.parameters['refine.mois'] ; "" }}
+                                    {{ ctxihpcprev.parameters['refine.annee'] = '' + (annee.parameters['refine.annee'] * 1 - 1); "" }}
 
                                 </div>
 
@@ -3589,128 +3592,158 @@
                 
                 </div>
                 
-                <div ng-if="activeTab == 'inflation'">
+                <div ng-if="activeTab == 'inflation'" ng-init="expandedBande=null">
                     <div class="chart-card">
                         <div class="chart-header">
-                            <h3 class="chart-title">Indicateurs harmonisés des prix à la consommation / Inflation<small> (Base 2015 = 100)</small></h3>
-                    </div>
-                    <div class="table-secteur">
+                            <h3 class="chart-title">Indicateurs Harmonisés des Prix à la Consommation <small>(Base 2015 = 100)</small></h3>
+                            <div style="font-size:13px;color:#64748B;font-weight:500;">
+                                {{ ctxihpc.parameters['refine.mois'] }} {{ annee.parameters['refine.annee'] }}
+                                vs
+                                {{ ctxihpcprev.parameters['refine.mois'] }} {{ annee.parameters['refine.annee'] * 1 - 1 }}
+                            </div>
+                        </div>
 
+                        <div ods-results="dataIPC" ods-results-context="ctxihpc" ods-results-sort="annee desc" ods-results-max="1">
+                        <div ods-results="dataIPCprev" ods-results-context="ctxihpcprev" ods-results-sort="annee desc" ods-results-max="1">
 
-                        <table class="table-custom t1"
-                               ods-results="dataIPC"
-                               ods-results-context="ctxihpc"
-                               
-                               ods-results-sort="mois desc">
+                        <div class="table-secteur">
+                        <table class="table-custom inflation-bandes"
+                               ng-if="dataIPC.length > 0"
+                               ng-init="sousIndicateurs = [
+                                   {key:'01_produits_alimentaires_et_boissons_non_alcoolisees', label:'Produits alimentaires et boissons non alcoolisées'},
+                                   {key:'02_tabacs_et_stupefiants', label:'Tabacs et stupéfiants'},
+                                   {key:'03_articles_d_habillement_et_chaussures', label:'Articles d\'habillement et chaussures'},
+                                   {key:'04_logement_eau_gaz_electricite_et_autres_combustibles', label:'Logement, eau, gaz, électricité et autres combustibles'},
+                                   {key:'05_meubles_articles_de_menage_et_entretien_courant_du_foyer', label:'Meubles, articles de ménage et entretien courant du foyer'},
+                                   {key:'06_sante', label:'Santé'},
+                                   {key:'07_transports', label:'Transports'},
+                                   {key:'08_information_et_communication', label:'Information et communication'},
+                                   {key:'09_loisirs_et_culture', label:'Loisirs et culture'},
+                                   {key:'10_enseignement', label:'Enseignement'},
+                                   {key:'11_restaurants_et_hotels', label:'Restaurants et hôtels'},
+                                   {key:'12_assurance_et_services_financiers', label:'Assurance et services financiers'},
+                                   {key:'13_protection_sociale_et_soins_personnels', label:'Protection sociale et soins personnels'}
+                               ]">
 
                             <thead>
                                 <tr>
-                                    <th style="text-align:center">INDICATEUR</th>
-                                    <!--<th style="text-align:center">MOIS</th>-->
-                                    <th style="text-align:center">VALEUR</th>
-                                    <!--<th style="text-align:center">TENDANCE N-1</th>-->
+                                    <th style="width:52%">INDICATEUR</th>
+                                    <th style="text-align:center;width:16%">{{ ctxihpc.parameters['refine.mois'] }} {{ annee.parameters['refine.annee'] }}</th>
+                                    <th style="text-align:center;width:16%">{{ ctxihpcprev.parameters['refine.mois'] }} {{ annee.parameters['refine.annee'] * 1 - 1 }}</th>
+                                    <th style="text-align:center;width:16%">VARIATION</th>
                                 </tr>
                             </thead>
 
-                            <tbody ng-if="dataIPC.length >= 2"
-                                   ng-init="indicateurs = [
+                            <tbody>
 
-                                            { key:'00_indice_global', label:'Indice global', mois:'mois' },
+                                <!-- ══ BANDE 1 : Indice Global (expandable) ══ -->
+                                <tr class="infl-bande infl-bande-global"
+                                    ng-click="expandedBande = (expandedBande==='global' ? null : 'global')">
+                                    <td>
+                                        <span class="infl-chevron">{{ expandedBande==='global' ? '▼' : '▶' }}</span>
+                                        <strong>Indice Global</strong>
+                                        <span class="infl-badge">{{ expandedBande==='global' ? 'Réduire' : '13 composantes' }}</span>
+                                    </td>
+                                    <td style="text-align:center;font-weight:700;">
+                                        {{ dataIPC[0].fields['00_indice_global'] | number:2 }}
+                                    </td>
+                                    <td style="text-align:center;color:#64748B;">
+                                        {{ dataIPCprev[0] ? (dataIPCprev[0].fields['00_indice_global'] | number:2) : '—' }}
+                                    </td>
+                                    <td style="text-align:center;">
+                                        <span ng-if="dataIPCprev[0]"
+                                              ng-class="{'infl-var-hausse': dataIPC[0].fields['00_indice_global'] > dataIPCprev[0].fields['00_indice_global'],
+                                                         'infl-var-baisse': dataIPC[0].fields['00_indice_global'] < dataIPCprev[0].fields['00_indice_global'],
+                                                         'infl-var-stable': dataIPC[0].fields['00_indice_global'] == dataIPCprev[0].fields['00_indice_global']}">
+                                            {{ dataIPC[0].fields['00_indice_global'] > dataIPCprev[0].fields['00_indice_global'] ? '▲' : (dataIPC[0].fields['00_indice_global'] < dataIPCprev[0].fields['00_indice_global'] ? '▼' : '—') }}
+                                            {{ (dataIPC[0].fields['00_indice_global'] - dataIPCprev[0].fields['00_indice_global']) | number:2 }}
+                                        </span>
+                                        <span ng-if="!dataIPCprev[0]" style="color:#94A3B8;">—</span>
+                                    </td>
+                                </tr>
 
-                                            { key:'01_produits_alimentaires_et_boissons_non_alcoolisees',
-                                            label:'Produits alimentaires et boissons non alcoolisées' , mois:'mois'},
-
-                                            { key:'02_tabacs_et_stupefiants',
-                                            label:'Tabacs et stupéfiants' , mois:'mois'},
-
-                                            { key:'03_articles_d_habillement_et_chaussures',
-                                            label:'Articles d\'habillement et chaussures' , mois:'mois'},
-
-                                            { key:'04_logement_eau_gaz_electricite_et_autres_combustibles',
-                                            label:'Logement, eau, gaz, électricité et autres combustibles', mois:'mois' },
-
-                                            { key:'05_meubles_articles_de_menage_et_entretien_courant_du_foyer',
-                                            label:'Meubles, articles de ménage et entretien courant du foyer', mois:'mois' },
-
-                                            { key:'06_sante',
-                                            label:'Santé' , mois:'mois'},
-
-                                            { key:'07_transports',
-                                            label:'Transports' , mois:'mois'},
-
-                                            { key:'08_information_et_communication',
-                                            label:'Information et communication' , mois:'mois'},
-
-                                            { key:'09_loisirs_et_culture',
-                                            label:'Loisirs et culture' , mois:'mois'},
-
-                                            { key:'10_enseignement',
-                                            label:'Enseignement' , mois:'mois'},
-
-                                            { key:'11_restaurants_et_hotels',
-                                            label:'Restaurants et hôtels' , mois:'mois'},
-
-                                            { key:'12_assurance_et_services_financiers',
-                                            label:'Assurance et services financiers' , mois:'mois'},
-
-                                            { key:'13_protection_sociale_et_soins_personnels',
-                                            label:'Protection sociale et soins personnels', mois:'mois' },
-
-                                            { key:'taux_mensuel_d_inflation',
-                                            label:'Taux mensuel d\'inflation (%)', mois:'mois' },
-
-                                            { key:'indice_moyen_sur_12_mois',
-                                            label:'Indice moyen sur 12 mois'
-                                            , mois:'mois'}
-
-                                            ]">
-
-                                <tr ng-repeat="ind in indicateurs">
-
-                                    <!-- INDICATEUR -->
-                                    <td>{{ ind.label }}</td>
-                                    
-                                    <!--<td style="text-align:center">
-                                        {{ dataIPC[0].fields.mois | date:'MMMM yyyy' }}
-                                    </td>-->
-
-                                    <!-- VALEUR -->
-                                    <td style="text-align:center">
+                                <!-- Sous-lignes Indice Global -->
+                                <tr ng-if="expandedBande==='global'"
+                                    ng-repeat="ind in sousIndicateurs"
+                                    class="infl-sous-ligne">
+                                    <td>
+                                        <span class="infl-sous-indent">└</span> {{ ind.label }}
+                                    </td>
+                                    <td style="text-align:center;">
                                         {{ dataIPC[0].fields[ind.key] | number:2 }}
                                     </td>
-                                    
-                                    
+                                    <td style="text-align:center;color:#64748B;">
+                                        {{ dataIPCprev[0] ? (dataIPCprev[0].fields[ind.key] | number:2) : '—' }}
+                                    </td>
+                                    <td style="text-align:center;">
+                                        <span ng-if="dataIPCprev[0]"
+                                              ng-class="{'infl-var-hausse': dataIPC[0].fields[ind.key] > dataIPCprev[0].fields[ind.key],
+                                                         'infl-var-baisse': dataIPC[0].fields[ind.key] < dataIPCprev[0].fields[ind.key],
+                                                         'infl-var-stable': dataIPC[0].fields[ind.key] == dataIPCprev[0].fields[ind.key]}">
+                                            {{ dataIPC[0].fields[ind.key] > dataIPCprev[0].fields[ind.key] ? '▲' : (dataIPC[0].fields[ind.key] < dataIPCprev[0].fields[ind.key] ? '▼' : '—') }}
+                                            {{ (dataIPC[0].fields[ind.key] - dataIPCprev[0].fields[ind.key]) | number:2 }}
+                                        </span>
+                                        <span ng-if="!dataIPCprev[0]" style="color:#94A3B8;">—</span>
+                                    </td>
+                                </tr>
 
-                                    <!-- TENDANCE -->
-                                    <!--<td style="text-align:center"
-                                        ng-init="trend = dataIPC[0].fields[ind.key] - dataIPC[1].fields[ind.key]"
-                                        ng-style="{
-                                                  'color': trend > 0 ? '#2e7d32' :
-                                                  (trend < 0 ? '#c62828' : '#777')
-                                                  }">
+                                <!-- ══ BANDE 2 : Taux mensuel d'inflation ══ -->
+                                <tr class="infl-bande infl-bande-taux">
+                                    <td>
+                                        <span class="infl-chevron infl-no-expand">—</span>
+                                        <strong>Taux mensuel d'inflation</strong>
+                                    </td>
+                                    <td style="text-align:center;font-weight:700;">
+                                        {{ dataIPC[0].fields['taux_mensuel_d_inflation'] | number:2 }} %
+                                    </td>
+                                    <td style="text-align:center;color:#64748B;">
+                                        {{ dataIPCprev[0] ? (dataIPCprev[0].fields['taux_mensuel_d_inflation'] | number:2) + ' %' : '—' }}
+                                    </td>
+                                    <td style="text-align:center;">
+                                        <span ng-if="dataIPCprev[0]"
+                                              ng-class="{'infl-var-hausse': dataIPC[0].fields['taux_mensuel_d_inflation'] > dataIPCprev[0].fields['taux_mensuel_d_inflation'],
+                                                         'infl-var-baisse': dataIPC[0].fields['taux_mensuel_d_inflation'] < dataIPCprev[0].fields['taux_mensuel_d_inflation'],
+                                                         'infl-var-stable': dataIPC[0].fields['taux_mensuel_d_inflation'] == dataIPCprev[0].fields['taux_mensuel_d_inflation']}">
+                                            {{ dataIPC[0].fields['taux_mensuel_d_inflation'] > dataIPCprev[0].fields['taux_mensuel_d_inflation'] ? '▲' : (dataIPC[0].fields['taux_mensuel_d_inflation'] < dataIPCprev[0].fields['taux_mensuel_d_inflation'] ? '▼' : '—') }}
+                                            {{ (dataIPC[0].fields['taux_mensuel_d_inflation'] - dataIPCprev[0].fields['taux_mensuel_d_inflation']) | number:2 }} pts
+                                        </span>
+                                        <span ng-if="!dataIPCprev[0]" style="color:#94A3B8;">—</span>
+                                    </td>
+                                </tr>
 
-                                        <i class="fa"
-                                           ng-class="{
-                                                     'fa-arrow-up': trend > 0,
-                                                     'fa-arrow-down': trend < 0,
-                                                     'fa-minus': trend == 0
-                                                     }"></i>
-
-                                        {{ trend | number:2 }}
-
-                                    </td> -->
-
+                                <!-- ══ BANDE 3 : Indice moyen sur 12 mois ══ -->
+                                <tr class="infl-bande infl-bande-moy">
+                                    <td>
+                                        <span class="infl-chevron infl-no-expand">—</span>
+                                        <strong>Indice moyen sur 12 mois</strong>
+                                    </td>
+                                    <td style="text-align:center;font-weight:700;">
+                                        {{ dataIPC[0].fields['indice_moyen_sur_12_mois'] | number:2 }}
+                                    </td>
+                                    <td style="text-align:center;color:#64748B;">
+                                        {{ dataIPCprev[0] ? (dataIPCprev[0].fields['indice_moyen_sur_12_mois'] | number:2) : '—' }}
+                                    </td>
+                                    <td style="text-align:center;">
+                                        <span ng-if="dataIPCprev[0]"
+                                              ng-class="{'infl-var-hausse': dataIPC[0].fields['indice_moyen_sur_12_mois'] > dataIPCprev[0].fields['indice_moyen_sur_12_mois'],
+                                                         'infl-var-baisse': dataIPC[0].fields['indice_moyen_sur_12_mois'] < dataIPCprev[0].fields['indice_moyen_sur_12_mois'],
+                                                         'infl-var-stable': dataIPC[0].fields['indice_moyen_sur_12_mois'] == dataIPCprev[0].fields['indice_moyen_sur_12_mois']}">
+                                            {{ dataIPC[0].fields['indice_moyen_sur_12_mois'] > dataIPCprev[0].fields['indice_moyen_sur_12_mois'] ? '▲' : (dataIPC[0].fields['indice_moyen_sur_12_mois'] < dataIPCprev[0].fields['indice_moyen_sur_12_mois'] ? '▼' : '—') }}
+                                            {{ (dataIPC[0].fields['indice_moyen_sur_12_mois'] - dataIPCprev[0].fields['indice_moyen_sur_12_mois']) | number:2 }}
+                                        </span>
+                                        <span ng-if="!dataIPCprev[0]" style="color:#94A3B8;">—</span>
+                                    </td>
                                 </tr>
 
                             </tbody>
-
                         </table>
+                        </div><!-- end table-secteur -->
 
+                        </div><!-- end ctxihpcprev -->
+                        </div><!-- end ctxihpc -->
 
+                        <p style="text-align:center;font-size:12px;color:#94A3B8;margin-top:10px;">Source : ANStat — ▲ hausse &nbsp;|&nbsp; ▼ baisse par rapport au même mois de l'année précédente</p>
                     </div>
-
-                    <p style="text-align: center; font-size: 12px; color: #94A3B8; margin-top: 10px;"> Données de l'ANStat</p>
-                </div>
 
 
                 <div class="chart-card">
