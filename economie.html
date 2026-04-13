@@ -383,7 +383,7 @@
                             <div class="stat-value">{{ resultPibFcfa[0].total_pib | number:0 }} <small class="stat-subtext">Mds FCFA</small></div>
                             <div ods-adv-analysis="prevPibNom" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(pib_nominal) AS val">
-                                <div class="stat-variation" ng-show="resultPibFcfa[0] && prevPibNom[0]">
+                                <div class="stat-variation" ng-if="resultPibFcfa[0] && prevPibNom[0]">
                                     <span ng-class="{‘stat-var-up’: resultPibFcfa[0].total_pib >= prevPibNom[0].val, ‘stat-var-down’: resultPibFcfa[0].total_pib < prevPibNom[0].val}">
                                         {{ resultPibFcfa[0].total_pib >= prevPibNom[0].val ? ‘▲’ : ‘▼’ }}
                                         {{ ((resultPibFcfa[0].total_pib - prevPibNom[0].val) / prevPibNom[0].val * 100) | number:1 }}%
@@ -414,7 +414,7 @@
                             <div class="stat-value">{{ resultPibUsd[0].total_pib | number:0 }} <small class="stat-subtext">Millions USD</small></div>
                             <div ods-adv-analysis="prevPibUsd" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(pib_nominal_dollars_us) AS val">
-                                <div class="stat-variation" ng-show="resultPibUsd[0] && prevPibUsd[0]">
+                                <div class="stat-variation" ng-if="resultPibUsd[0] && prevPibUsd[0]">
                                     <span ng-class="{'stat-var-up': resultPibUsd[0].total_pib >= prevPibUsd[0].val, 'stat-var-down': resultPibUsd[0].total_pib < prevPibUsd[0].val}">
                                         {{ resultPibUsd[0].total_pib >= prevPibUsd[0].val ? '▲' : '▼' }}
                                         {{ ((resultPibUsd[0].total_pib - prevPibUsd[0].val) / prevPibUsd[0].val * 100) | number:1 }}%
@@ -445,7 +445,7 @@
                             <div class="stat-value">{{ resultPibReal[0].total_pib | number:0 }} <small class="stat-subtext">Mds FCFA</small></div>
                             <div ods-adv-analysis="prevPibReal" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(pib_en_francs_constants_2015) AS val">
-                                <div class="stat-variation" ng-show="resultPibReal[0] && prevPibReal[0]">
+                                <div class="stat-variation" ng-if="resultPibReal[0] && prevPibReal[0]">
                                     <span ng-class="{‘stat-var-up’: resultPibReal[0].total_pib >= prevPibReal[0].val, ‘stat-var-down’: resultPibReal[0].total_pib < prevPibReal[0].val}">
                                         {{ resultPibReal[0].total_pib >= prevPibReal[0].val ? ‘▲’ : ‘▼’ }}
                                         {{ ((resultPibReal[0].total_pib - prevPibReal[0].val) / prevPibReal[0].val * 100) | number:1 }}%
@@ -476,7 +476,7 @@
                             <div class="stat-value">{{ resPibHabCourant[0].total_pib | number:0 }} <small class="stat-subtext">k FCFA</small></div>
                             <div ods-adv-analysis="prevPibHab" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(pib_par_habitant_prix_courant) AS val">
-                                <div class="stat-variation" ng-show="resPibHabCourant[0] && prevPibHab[0]">
+                                <div class="stat-variation" ng-if="resPibHabCourant[0] && prevPibHab[0]">
                                     <span ng-class="{'stat-var-up': resPibHabCourant[0].total_pib >= prevPibHab[0].val, 'stat-var-down': resPibHabCourant[0].total_pib < prevPibHab[0].val}">
                                         {{ resPibHabCourant[0].total_pib >= prevPibHab[0].val ? '▲' : '▼' }}
                                         {{ ((resPibHabCourant[0].total_pib - prevPibHab[0].val) / prevPibHab[0].val * 100) | number:1 }}%
@@ -507,7 +507,7 @@
                             <div class="stat-value">{{ resPibHabUsd[0].total_pib | number:0 }} <small class="stat-subtext">USD</small></div>
                             <div ods-adv-analysis="prevPibHabUsd" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(pib_par_habitant_dollars_us) AS val">
-                                <div class="stat-variation" ng-show="resPibHabUsd[0] && prevPibHabUsd[0]">
+                                <div class="stat-variation" ng-if="resPibHabUsd[0] && prevPibHabUsd[0]">
                                     <span ng-class="{'stat-var-up': resPibHabUsd[0].total_pib >= prevPibHabUsd[0].val, 'stat-var-down': resPibHabUsd[0].total_pib < prevPibHabUsd[0].val}">
                                         {{ resPibHabUsd[0].total_pib >= prevPibHabUsd[0].val ? '▲' : '▼' }}
                                         {{ ((resPibHabUsd[0].total_pib - prevPibHabUsd[0].val) / prevPibHabUsd[0].val * 100) | number:1 }}%
@@ -538,7 +538,7 @@
                             <div class="stat-value">{{ resPibHabConst[0].total_pib | number:0 }} <small class="stat-subtext">k FCFA</small></div>
                             <div ods-adv-analysis="prevPibHabConst" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(pib_par_habitant_a_prix_constant_2015) AS val">
-                                <div class="stat-variation" ng-show="resPibHabConst[0] && prevPibHabConst[0]">
+                                <div class="stat-variation" ng-if="resPibHabConst[0] && prevPibHabConst[0]">
                                     <span ng-class="{‘stat-var-up’: resPibHabConst[0].total_pib >= prevPibHabConst[0].val, ‘stat-var-down’: resPibHabConst[0].total_pib < prevPibHabConst[0].val}">
                                         {{ resPibHabConst[0].total_pib >= prevPibHabConst[0].val ? ‘▲’ : ‘▼’ }}
                                         {{ ((resPibHabConst[0].total_pib - prevPibHabConst[0].val) / prevPibHabConst[0].val * 100) | number:1 }}%
@@ -569,7 +569,7 @@
                             <div class="stat-value">{{ resCroissance[0].val | number:1 }} <small class="stat-subtext">%</small></div>
                             <div ods-adv-analysis="prevCroissance" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="AVG(taux_de_croissance_du_pib_reel) AS val">
-                                <div class="stat-variation" ng-show="resCroissance[0] && prevCroissance[0]">
+                                <div class="stat-variation" ng-if="resCroissance[0] && prevCroissance[0]">
                                     <span ng-class="{‘stat-var-up’: resCroissance[0].val >= prevCroissance[0].val, ‘stat-var-down’: resCroissance[0].val < prevCroissance[0].val}">
                                         {{ resCroissance[0].val >= prevCroissance[0].val ? ‘▲’ : ‘▼’ }}
                                         {{ (resCroissance[0].val - prevCroissance[0].val) | number:1 }} pts
@@ -601,7 +601,7 @@
                             <div class="stat-value">{{ resInflation[0].val | number:1 }} <small class="stat-subtext">%</small></div>
                             <div ods-adv-analysis="prevInflation" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(ihpc_moyenne_annuelle) AS val">
-                                <div class="stat-variation" ng-show="resInflation[0] && prevInflation[0]">
+                                <div class="stat-variation" ng-if="resInflation[0] && prevInflation[0]">
                                     <span ng-class="{‘stat-var-up’: resInflation[0].val >= prevInflation[0].val, ‘stat-var-down’: resInflation[0].val < prevInflation[0].val}">
                                         {{ resInflation[0].val >= prevInflation[0].val ? ‘▲’ : ‘▼’ }}
                                         {{ (resInflation[0].val - prevInflation[0].val) | number:1 }} pts
@@ -631,7 +631,7 @@
                             <div class="stat-value">{{ resInvest[0].val | number:1 }} <small class="stat-subtext">%</small></div>
                             <div ods-adv-analysis="prevInvest" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(taux_d_investissement) AS val">
-                                <div class="stat-variation" ng-show="resInvest[0] && prevInvest[0]">
+                                <div class="stat-variation" ng-if="resInvest[0] && prevInvest[0]">
                                     <span ng-class="{‘stat-var-up’: resInvest[0].val >= prevInvest[0].val, ‘stat-var-down’: resInvest[0].val < prevInvest[0].val}">
                                         {{ resInvest[0].val >= prevInvest[0].val ? ‘▲’ : ‘▼’ }}
                                         {{ (resInvest[0].val - prevInvest[0].val) | number:1 }} pts
@@ -670,7 +670,7 @@
                             <div class="stat-value">{{ fbcfFCFA[0].val | number:0 }} <small class="stat-subtext">Mds FCFA</small></div>
                             <div ods-adv-analysis="prevFbcf" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(fbcf_en_francs_courants) AS val">
-                                <div class="stat-variation" ng-show="fbcfFCFA[0] && prevFbcf[0]">
+                                <div class="stat-variation" ng-if="fbcfFCFA[0] && prevFbcf[0]">
                                     <span ng-class="{‘stat-var-up’: fbcfFCFA[0].val >= prevFbcf[0].val, ‘stat-var-down’: fbcfFCFA[0].val < prevFbcf[0].val}">
                                         {{ fbcfFCFA[0].val >= prevFbcf[0].val ? ‘▲’ : ‘▼’ }}
                                         {{ ((fbcfFCFA[0].val - prevFbcf[0].val) / prevFbcf[0].val * 100) | number:1 }}%
@@ -701,7 +701,7 @@
                             <div class="stat-value">{{ fbcfUSD[0].val | number:0 }} <small class="stat-subtext">Millions USD</small></div>
                             <div ods-adv-analysis="prevFbcfUsd" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(fbcf_dollars_us) AS val">
-                                <div class="stat-variation" ng-show="fbcfUSD[0] && prevFbcfUsd[0]">
+                                <div class="stat-variation" ng-if="fbcfUSD[0] && prevFbcfUsd[0]">
                                     <span ng-class="{'stat-var-up': fbcfUSD[0].val >= prevFbcfUsd[0].val, 'stat-var-down': fbcfUSD[0].val < prevFbcfUsd[0].val}">
                                         {{ fbcfUSD[0].val >= prevFbcfUsd[0].val ? '▲' : '▼' }}
                                         {{ ((fbcfUSD[0].val - prevFbcfUsd[0].val) / prevFbcfUsd[0].val * 100) | number:1 }}%
@@ -744,7 +744,7 @@
                             <div class="stat-value">{{ resultSoldeCurrent[0].total_pib | number:0 }} <small class="stat-subtext">Mds FCFA</small></div>
                             <div ods-adv-analysis="prevSolde" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(solde_commercial_fob_fob_francs_courants) AS val">
-                                <div class="stat-variation" ng-show="resultSoldeCurrent[0] && prevSolde[0]">
+                                <div class="stat-variation" ng-if="resultSoldeCurrent[0] && prevSolde[0]">
                                     <span ng-class="{'stat-var-up': resultSoldeCurrent[0].total_pib >= prevSolde[0].val, 'stat-var-down': resultSoldeCurrent[0].total_pib < prevSolde[0].val}">
                                         {{ resultSoldeCurrent[0].total_pib >= prevSolde[0].val ? '▲' : '▼' }}
                                         {{ ((resultSoldeCurrent[0].total_pib - prevSolde[0].val) / (prevSolde[0].val == 0 ? 1 : prevSolde[0].val) * 100) | number:1 }}%
@@ -774,7 +774,7 @@
                             <div class="stat-value">{{ expFCFA[0].val | number:0 }} <small class="stat-subtext">Mds FCFA</small></div>
                             <div ods-adv-analysis="prevExp" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(exportations_en_francs_courants) AS val">
-                                <div class="stat-variation" ng-show="expFCFA[0] && prevExp[0]">
+                                <div class="stat-variation" ng-if="expFCFA[0] && prevExp[0]">
                                     <span ng-class="{‘stat-var-up’: expFCFA[0].val >= prevExp[0].val, ‘stat-var-down’: expFCFA[0].val < prevExp[0].val}">
                                         {{ expFCFA[0].val >= prevExp[0].val ? ‘▲’ : ‘▼’ }}
                                         {{ ((expFCFA[0].val - prevExp[0].val) / prevExp[0].val * 100) | number:1 }}%
@@ -805,7 +805,7 @@
                             <div class="stat-value">{{ impFCFA[0].val | number:0 }} <small class="stat-subtext">Mds FCFA</small></div>
                             <div ods-adv-analysis="prevImp" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(importations_en_francs_courants) AS val">
-                                <div class="stat-variation" ng-show="impFCFA[0] && prevImp[0]">
+                                <div class="stat-variation" ng-if="impFCFA[0] && prevImp[0]">
                                     <span ng-class="{‘stat-var-up’: impFCFA[0].val >= prevImp[0].val, ‘stat-var-down’: impFCFA[0].val < prevImp[0].val}">
                                         {{ impFCFA[0].val >= prevImp[0].val ? ‘▲’ : ‘▼’ }}
                                         {{ ((impFCFA[0].val - prevImp[0].val) / prevImp[0].val * 100) | number:1 }}%
@@ -834,7 +834,7 @@
                             <div class="stat-value">{{ expUSD[0].val | number:0 }} <small class="stat-subtext">Millions USD</small></div>
                             <div ods-adv-analysis="prevExpUsd" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(exportations_de_biens_dollars_us) AS val">
-                                <div class="stat-variation" ng-show="expUSD[0] && prevExpUsd[0]">
+                                <div class="stat-variation" ng-if="expUSD[0] && prevExpUsd[0]">
                                     <span ng-class="{'stat-var-up': expUSD[0].val >= prevExpUsd[0].val, 'stat-var-down': expUSD[0].val < prevExpUsd[0].val}">
                                         {{ expUSD[0].val >= prevExpUsd[0].val ? '▲' : '▼' }}
                                         {{ ((expUSD[0].val - prevExpUsd[0].val) / prevExpUsd[0].val * 100) | number:1 }}%
@@ -865,7 +865,7 @@
                             <div class="stat-value">{{ impUSD[0].val | number:0 }} <small class="stat-subtext">Millions USD</small></div>
                             <div ods-adv-analysis="prevImpUsd" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(importations_totales_dollars_us) AS val">
-                                <div class="stat-variation" ng-show="impUSD[0] && prevImpUsd[0]">
+                                <div class="stat-variation" ng-if="impUSD[0] && prevImpUsd[0]">
                                     <span ng-class="{'stat-var-up': impUSD[0].val >= prevImpUsd[0].val, 'stat-var-down': impUSD[0].val < prevImpUsd[0].val}">
                                         {{ impUSD[0].val >= prevImpUsd[0].val ? '▲' : '▼' }}
                                         {{ ((impUSD[0].val - prevImpUsd[0].val) / prevImpUsd[0].val * 100) | number:1 }}%
@@ -896,7 +896,7 @@
                             <div class="stat-value">{{ resultICOR[0].total_pib | number:1 }} <small class="stat-subtext">-</small></div>
                             <div ods-adv-analysis="prevICOR" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(icor) AS val">
-                                <div class="stat-variation" ng-show="resultICOR[0] && prevICOR[0]">
+                                <div class="stat-variation" ng-if="resultICOR[0] && prevICOR[0]">
                                     <span ng-class="{‘stat-var-up’: resultICOR[0].total_pib >= prevICOR[0].val, ‘stat-var-down’: resultICOR[0].total_pib < prevICOR[0].val}">
                                         {{ resultICOR[0].total_pib >= prevICOR[0].val ? ‘▲’ : ‘▼’ }}
                                         {{ (resultICOR[0].total_pib - prevICOR[0].val) | number:1 }} pts
@@ -928,7 +928,7 @@
                             <div class="stat-value">{{ resEIB[0].val | number:0 }} <small class="stat-subtext">Mds FCFA</small></div>
                             <div ods-adv-analysis="prevEIB" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(epargne_interieure_brute_en_francs_courants) AS val">
-                                <div class="stat-variation" ng-show="resEIB[0] && prevEIB[0]">
+                                <div class="stat-variation" ng-if="resEIB[0] && prevEIB[0]">
                                     <span ng-class="{‘stat-var-up’: resEIB[0].val >= prevEIB[0].val, ‘stat-var-down’: resEIB[0].val < prevEIB[0].val}">
                                         {{ resEIB[0].val >= prevEIB[0].val ? ‘▲’ : ‘▼’ }}
                                         {{ ((resEIB[0].val - prevEIB[0].val) / prevEIB[0].val * 100) | number:1 }}%
@@ -966,7 +966,7 @@
                             <div class="stat-value">{{ resultConsFinale[0].total_pib | number:0 }} <small class="stat-subtext">Mds FCFA</small></div>
                             <div ods-adv-analysis="prevCons" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(consommation_finale_en_francs_courants) AS val">
-                                <div class="stat-variation" ng-show="resultConsFinale[0] && prevCons[0]">
+                                <div class="stat-variation" ng-if="resultConsFinale[0] && prevCons[0]">
                                     <span ng-class="{'stat-var-up': resultConsFinale[0].total_pib >= prevCons[0].val, 'stat-var-down': resultConsFinale[0].total_pib < prevCons[0].val}">
                                         {{ resultConsFinale[0].total_pib >= prevCons[0].val ? '▲' : '▼' }}
                                         {{ ((resultConsFinale[0].total_pib - prevCons[0].val) / prevCons[0].val * 100) | number:1 }}%
@@ -996,7 +996,7 @@
                             <div class="stat-value">{{ resultStocks[0].total_pib | number:0 }} <small class="stat-subtext">Mds FCFA</small></div>
                             <div ods-adv-analysis="prevStocks" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(variation_des_stocks_en_francs_courants) AS val">
-                                <div class="stat-variation" ng-show="resultStocks[0] && prevStocks[0]">
+                                <div class="stat-variation" ng-if="resultStocks[0] && prevStocks[0]">
                                     <span ng-class="{'stat-var-up': resultStocks[0].total_pib >= prevStocks[0].val, 'stat-var-down': resultStocks[0].total_pib < prevStocks[0].val}">
                                         {{ resultStocks[0].total_pib >= prevStocks[0].val ? '▲' : '▼' }}
                                         {{ ((resultStocks[0].total_pib - prevStocks[0].val) / (prevStocks[0].val == 0 ? 1 : prevStocks[0].val) * 100) | number:1 }}%
@@ -1031,7 +1031,7 @@
                             <div class="stat-value">{{ resDemExt[0].total_pib | number:0 }} <small class="stat-subtext">Mds FCFA</small></div>
                             <div ods-adv-analysis="prevDemExt" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(demande_externe_nette_en_francs_courants) AS val">
-                                <div class="stat-variation" ng-show="resDemExt[0] && prevDemExt[0]">
+                                <div class="stat-variation" ng-if="resDemExt[0] && prevDemExt[0]">
                                     <span ng-class="{'stat-var-up': resDemExt[0].total_pib >= prevDemExt[0].val, 'stat-var-down': resDemExt[0].total_pib < prevDemExt[0].val}">
                                         {{ resDemExt[0].total_pib >= prevDemExt[0].val ? '▲' : '▼' }}
                                         {{ ((resDemExt[0].total_pib - prevDemExt[0].val) / (prevDemExt[0].val == 0 ? 1 : prevDemExt[0].val) * 100) | number:1 }}%
@@ -1068,7 +1068,7 @@
                             <div class="stat-value">{{ defPib[0].val | number:1 }} <small class="stat-subtext">%</small></div>
                             <div ods-adv-analysis="prevDefPib" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(deflateur_implicite_du_pib) AS val">
-                                <div class="stat-variation" ng-show="defPib[0] && prevDefPib[0]">
+                                <div class="stat-variation" ng-if="defPib[0] && prevDefPib[0]">
                                     <span ng-class="{‘stat-var-up’: defPib[0].val >= prevDefPib[0].val, ‘stat-var-down’: defPib[0].val < prevDefPib[0].val}">
                                         {{ defPib[0].val >= prevDefPib[0].val ? ‘▲’ : ‘▼’ }}
                                         {{ (defPib[0].val - prevDefPib[0].val) | number:1 }} pts
@@ -1098,7 +1098,7 @@
                             <div class="stat-value">{{ defMenages[0].val | number:1 }} <small class="stat-subtext">%</small></div>
                             <div ods-adv-analysis="prevDefMenages" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(deflateur_consommation_des_menages) AS val">
-                                <div class="stat-variation" ng-show="defMenages[0] && prevDefMenages[0]">
+                                <div class="stat-variation" ng-if="defMenages[0] && prevDefMenages[0]">
                                     <span ng-class="{‘stat-var-up’: defMenages[0].val >= prevDefMenages[0].val, ‘stat-var-down’: defMenages[0].val < prevDefMenages[0].val}">
                                         {{ defMenages[0].val >= prevDefMenages[0].val ? ‘▲’ : ‘▼’ }}
                                         {{ (defMenages[0].val - prevDefMenages[0].val) | number:1 }} pts
