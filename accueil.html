@@ -67,7 +67,7 @@
             </a>
             
             <!--<a href="/pages/budget/" class="nav-item">-->
-            <a href="#" class="nav-item">
+            <a href="/pages/budget/" class="nav-item">
                 <div class="nav-icon-box">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                          fill="none" stroke="currentColor" stroke-width="2"
@@ -99,7 +99,7 @@
              alt="Ministère de l'Économie, du Plan et du Développement" 
              class="logo-armoiries"> 
 
-                    <h1 class="header-welcome-text">Tableau de bord décisionnel MPD</h1>
+                    <h1 class="header-welcome-text">Tableau de bord décisionnel MPD <br> <small class="dsef">Sous la supervision et la coordination de la DSEF</small></h1>
                 </div>
 
                 <div class="header-right-section">
@@ -113,7 +113,7 @@
 
                 <div class="align">
                     
-                        <h2 class="section-title">📊 Indicateurs Clés</h2>
+                        <h2 class="section-title"></h2>
                    
                     
                     <div class="boite">
@@ -154,16 +154,17 @@
                             </div> 
                         </div>
                 </div>
+                
 
                 <!-- ===== KPIs PAR DIRECTION ===== -->
                 <div class="kpi-direction-tabs" ng-init="activeKpiTab='dge'; activeKpiChart=null">
 
                     <div class="kpi-dir-tabs-header">
-                        <span class="kpi-dir-tabs-label">Indicateurs par Direction</span>
+                        <span class="kpi-dir-tabs-label">INDICATEURS CLES</span>
                         <div class="kpi-dir-tabs-nav">
-                            <button class="kpi-dir-tab" ng-class="{'active': activeKpiTab==='dge'}"    ng-click="activeKpiTab='dge';    activeKpiChart=null">DGE</button>
-                            <button class="kpi-dir-tab" ng-class="{'active': activeKpiTab==='anstat'}" ng-click="activeKpiTab='anstat'; activeKpiChart=null">ANStat</button>
-                            <button class="kpi-dir-tab" ng-class="{'active': activeKpiTab==='onp'}"    ng-click="activeKpiTab='onp';    activeKpiChart=null">ONP</button>
+                            <button class="kpi-dir-tab" ng-class="{'active': activeKpiTab==='dge'}"    ng-click="activeKpiTab='dge';    activeKpiChart=null">1</button>
+                            <button class="kpi-dir-tab" ng-class="{'active': activeKpiTab==='anstat'}" ng-click="activeKpiTab='anstat'; activeKpiChart=null">2</button>
+                            <button class="kpi-dir-tab" ng-class="{'active': activeKpiTab==='onp'}"    ng-click="activeKpiTab='onp';    activeKpiChart=null">3</button>
                         </div>
                     </div>
 
@@ -310,22 +311,22 @@
                                     <ods-dataset-context context="dgeagregatschart" dgeagregatschart-dataset="principaux-aggregats-dge-dm">
                                         <ods-chart ng-if="activeKpiChart==='dge_1'" timescale="year" scientific-display="false" align-month="true">
                                             <ods-chart-query context="dgeagregatschart" field-x="annee" maxpoints="0" timescale="year">
-                                                <ods-chart-serie expression-y="pib_nominal" chart-type="bar" function-y="SUM" color="#0F7705" scientific-display="true"></ods-chart-serie>
+                                                <ods-chart-serie expression-y="pib_nominal" label-y="PIB Nominal" chart-type="bar" function-y="SUM" color="#0F7705" scientific-display="true"></ods-chart-serie>
                                             </ods-chart-query>
                                         </ods-chart>
                                         <ods-chart ng-if="activeKpiChart==='dge_2'" timescale="year" scientific-display="false" align-month="true">
-                                            <ods-chart-query context="dgeagregatschart" field-x="annee" maxpoints="0" timescale="year">
-                                                <ods-chart-serie expression-y="taux_de_croissance_du_pib_reel" chart-type="line" function-y="AVG" color="#EF7D00"></ods-chart-serie>
+                                            <ods-chart-query context="dgeagregatschart" label-y="Taux de croissance du PIB réel" field-x="annee" maxpoints="0" timescale="year">
+                                                <ods-chart-serie expression-y="taux_de_croissance_du_pib_reel" chart-type="line" label-y="Taux de croissance du PIB réel" function-y="AVG" color="#EF7D00"></ods-chart-serie>
                                             </ods-chart-query>
                                         </ods-chart>
                                         <ods-chart ng-if="activeKpiChart==='dge_3'" timescale="year" scientific-display="false" align-month="true">
                                             <ods-chart-query context="dgeagregatschart" field-x="annee" maxpoints="0" timescale="year">
-                                                <ods-chart-serie expression-y="pib_par_habitant_prix_courant" chart-type="line" function-y="SUM" color="#0F7705" scientific-display="true"></ods-chart-serie>
+                                                <ods-chart-serie expression-y="pib_par_habitant_prix_courant" label-y="PIB par habitants (francs courants)" chart-type="line" function-y="SUM" color="#0F7705" scientific-display="true"></ods-chart-serie>
                                             </ods-chart-query>
                                         </ods-chart>
                                         <ods-chart ng-if="activeKpiChart==='dge_4'" timescale="year" scientific-display="false" align-month="true">
                                             <ods-chart-query context="dgeagregatschart" field-x="annee" maxpoints="0" timescale="year">
-                                                <ods-chart-serie expression-y="ihpc_moyenne_annuelle" chart-type="line" function-y="SUM" color="#EF7D00"></ods-chart-serie>
+                                                <ods-chart-serie expression-y="ihpc_moyenne_annuelle" label-y="IHPC moyenne Annuelle" chart-type="line" function-y="SUM" color="#EF7D00"></ods-chart-serie>
                                             </ods-chart-query>
                                         </ods-chart>
                                     </ods-dataset-context>
@@ -642,7 +643,7 @@
                                         <span class="kpi-chart-title" ng-show="activeKpiChart==='onp_4'">Évolution — Indice du Dividende Démographique</span>
                                         <button class="kpi-chart-close" ng-click="activeKpiChart=null">✕</button>
                                     </div>
-                                    <ods-dataset-context context="onpchart" onpchart-dataset="onp">
+                                    <ods-dataset-context context="onpchart,ctxonp1,ctxonp2,ctxonp3" ctxonp1-dataset="onp" ctxonp2-dataset="onp-2" ctxonp3-dataset="onp-3" onpchart-dataset="onp">
                                         <ods-chart ng-if="activeKpiChart==='onp_1'" timescale="year" scientific-display="false" align-month="true">
                                             <ods-chart-query context="onpchart" field-x="annee" maxpoints="0" timescale="year">
                                                 <ods-chart-serie expression-y="population_totale" chart-type="bar" function-y="SUM" color="#0F7705" scientific-display="true"></ods-chart-serie>
@@ -659,8 +660,8 @@
                                             </ods-chart-query>
                                         </ods-chart>
                                         <ods-chart ng-if="activeKpiChart==='onp_4'" timescale="year" scientific-display="false" align-month="true">
-                                            <ods-chart-query context="onpchart" field-x="annee" maxpoints="0" timescale="year">
-                                                <ods-chart-serie expression-y="indice_du_dividende_demographique" chart-type="line" function-y="AVG" color="#EF7D00"></ods-chart-serie>
+                                            <ods-chart-query context="ctxopn2" field-x="annee" maxpoints="0" timescale="year">
+                                                <ods-chart-serie expression-y="indice_du_dividende_demographique" label-y="Indice du dividende démographique" chart-type="line" function-y="AVG" color="#EF7D00"></ods-chart-serie>
                                             </ods-chart-query>
                                         </ods-chart>
                                     </ods-dataset-context>
@@ -695,7 +696,7 @@
                         </div>
                     </a>
                     
-                    <a href="/pages/economie/" class="direction-card">
+                    <a href="/pages/economie-2/" class="direction-card">
                         <div class="card-header">
                             <div class="dir-icon icon-bg-green">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
@@ -943,50 +944,7 @@
 
                 </div>
 
-                <h2 class="section-title">Centre d'Action sur les Données</h2>
-
-                <div class="action-center-box">
-                    <div class="action-header">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                        <span>4 jeux de données nécessitent une mise à jour urgente</span>
-                    </div>
-
-                    <div class="action-list">
-
-                        <div class="action-item">
-                            <div class="action-info">
-                                <h4>Épargne intérieure brute en Francs courants</h4>
-                                <span>Direction : DGE</span>
-                            </div>
-                            <div class="alert-pill pill-orange">il y a 16 mois</div>
-                        </div>
-
-                        <div class="action-item">
-                            <div class="action-info">
-                                <h4>Investissement étranger direct en Francs courants</h4>
-                                <span>Direction : DGE</span>
-                            </div>
-                            <div class="alert-pill pill-red">+ de 2 ans</div>
-                        </div>
-
-                        <div class="action-item">
-                            <div class="action-info">
-                                <h4>Taux d'inflation annuel (%)</h4>
-                                <span>Direction : DGE</span>
-                            </div>
-                            <div class="alert-pill pill-red">+ de 2 ans</div>
-                        </div>
-
-                        <div class="action-item">
-                            <div class="action-info">
-                                <h4>Croissance du PIB en Francs courants</h4>
-                                <span>Direction : DGE</span>
-                            </div>
-                            <div class="alert-pill pill-red">+ de 2 ans</div>
-                        </div>
-
-                    </div>
-                </div>
+                
 
             </div>
 

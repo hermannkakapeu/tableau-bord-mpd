@@ -166,9 +166,10 @@ h1, h2, h3 { margin: 0; }
     align-items: center;
     justify-content: space-between;
     padding: 1.5rem 2rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-    /* Optionnel : Rendre le header fixe au scroll */
-    /* position: sticky; top: 0; z-index: 90; */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .header-left-section {
@@ -385,9 +386,9 @@ h2.section-title:first-child {
   font-size: 0.8rem;
   font-weight: 600;
 }
-.kpi-type-valeur.type-reel { background: #e6f4ea; color: #137333; border-left: 4px solid #137333; }
-.kpi-type-valeur.type-estimatif { background: #fff7e6; color: #b06000; border-left: 4px solid #b06000; }
-.kpi-type-valeur.type-previsionnel { background: #fde8e8; color: #b3261e; border-left: 4px solid #b3261e; }
+.kpi-type-valeur.type-reel         { background: #e6f4ea; color: #137333; border-left: 4px solid #137333; }
+.kpi-type-valeur.type-estimatif    { background: #dbeafe; color: #1d4ed8; border-left: 4px solid #1d4ed8; }
+.kpi-type-valeur.type-previsionnel { background: #fff3e0; color: #d97706; border-left: 4px solid #d97706; }
 
 .align {
     display: flex;
@@ -395,6 +396,11 @@ h2.section-title:first-child {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px;
+    position: sticky;
+    top: 80px;
+    z-index: 90;
+    background-color: #FFF7ED;
+    padding: 10px 0;
 }
 
 .align h2{
@@ -470,8 +476,13 @@ h2.section-title:first-child {
 
 .kpi-mini-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 16px;
+}
+
+.dsef{
+    font-size: 14px;
+     font-weight: 500;
 }
 
 .kpi-mini-card {

@@ -1,0 +1,1163 @@
+<ods-dataset-context 
+                     context="ctxonp1,ctxonp2,ctxonp3,ctxpop,ctxpib,ctxpib2,pibseries2,ctxsocio,ctxsocioall,ctxicai,ctxicac,ctxicac1,ctxicac2,ctxicac3,ctxippi,ctxipi,ctxdemo,ctxdemoall,ctxihpc,ctxpauvrete,ctxcomext,ctxcomext1"
+                     
+                     ctxonp1-dataset="onp"
+                     ctxonp2-dataset="onp-2"
+                     ctxonp3-dataset="onp-3"
+                     ctxonp1-parameters="{'refine.annee':'2021','disjunctive.annee':true}"
+                     ctxonp2-parameters="{'refine.annee':'2020','disjunctive.annee':true}"
+
+                     ctxpop-dataset="population-par-sexe"
+                     ctxpib-dataset="pib-series_agregat"
+                     ctxpib2-dataset="pib-series"
+                     ctxsocio-dataset="maj-indicateurs-socio-demographiques"
+                     ctxsocioall-dataset="maj-indicateurs-socio-demographiques"
+                     ctxicai-dataset="maj-icai"
+                     ctxicac1-dataset="maj-icac-copie"
+                     ctxicac3-dataset="maj-icac-copie1"
+                     ctxicac2-dataset="maj-icac-copie0"
+                     ctxicac-dataset="maj-icac"
+                     ctxippi-dataset="ippi-maj"
+                     ctxipi-dataset="ipi-maj"
+                     ctxdemo-dataset="indicateurs-demographiques-copie"
+                     ctxdemoall-dataset="indicateurs-demographiques-copie"
+                     ctxihpc-dataset="ihpcbase23"
+                     ctxpauvrete-dataset="evolution-du-taux-de-pauvrete-1"
+                     ctxcomext-dataset="2-commerce-exterieur"
+                     ctxcomext1-dataset="commerce-exterieur"
+                     pibseries2-dataset="pib-series2"
+                     pibseries2-parameters="{
+                                         'refine.annee':'2025',
+                                         'disjunctive.annee':true,
+                                         'refine.mois':'Janvier',
+                                         'disjunctive.mois':true
+                                         }"
+                     
+                     ctxpib2WithoutYear="pib-series"
+                     ctxsocio-parameters="{
+                                         'refine.annee':'2025',
+                                         'disjunctive.annee':true,
+                                         
+                                         }"
+
+                     ctxpib-parameters="{
+                                        'refine.annee':'2025',
+                                        'refine.mois':'Janvier'
+                                        }"
+                     ctxicac1-parameters="{
+                                        'refine.annee':'2025',
+                                        'refine.mois':'Janvier',
+                                          'disjunctive.mois':true
+                                        }">
+
+    <div class="dashboard-layout">
+
+        <nav class="sidebar">
+            <!--<div class="logo-me">ME</div>-->
+             <!---->
+            <div ods-current-user class="logo-me">
+                {{ currentUser.first_name | limitTo:1 }}{{ currentUser.last_name | limitTo:1 }}
+            </div>
+            
+
+            <a href="/pages/accueil-2/" class="nav-item active">
+                <div class="nav-icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard-icon lucide-layout-dashboard"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                </div>
+                <span>Tableau de bord</span>
+            </a>
+
+            <a href="/pages/page-explorer/" class="nav-item">
+                <div class="nav-icon-box">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </div>
+                <span>Explorer</span>
+            </a>
+        </nav>
+
+        <main class="main-content">
+
+            <header class="top-header">
+                <div class="header-left-section">
+                   
+                    <a href="/pages/accueil-2/" style="line-height: 0;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMxYTJiM2MiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1hcnJvdy1sZWZ0LWljb24gbHVjaWRlLWFycm93LWxlZnQiPjxwYXRoIGQ9Im0xMiAxOS03LTcgNy03Ii8+PHBhdGggZD0iTTE5IDEySDUiLz48L3N2Zz4="></a>
+                    <h1 class="header-welcome-text">Indicateurs socio-démographiques</h1>
+                </div>
+
+                <div class="header-right-section">
+                    <!-- <img src="/assets/theme_image/Armoiries%20CI.png" 
+                         alt="République de Côte d'Ivoire" 
+                         class="logo-armoiries"> -->
+                    <!-- <img src="/assets/theme_image/logo-ANStat.png" 
+                         alt="Ministère de l'Économie, du Plan et du Développement" 
+                         class="logo-armoiries"> -->
+                    
+                </div>
+            </header>
+
+            <div class="page-container" ng-init="activeTab = 'echanges1'">
+
+                <div class="thematics-card">
+
+                    <div class="thematics-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                        </svg>
+                        Thématiques
+                    </div>
+
+                    <div class="tabs-row">
+                        
+                        <button class="tab-pill" 
+                                ng-class="{'active': activeTab == 'echanges1'}" 
+                                ng-click="activeTab = 'echanges1'">
+                            Démographie
+                        </button>
+                        <button class="tab-pill"
+                                ng-class="{'active': activeTab == 'dividende'}"
+                                ng-click="activeTab = 'dividende'">
+                            <i class="fa fa-line-chart" style="margin-right:5px;"></i>
+                            Dividende Démographique
+                        </button>
+                        
+                    </div>
+
+                    <div class="filters-row" ng-init="activeDevise = 'FCFA'; activeValeur = 'courant'">
+
+                        
+                        
+                        
+
+                        <div class="filter-group" style="margin-left: 20px;">
+                            
+                            <span class="filter-label">Filtrez sur une année :</span>
+                            
+                        </div>
+                        <div class="kpi-filter-year" ng-if="activeTab != 'dividende'">
+                            <div class="boite">
+
+
+
+                                <!-- 🔽 Sélecteur d'année -->
+                                <div 
+                                     ods-facet-results="filtreannee"
+                                     ods-facet-results-facet-name="annee"
+                                     ods-facet-results-context="ctxsocio">
+                                    <ods-select options="filtreannee"
+                                                selected-values="ctxsocio.parameters['refine.annee']"
+                                                label-modifier="name"
+                                                value-modifier="name"
+                                                placeholder="Filtrer sur une année"
+                                                multiple="false">
+                                    </ods-select>
+
+                                    <!-- Synchronisation des 3 contextes -->
+                                    {{ ctxcomext.parameters['refine.annee'] = ctxicac.parameters['refine.annee'] = ctxicac3.parameters['refine.annee'] = ctxicac2.parameters['refine.annee'] = ctxicac1.parameters['refine.annee']  = ctxdemo.parameters['refine.annee'] = ctxihpc.parameters['refine.annee'] = ctxpib.parameters['refine.annee'] = ctxsocio.parameters['refine.annee']; "" }} 
+
+                                </div>
+
+                                
+                            </div>
+                        </div>
+                        <div class="kpi-filter-year" ng-if="activeTab == 'dividende'">
+                                    <div class="boite">
+                                        <div ods-facet-results="filtreannee" 
+                                             ods-facet-results-facet-name="annee"
+                                             ods-facet-results-context="ctxonp2">
+                                            <ods-select options="filtreannee"
+                                                        selected-values="ctxonp2.parameters['refine.annee']"
+                                                        label-modifier="name"
+                                                        value-modifier="name"
+                                                        placeholder="Filtrer sur une année"
+                                                        multiple="false">
+                                            </ods-select>
+                                            {{ ctxonp1.parameters['refine.annee'] = ctxonp3.parameters['refine.annee'] = ctxonp2.parameters['refine.annee']; "" }}
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                        
+                        
+
+                    </div>
+                </div>
+
+
+                
+                
+                <div ng-if="activeTab == 'echanges1'" ng-init="kpi={activeStatChart:null}">
+                    
+                    
+                    
+
+                        <!-- CONTEXTE DATASET -->
+                       
+
+                        <!-- DERNIERE ANNEE -->
+                    <!-- ═══════════════════════════════════════════════════════ -->
+                    <!-- BLOC INDICATEURS DÉMOGRAPHIQUES                       -->
+                    <!-- Contexte sans filtre année → cartes toujours visibles -->
+                    <!-- ═══════════════════════════════════════════════════════ -->
+
+                    <!-- PANNEAU GRAPHIQUE DÉROULANT (au clic sur une carte) -->
+                    <div class="stat-chart-panel" ng-class="{'open': kpi.activeStatChart !== null}">
+                        <div class="stat-chart-inner">
+                            <div class="stat-chart-header">
+                                <span class="stat-chart-title">
+                                    <span ng-if="kpi.activeStatChart==='sd_txcroiss'">Évolution du Taux de Croissance Démographique (%)</span>
+                                    <span ng-if="kpi.activeStatChart==='sd_tbreproduction'">Évolution du Taux Brut de Reproduction</span>
+                                    <span ng-if="kpi.activeStatChart==='sd_esperance'">Évolution de l'Espérance de Vie à la Naissance (ans)</span>
+                                    <span ng-if="kpi.activeStatChart==='sd_accroissement'">Évolution du Taux d'Accroissement Naturel (%)</span>
+                                    <span ng-if="kpi.activeStatChart==='sd_masculinite'">Évolution du Rapport de Masculinité</span>
+                                    <span ng-if="kpi.activeStatChart==='sd_fecondite'">Évolution de l'Indice Synthétique de Fécondité</span>
+                                    <span ng-if="kpi.activeStatChart==='sd_natalite'">Évolution du Taux Brut de Natalité (‰)</span>
+                                    <span ng-if="kpi.activeStatChart==='sd_mortalite'">Évolution du Taux Brut de Mortalité (‰)</span>
+                                    <span ng-if="kpi.activeStatChart==='sd_mortinfantile'">Évolution du Taux de Mortalité Infantile (‰)</span>
+                                    <span ng-if="kpi.activeStatChart==='ed_scolpri'">Évolution du Taux Brut de Scolarisation — Primaire (%)</span>
+                                    <span ng-if="kpi.activeStatChart==='ed_scolsec'">Évolution du Taux Net de Scolarisation — Secondaire (%)</span>
+                                    <span ng-if="kpi.activeStatChart==='ed_achpri'">Évolution du Taux d'Achèvement — Primaire (%)</span>
+                                    <span ng-if="kpi.activeStatChart==='ed_achsec'">Évolution du Taux d'Achèvement — Secondaire (%)</span>
+                                    <span ng-if="kpi.activeStatChart==='ed_admpri'">Évolution du Taux d'Admission — Primaire CEPE (%)</span>
+                                    <span ng-if="kpi.activeStatChart==='ed_admsec'">Évolution du Taux d'Admission — Secondaire BEPC (%)</span>
+                                    <span ng-if="kpi.activeStatChart==='ed_parpre'">Évolution de l'Indice de Parité F/G — Préscolaire</span>
+                                    <span ng-if="kpi.activeStatChart==='ed_parpri'">Évolution de l'Indice de Parité F/G — Primaire</span>
+                                    <span ng-if="kpi.activeStatChart==='ed_parsec'">Évolution de l'Indice de Parité F/G — Secondaire</span>
+                                    <span ng-if="kpi.activeStatChart==='ed_elvpf'">Évolution des Effectifs Élèves Filles — Primaire</span>
+                                    <span ng-if="kpi.activeStatChart==='ed_elvpm'">Évolution des Effectifs Élèves Garçons — Primaire</span>
+                                    <span ng-if="kpi.activeStatChart==='ed_elvsf'">Évolution des Effectifs Élèves Filles — Secondaire</span>
+                                    <span ng-if="kpi.activeStatChart==='ed_elvsm'">Évolution des Effectifs Élèves Garçons — Secondaire</span>
+                                    <span ng-if="kpi.activeStatChart==='ed_enspf'">Évolution des Enseignantes Femmes — Primaire</span>
+                                    <span ng-if="kpi.activeStatChart==='ed_enspm'">Évolution des Enseignants Hommes — Primaire</span>
+                                    <span ng-if="kpi.activeStatChart==='ed_enssf'">Évolution des Enseignantes Femmes — Secondaire</span>
+                                    <span ng-if="kpi.activeStatChart==='ed_enssm'">Évolution des Enseignants Hommes — Secondaire</span>
+                                </span>
+                                <button class="stat-chart-close" ng-click="kpi.activeStatChart=null">✕</button>
+                            </div>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='sd_txcroiss'" context="soccht1" soccht1-dataset="maj-indicateurs-socio-demographiques">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="soccht1" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="taux_de_croissance_demographique" chart-type="line" function-y="AVG" label-y="Taux de croissance (%)" color="#EF7D00"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='sd_tbreproduction'" context="soccht2" soccht2-dataset="maj-indicateurs-socio-demographiques">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="soccht2" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="taux_brut_de_reproduction" chart-type="line" function-y="AVG" label-y="Taux brut reproduction" color="#E91E63"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='sd_esperance'" context="soccht3" soccht3-dataset="maj-indicateurs-socio-demographiques">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="soccht3" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="esperance_de_vie_a_la_naissance_totale" chart-type="line" function-y="AVG" label-y="Espérance de vie (ans)" color="#0F7705"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='sd_accroissement'" context="soccht4" soccht4-dataset="maj-indicateurs-socio-demographiques">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="soccht4" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="taux_d_accroissement_naturel" chart-type="line" function-y="AVG" label-y="Taux accroissement naturel (%)" color="#0A71B5"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='sd_masculinite'" context="soccht5" soccht5-dataset="maj-indicateurs-socio-demographiques">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="soccht5" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="rapport_de_masculinite_de_la_population" chart-type="bar" function-y="AVG" label-y="Rapport de masculinité" color="#0A71B5"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='sd_fecondite'" context="soccht6" soccht6-dataset="maj-indicateurs-socio-demographiques">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="soccht6" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="indice_synthetique_de_fecondite" chart-type="line" function-y="AVG" label-y="Indice synthétique de fécondité" color="#C2185B"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='sd_natalite'" context="soccht7" soccht7-dataset="maj-indicateurs-socio-demographiques">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="soccht7" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="taux_brut_de_natalite_0" chart-type="line" function-y="AVG" label-y="Taux brut de natalité (‰)" color="#2E7D32"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='sd_mortalite'" context="soccht8" soccht8-dataset="maj-indicateurs-socio-demographiques">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="soccht8" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="taux_brut_de_mortalite_0" chart-type="line" function-y="AVG" label-y="Taux brut de mortalité (‰)" color="#C62828"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='sd_mortinfantile'" context="soccht9" soccht9-dataset="maj-indicateurs-socio-demographiques">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="soccht9" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="taux_de_mortalite_infentile" chart-type="line" function-y="AVG" label-y="Taux mortalité infantile (‰)" color="#6A1B9A"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ed_scolpri'" context="edcht1" edcht1-dataset="indicateurs-demographiques-copie">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="edcht1" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="taux_brut_de_scolarisation_au_primaire" chart-type="line" function-y="AVG" label-y="TBS Primaire (%)" color="#1565C0"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ed_scolsec'" context="edcht2" edcht2-dataset="indicateurs-demographiques-copie">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="edcht2" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="taux_net_de_scolarisation_au_secondaire" chart-type="line" function-y="AVG" label-y="TNS Secondaire (%)" color="#283593"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ed_achpri'" context="edcht3" edcht3-dataset="indicateurs-demographiques-copie">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="edcht3" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="taux_d_achevement_ou_de_diplomation_primaire" chart-type="line" function-y="AVG" label-y="Taux achèvement primaire" color="#2E7D32"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ed_achsec'" context="edcht4" edcht4-dataset="indicateurs-demographiques-copie">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="edcht4" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="taux_d_achevement_ou_de_diplomation_secondaire" chart-type="line" function-y="AVG" label-y="Taux achèvement secondaire" color="#00695C"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ed_admpri'" context="edcht5" edcht5-dataset="indicateurs-demographiques-copie">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="edcht5" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="resultats_de_l_examen_de_competence_primaire_taux_d_admissipon_au_primaire" chart-type="line" function-y="AVG" label-y="Taux admission CEPE (%)" color="#EF7D00"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ed_admsec'" context="edcht6" edcht6-dataset="indicateurs-demographiques-copie">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="edcht6" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="resultats_de_l_examen_de_competence_secondaire_taux_d_admission_au_secondaire" chart-type="line" function-y="AVG" label-y="Taux admission BEPC (%)" color="#F57F17"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ed_parpre'" context="edcht7" edcht7-dataset="indicateurs-demographiques-copie">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="edcht7" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="indice_de_parite_hommes_femmes_prescolaire_ratio_fille_garcon" chart-type="line" function-y="AVG" label-y="Parité préscolaire" color="#E91E63"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ed_parpri'" context="edcht8" edcht8-dataset="indicateurs-demographiques-copie">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="edcht8" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="indice_de_parite_hommes_femmes_primaire_ratio_fille_garcon" chart-type="line" function-y="AVG" label-y="Parité primaire" color="#C2185B"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ed_parsec'" context="edcht9" edcht9-dataset="indicateurs-demographiques-copie">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="edcht9" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="indice_de_parite_hommes_femmes_secondaire_ratio_fille_garcon" chart-type="line" function-y="AVG" label-y="Parité secondaire" color="#6A1B9A"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ed_elvpf'" context="edcht10" edcht10-dataset="indicateurs-demographiques-copie">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="edcht10" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="nombre_d_eleve_du_primaire_de_sexe_feminin" chart-type="bar" function-y="SUM" label-y="Élèves filles primaire" color="#E91E63" scientific-display="true"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ed_elvpm'" context="edcht11" edcht11-dataset="indicateurs-demographiques-copie">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="edcht11" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="nombre_d_eleve_du_primaire_de_sexe_masculin" chart-type="bar" function-y="SUM" label-y="Élèves garçons primaire" color="#1565C0" scientific-display="true"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ed_elvsf'" context="edcht12" edcht12-dataset="indicateurs-demographiques-copie">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="edcht12" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="nombre_d_eleve_du_secondaire_de_sexe_feminin" chart-type="bar" function-y="SUM" label-y="Élèves filles secondaire" color="#C2185B" scientific-display="true"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ed_elvsm'" context="edcht13" edcht13-dataset="indicateurs-demographiques-copie">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="edcht13" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="nombre_d_eleve_du_secondaire_de_sexe_masculin" chart-type="bar" function-y="SUM" label-y="Élèves garçons secondaire" color="#283593" scientific-display="true"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ed_enspf'" context="edcht14" edcht14-dataset="indicateurs-demographiques-copie">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="edcht14" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="nombre_d_enseignants_femmes_du_niveau_primaire" chart-type="bar" function-y="SUM" label-y="Enseignantes primaire" color="#AD1457" scientific-display="true"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ed_enspm'" context="edcht15" edcht15-dataset="indicateurs-demographiques-copie">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="edcht15" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="nombre_d_enseignants_hommes_du_niveau_primaire" chart-type="bar" function-y="SUM" label-y="Enseignants primaire" color="#0D47A1" scientific-display="true"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ed_enssf'" context="edcht16" edcht16-dataset="indicateurs-demographiques-copie">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="edcht16" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="nombre_d_enseignants_femmes_du_niveau_secondaire" chart-type="bar" function-y="SUM" label-y="Enseignantes secondaire" color="#880E4F" scientific-display="true"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ed_enssm'" context="edcht17" edcht17-dataset="indicateurs-demographiques-copie">
+                                <ods-chart timescale="year" scientific-display="false"><ods-chart-query context="edcht17" field-x="annee" maxpoints="0" timescale="year"><ods-chart-serie expression-y="nombre_d_enseignants_hommes_du_niveau_secondaire" chart-type="bar" function-y="SUM" label-y="Enseignants secondaire" color="#1A237E" scientific-display="true"></ods-chart-serie></ods-chart-query></ods-chart>
+                            </ods-dataset-context>
+                        </div>
+                    </div><!-- /stat-chart-panel -->
+
+                    <div ods-adv-analysis="maxYearSocio"
+                         ods-adv-analysis-context="ctxsocioall"
+                         ods-adv-analysis-x="annee"
+                         ods-adv-analysis-sort="-annee"
+                         ods-adv-analysis-maxpoints="1">
+                    <div ods-results="comboDataAll"
+                         class="stats-grid stats-grid-combo"
+                         ods-results-context="ctxsocioall"
+                         ods-results-max="2"
+                         ods-results-sort="annee desc">
+
+                        <!-- Taux de croissance démographique -->
+                        <div class="stat-card stat-card-hover-info"
+                             ng-if="comboDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='sd_txcroiss' ? null : 'sd_txcroiss')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='sd_txcroiss'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-orange"><i class="fa fa-chart-line stat-icon"></i></div>
+                                <div class="stat-title">Taux de croissance<br><small>Démographique</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxsocio.parameters['refine.annee'] && ctxsocio.parameters['refine.annee'] != maxYearSocio[0].x}">{{ maxYearSocio[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ comboDataAll[0].fields.taux_de_croissance_demographique | number:2 }}<small>%</small></div>
+                            </div>
+                            <div class="stat-variation" ng-if="comboDataAll.length >= 2">
+                                <span ng-class="{'stat-var-up': comboDataAll[0].fields.taux_de_croissance_demographique >= comboDataAll[1].fields.taux_de_croissance_demographique, 'stat-var-down': comboDataAll[0].fields.taux_de_croissance_demographique < comboDataAll[1].fields.taux_de_croissance_demographique}">
+                                    {{ comboDataAll[0].fields.taux_de_croissance_demographique >= comboDataAll[1].fields.taux_de_croissance_demographique ? '▲' : '▼' }}
+                                    {{ ((comboDataAll[0].fields.taux_de_croissance_demographique - comboDataAll[1].fields.taux_de_croissance_demographique) / comboDataAll[1].fields.taux_de_croissance_demographique * 100) | number:1 }}%
+                                </span>
+                                <span class="stat-var-label">vs {{ comboDataAll[1].fields.annee }}</span>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Taux de croissance démographique</h4>
+                                <p class="stat-overlay-text">Variation annuelle en % de la population totale.</p>
+                            </div></div>
+                        </div>
+
+                        <!-- Taux brut de reproduction -->
+                        <div class="stat-card stat-card-hover-info"
+                             ng-if="comboDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='sd_tbreproduction' ? null : 'sd_tbreproduction')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='sd_tbreproduction'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-pink"><i class="fa fa-baby stat-icon"></i></div>
+                                <div class="stat-title">Taux brut de reproduction<br><small>(%)</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxsocio.parameters['refine.annee'] && ctxsocio.parameters['refine.annee'] != maxYearSocio[0].x}">{{ maxYearSocio[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ comboDataAll[0].fields.taux_brut_de_reproduction | number:2 }}<small>%</small></div>
+                            </div>
+                            <div class="stat-variation" ng-if="comboDataAll.length >= 2">
+                                <span ng-class="{'stat-var-up': comboDataAll[0].fields.taux_brut_de_reproduction >= comboDataAll[1].fields.taux_brut_de_reproduction, 'stat-var-down': comboDataAll[0].fields.taux_brut_de_reproduction < comboDataAll[1].fields.taux_brut_de_reproduction}">
+                                    {{ comboDataAll[0].fields.taux_brut_de_reproduction >= comboDataAll[1].fields.taux_brut_de_reproduction ? '▲' : '▼' }}
+                                    {{ ((comboDataAll[0].fields.taux_brut_de_reproduction - comboDataAll[1].fields.taux_brut_de_reproduction) / comboDataAll[1].fields.taux_brut_de_reproduction * 100) | number:1 }}%
+                                </span>
+                                <span class="stat-var-label">vs {{ comboDataAll[1].fields.annee }}</span>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Taux brut de reproduction</h4>
+                                <p class="stat-overlay-text">Nombre moyen d'enfants qu'une femme aurait sur toute sa vie selon les taux actuels.</p>
+                            </div></div>
+                        </div>
+
+                        <!-- Espérance de vie à la naissance -->
+                        <div class="stat-card stat-card-hover-info"
+                             ng-if="comboDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='sd_esperance' ? null : 'sd_esperance')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='sd_esperance'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-cyan"><i class="fa fa-heartbeat stat-icon"></i></div>
+                                <div class="stat-title">Espérance de vie<br><small>à la naissance</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxsocio.parameters['refine.annee'] && ctxsocio.parameters['refine.annee'] != maxYearSocio[0].x}">{{ maxYearSocio[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ comboDataAll[0].fields.esperance_de_vie_a_la_naissance_totale | number:1 }}<small>ans</small></div>
+                            </div>
+                            <div class="stat-variation" ng-if="comboDataAll.length >= 2">
+                                <span ng-class="{'stat-var-up': comboDataAll[0].fields.esperance_de_vie_a_la_naissance_totale >= comboDataAll[1].fields.esperance_de_vie_a_la_naissance_totale, 'stat-var-down': comboDataAll[0].fields.esperance_de_vie_a_la_naissance_totale < comboDataAll[1].fields.esperance_de_vie_a_la_naissance_totale}">
+                                    {{ comboDataAll[0].fields.esperance_de_vie_a_la_naissance_totale >= comboDataAll[1].fields.esperance_de_vie_a_la_naissance_totale ? '▲' : '▼' }}
+                                    {{ (comboDataAll[0].fields.esperance_de_vie_a_la_naissance_totale - comboDataAll[1].fields.esperance_de_vie_a_la_naissance_totale) | number:1 }} ans
+                                </span>
+                                <span class="stat-var-label">vs {{ comboDataAll[1].fields.annee }}</span>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Espérance de vie</h4>
+                                <p class="stat-overlay-text">Nombre moyen d'années qu'un nouveau-né est censé vivre selon les conditions actuelles.</p>
+                            </div></div>
+                        </div>
+
+                        <!-- Taux d'accroissement naturel -->
+                        <div class="stat-card stat-card-hover-info"
+                             ng-if="comboDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='sd_accroissement' ? null : 'sd_accroissement')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='sd_accroissement'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-lime"><i class="fa fa-seedling stat-icon"></i></div>
+                                <div class="stat-title">Taux d'accroissement<br><small>Naturel</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxsocio.parameters['refine.annee'] && ctxsocio.parameters['refine.annee'] != maxYearSocio[0].x}">{{ maxYearSocio[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ comboDataAll[0].fields.taux_d_accroissement_naturel | number:2 }}<small>%</small></div>
+                            </div>
+                            <div class="stat-variation" ng-if="comboDataAll.length >= 2">
+                                <span ng-class="{'stat-var-up': comboDataAll[0].fields.taux_d_accroissement_naturel >= comboDataAll[1].fields.taux_d_accroissement_naturel, 'stat-var-down': comboDataAll[0].fields.taux_d_accroissement_naturel < comboDataAll[1].fields.taux_d_accroissement_naturel}">
+                                    {{ comboDataAll[0].fields.taux_d_accroissement_naturel >= comboDataAll[1].fields.taux_d_accroissement_naturel ? '▲' : '▼' }}
+                                    {{ ((comboDataAll[0].fields.taux_d_accroissement_naturel - comboDataAll[1].fields.taux_d_accroissement_naturel) / comboDataAll[1].fields.taux_d_accroissement_naturel * 100) | number:1 }}%
+                                </span>
+                                <span class="stat-var-label">vs {{ comboDataAll[1].fields.annee }}</span>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Taux d'accroissement naturel</h4>
+                                <p class="stat-overlay-text">Différence entre le taux brut de natalité et le taux brut de mortalité.</p>
+                            </div></div>
+                        </div>
+
+                        <!-- Rapport de masculinité -->
+                        <div class="stat-card stat-card-hover-info"
+                             ng-if="comboDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='sd_masculinite' ? null : 'sd_masculinite')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='sd_masculinite'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-blue"><i class="fa fa-venus-mars stat-icon"></i></div>
+                                <div class="stat-title">Rapport de masculinité<br><small>de la population</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxsocio.parameters['refine.annee'] && ctxsocio.parameters['refine.annee'] != maxYearSocio[0].x}">{{ maxYearSocio[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ comboDataAll[0].fields.rapport_de_masculinite_de_la_population | number:2 }}</div>
+                            </div>
+                            <div class="stat-variation" ng-if="comboDataAll.length >= 2">
+                                <span ng-class="{'stat-var-up': comboDataAll[0].fields.rapport_de_masculinite_de_la_population >= comboDataAll[1].fields.rapport_de_masculinite_de_la_population, 'stat-var-down': comboDataAll[0].fields.rapport_de_masculinite_de_la_population < comboDataAll[1].fields.rapport_de_masculinite_de_la_population}">
+                                    {{ comboDataAll[0].fields.rapport_de_masculinite_de_la_population >= comboDataAll[1].fields.rapport_de_masculinite_de_la_population ? '▲' : '▼' }}
+                                    {{ ((comboDataAll[0].fields.rapport_de_masculinite_de_la_population - comboDataAll[1].fields.rapport_de_masculinite_de_la_population) / comboDataAll[1].fields.rapport_de_masculinite_de_la_population * 100) | number:1 }}%
+                                </span>
+                                <span class="stat-var-label">vs {{ comboDataAll[1].fields.annee }}</span>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Rapport de masculinité</h4>
+                                <p class="stat-overlay-text">Nombre d'hommes pour 100 femmes dans la population.</p>
+                            </div></div>
+                        </div>
+
+                        <!-- Indice synthétique de fécondité -->
+                        <div class="stat-card stat-card-hover-info"
+                             ng-if="comboDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='sd_fecondite' ? null : 'sd_fecondite')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='sd_fecondite'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-rose"><i class="fa fa-child stat-icon"></i></div>
+                                <div class="stat-title">Indice synthétique<br><small>de fécondité</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxsocio.parameters['refine.annee'] && ctxsocio.parameters['refine.annee'] != maxYearSocio[0].x}">{{ maxYearSocio[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ comboDataAll[0].fields.indice_synthetique_de_fecondite | number:2 }}</div>
+                            </div>
+                            <div class="stat-variation" ng-if="comboDataAll.length >= 2">
+                                <span ng-class="{'stat-var-up': comboDataAll[0].fields.indice_synthetique_de_fecondite >= comboDataAll[1].fields.indice_synthetique_de_fecondite, 'stat-var-down': comboDataAll[0].fields.indice_synthetique_de_fecondite < comboDataAll[1].fields.indice_synthetique_de_fecondite}">
+                                    {{ comboDataAll[0].fields.indice_synthetique_de_fecondite >= comboDataAll[1].fields.indice_synthetique_de_fecondite ? '▲' : '▼' }}
+                                    {{ ((comboDataAll[0].fields.indice_synthetique_de_fecondite - comboDataAll[1].fields.indice_synthetique_de_fecondite) / comboDataAll[1].fields.indice_synthetique_de_fecondite * 100) | number:1 }}%
+                                </span>
+                                <span class="stat-var-label">vs {{ comboDataAll[1].fields.annee }}</span>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Indice synthétique de fécondité</h4>
+                                <p class="stat-overlay-text">Nombre moyen d'enfants par femme tout au long de sa vie selon les taux actuels.</p>
+                            </div></div>
+                        </div>
+
+                        <!-- Taux brut de natalité -->
+                        <div class="stat-card stat-card-hover-info"
+                             ng-if="comboDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='sd_natalite' ? null : 'sd_natalite')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='sd_natalite'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-green"><i class="fa fa-plus-circle stat-icon"></i></div>
+                                <div class="stat-title">Taux brut de natalité<br><small>(‰)</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxsocio.parameters['refine.annee'] && ctxsocio.parameters['refine.annee'] != maxYearSocio[0].x}">{{ maxYearSocio[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ comboDataAll[0].fields.taux_brut_de_natalite_0 | number:2 }}<small>‰</small></div>
+                            </div>
+                            <div class="stat-variation" ng-if="comboDataAll.length >= 2">
+                                <span ng-class="{'stat-var-up': comboDataAll[0].fields.taux_brut_de_natalite_0 >= comboDataAll[1].fields.taux_brut_de_natalite_0, 'stat-var-down': comboDataAll[0].fields.taux_brut_de_natalite_0 < comboDataAll[1].fields.taux_brut_de_natalite_0}">
+                                    {{ comboDataAll[0].fields.taux_brut_de_natalite_0 >= comboDataAll[1].fields.taux_brut_de_natalite_0 ? '▲' : '▼' }}
+                                    {{ ((comboDataAll[0].fields.taux_brut_de_natalite_0 - comboDataAll[1].fields.taux_brut_de_natalite_0) / comboDataAll[1].fields.taux_brut_de_natalite_0 * 100) | number:1 }}%
+                                </span>
+                                <span class="stat-var-label">vs {{ comboDataAll[1].fields.annee }}</span>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Taux brut de natalité</h4>
+                                <p class="stat-overlay-text">Nombre de naissances vivantes pour 1 000 habitants au cours d'une année.</p>
+                            </div></div>
+                        </div>
+
+                        <!-- Taux brut de mortalité -->
+                        <div class="stat-card stat-card-hover-info"
+                             ng-if="comboDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='sd_mortalite' ? null : 'sd_mortalite')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='sd_mortalite'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-red"><i class="fa fa-minus-circle stat-icon"></i></div>
+                                <div class="stat-title">Taux brut de mortalité<br><small>(‰)</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxsocio.parameters['refine.annee'] && ctxsocio.parameters['refine.annee'] != maxYearSocio[0].x}">{{ maxYearSocio[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ comboDataAll[0].fields.taux_brut_de_mortalite_0 | number:2 }}<small>‰</small></div>
+                            </div>
+                            <div class="stat-variation" ng-if="comboDataAll.length >= 2">
+                                <span ng-class="{'stat-var-up': comboDataAll[0].fields.taux_brut_de_mortalite_0 <= comboDataAll[1].fields.taux_brut_de_mortalite_0, 'stat-var-down': comboDataAll[0].fields.taux_brut_de_mortalite_0 > comboDataAll[1].fields.taux_brut_de_mortalite_0}">
+                                    {{ comboDataAll[0].fields.taux_brut_de_mortalite_0 <= comboDataAll[1].fields.taux_brut_de_mortalite_0 ? '▲' : '▼' }}
+                                    {{ ((comboDataAll[0].fields.taux_brut_de_mortalite_0 - comboDataAll[1].fields.taux_brut_de_mortalite_0) / comboDataAll[1].fields.taux_brut_de_mortalite_0 * 100) | number:1 }}%
+                                </span>
+                                <span class="stat-var-label">vs {{ comboDataAll[1].fields.annee }}</span>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Taux brut de mortalité</h4>
+                                <p class="stat-overlay-text">Nombre de décès pour 1 000 habitants au cours d'une année.</p>
+                            </div></div>
+                        </div>
+
+                        <!-- Taux de mortalité infantile -->
+                        <div class="stat-card stat-card-hover-info"
+                             ng-if="comboDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='sd_mortinfantile' ? null : 'sd_mortinfantile')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='sd_mortinfantile'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-purple"><i class="fa fa-hospital stat-icon"></i></div>
+                                <div class="stat-title">Taux de mortalité<br><small>Infantile</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxsocio.parameters['refine.annee'] && ctxsocio.parameters['refine.annee'] != maxYearSocio[0].x}">{{ maxYearSocio[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ comboDataAll[0].fields.taux_de_mortalite_infentile | number:2 }}<small>‰</small></div>
+                            </div>
+                            <div class="stat-variation" ng-if="comboDataAll.length >= 2">
+                                <span ng-class="{'stat-var-up': comboDataAll[0].fields.taux_de_mortalite_infentile <= comboDataAll[1].fields.taux_de_mortalite_infentile, 'stat-var-down': comboDataAll[0].fields.taux_de_mortalite_infentile > comboDataAll[1].fields.taux_de_mortalite_infentile}">
+                                    {{ comboDataAll[0].fields.taux_de_mortalite_infentile <= comboDataAll[1].fields.taux_de_mortalite_infentile ? '▲' : '▼' }}
+                                    {{ ((comboDataAll[0].fields.taux_de_mortalite_infentile - comboDataAll[1].fields.taux_de_mortalite_infentile) / comboDataAll[1].fields.taux_de_mortalite_infentile * 100) | number:1 }}%
+                                </span>
+                                <span class="stat-var-label">vs {{ comboDataAll[1].fields.annee }}</span>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Taux de mortalité infantile</h4>
+                                <p class="stat-overlay-text">Nombre de décès d'enfants de moins d'un an pour 1 000 naissances vivantes.</p>
+                            </div></div>
+                        </div>
+
+                    </div>
+                    </div><!-- /ods-adv-analysis maxYearSocio -->
+
+                    <div ods-adv-analysis="maxYearDemo"
+                         ods-adv-analysis-context="ctxdemoall"
+                         ods-adv-analysis-x="annee"
+                         ods-adv-analysis-sort="-annee"
+                         ods-adv-analysis-maxpoints="1">
+                    <div ods-results="demoDataAll" class="stats-grid"
+                         ods-results-context="ctxdemoall"
+                         ods-results-max="1"
+                         ods-results-sort="annee desc">
+
+                        <!-- Taux brut scolarisation - Primaire -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ed_scolpri' ? null : 'ed_scolpri')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ed_scolpri'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-blue">
+                                    <i class="fa fa-school stat-icon"></i>
+                                </div>
+                                <div class="stat-title">Taux brut de scolarisation<br><small>Primaire</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxdemo.parameters['refine.annee'] && ctxdemo.parameters['refine.annee'] != maxYearDemo[0].x}">{{ maxYearDemo[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ demoDataAll[0].fields.taux_brut_de_scolarisation_au_primaire | number:1 }}<small>%</small></div>
+                                <div class="stat-progress-bar"><div class="stat-progress-fill" ng-style="{'width': demoDataAll[0].fields.taux_brut_de_scolarisation_au_primaire + '%'}"></div></div>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Taux brut de scolarisation — Primaire</h4>
+                                <p class="stat-overlay-text">Rapport entre les effectifs scolarisés au primaire (tous âges) et la population d'âge officielle du primaire.</p>
+                            </div></div>
+                        </div>
+
+                        <!-- Taux net scolarisation - Secondaire -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ed_scolsec' ? null : 'ed_scolsec')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ed_scolsec'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-indigo"><i class="fa fa-graduation-cap stat-icon"></i></div>
+                                <div class="stat-title">Taux net de scolarisation<br><small>Secondaire</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxdemo.parameters['refine.annee'] && ctxdemo.parameters['refine.annee'] != maxYearDemo[0].x}">{{ maxYearDemo[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ demoDataAll[0].fields.taux_net_de_scolarisation_au_secondaire | number:1 }}<small>%</small></div>
+                                <div class="stat-progress-bar"><div class="stat-progress-fill" ng-style="{'width': demoDataAll[0].fields.taux_net_de_scolarisation_au_secondaire + '%'}"></div></div>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Taux net de scolarisation — Secondaire</h4>
+                                <p class="stat-overlay-text">Proportion d'élèves en âge officiel du secondaire effectivement scolarisés dans ce cycle.</p>
+                            </div></div>
+                        </div>
+
+
+                        <!-- ═══════════════════════════════════════════════════════ -->
+                        <!-- SECTION 2 — ACHÈVEMENT & DIPLOMATION                   -->
+                        <!-- ═══════════════════════════════════════════════════════ 
+
+                        <div class="stats-section-title" ng-if="demoDataAll.length">
+                            <i class="fa fa-award"></i> Achèvement & Diplomation
+                        </div> -->
+
+                        <!-- Taux achèvement - Primaire -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ed_achpri' ? null : 'ed_achpri')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ed_achpri'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-green"><i class="fa fa-check-circle stat-icon"></i></div>
+                                <div class="stat-title">Taux d'achèvement<br><small>Primaire</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxdemo.parameters['refine.annee'] && ctxdemo.parameters['refine.annee'] != maxYearDemo[0].x}">{{ maxYearDemo[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ demoDataAll[0].fields.taux_d_achevement_ou_de_diplomation_primaire *100 | number:1 }}<small>%</small></div>
+                                <div class="stat-progress-bar"><div class="stat-progress-fill stat-progress-green" ng-style="{'width': demoDataAll[0].fields.taux_d_achevement_ou_de_diplomation_primaire + '%'}"></div></div>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Taux d'achèvement — Primaire</h4>
+                                <p class="stat-overlay-text">Proportion d'élèves qui terminent le cycle primaire (obtention du CEPE ou équivalent).</p>
+                            </div></div>
+                        </div>
+
+                        <!-- Taux achèvement - Secondaire -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ed_achsec' ? null : 'ed_achsec')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ed_achsec'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-teal"><i class="fa fa-certificate stat-icon"></i></div>
+                                <div class="stat-title">Taux d'achèvement<br><small>Secondaire</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxdemo.parameters['refine.annee'] && ctxdemo.parameters['refine.annee'] != maxYearDemo[0].x}">{{ maxYearDemo[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ demoDataAll[0].fields.taux_d_achevement_ou_de_diplomation_secondaire *100 | number:1 }}<small>%</small></div>
+                                <div class="stat-progress-bar"><div class="stat-progress-fill stat-progress-teal" ng-style="{'width': demoDataAll[0].fields.taux_d_achevement_ou_de_diplomation_secondaire + '%'}"></div></div>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Taux d'achèvement — Secondaire</h4>
+                                <p class="stat-overlay-text">Proportion d'élèves qui terminent le cycle secondaire (obtention du BEPC ou BAC).</p>
+                            </div></div>
+                        </div>
+
+
+                        <!-- ═══════════════════════════════════════════════════════ -->
+                        <!-- SECTION 3 — RÉSULTATS AUX EXAMENS                      -->
+                        <!-- ═══════════════════════════════════════════════════════ 
+
+                        <div class="stats-section-title" ng-if="demoDataAll.length">
+                            <i class="fa fa-pen-alt"></i> Résultats aux Examens
+                        </div> -->
+
+                        <!-- Taux admission - Primaire -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ed_admpri' ? null : 'ed_admpri')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ed_admpri'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-orange"><i class="fa fa-pencil-alt stat-icon"></i></div>
+                                <div class="stat-title">Taux d'admission<br><small>Primaire (CEPE)</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxdemo.parameters['refine.annee'] && ctxdemo.parameters['refine.annee'] != maxYearDemo[0].x}">{{ maxYearDemo[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ demoDataAll[0].fields.resultats_de_l_examen_de_competence_primaire_taux_d_admissipon_au_primaire | number:1 }}<small>%</small></div>
+                                <div class="stat-progress-bar"><div class="stat-progress-fill stat-progress-orange" ng-style="{'width': demoDataAll[0].fields.resultats_de_l_examen_de_competence_primaire_taux_d_admissipon_au_primaire + '%'}"></div></div>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Taux d'admission — CEPE</h4>
+                                <p class="stat-overlay-text">Proportion de candidats admis à l'examen de compétences du primaire (CEPE).</p>
+                            </div></div>
+                        </div>
+
+                        <!-- Taux admission - Secondaire -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ed_admsec' ? null : 'ed_admsec')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ed_admsec'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-amber"><i class="fa fa-file-alt stat-icon"></i></div>
+                                <div class="stat-title">Taux d'admission<br><small>Secondaire (BEPC)</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxdemo.parameters['refine.annee'] && ctxdemo.parameters['refine.annee'] != maxYearDemo[0].x}">{{ maxYearDemo[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ demoDataAll[0].fields.resultats_de_l_examen_de_competence_secondaire_taux_d_admission_au_secondaire | number:1 }}<small>%</small></div>
+                                <div class="stat-progress-bar"><div class="stat-progress-fill stat-progress-amber" ng-style="{'width': demoDataAll[0].fields.resultats_de_l_examen_de_competence_secondaire_taux_d_admission_au_secondaire + '%'}"></div></div>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Taux d'admission — BEPC</h4>
+                                <p class="stat-overlay-text">Proportion de candidats admis au Brevet d'Études du Premier Cycle (BEPC).</p>
+                            </div></div>
+                        </div>
+
+
+                        <!-- ═══════════════════════════════════════════════════════ -->
+                        <!-- SECTION 4 — PARITÉ GENRE                               -->
+                        <!-- ═══════════════════════════════════════════════════════ 
+
+                        <div class="stats-section-title" ng-if="demoDataAll.length">
+                            <i class="fa fa-venus-mars"></i> Parité Filles / Garçons
+                        </div> -->
+
+                        <!-- Parité - Préscolaire -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ed_parpre' ? null : 'ed_parpre')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ed_parpre'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-pink"><i class="fa fa-child stat-icon"></i></div>
+                                <div class="stat-title">Indice de parité F/G<br><small>Préscolaire</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxdemo.parameters['refine.annee'] && ctxdemo.parameters['refine.annee'] != maxYearDemo[0].x}">{{ maxYearDemo[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ demoDataAll[0].fields.indice_de_parite_hommes_femmes_prescolaire_ratio_fille_garcon | number:2 }}</div>
+                            </div>
+                            <div class="stat-card-footer">
+                                <span ng-if="demoDataAll[0].fields.indice_de_parite_hommes_femmes_prescolaire_ratio_fille_garcon >= 0.97 && demoDataAll[0].fields.indice_de_parite_hommes_femmes_prescolaire_ratio_fille_garcon <= 1.03" style="color:#2e7d32"><i class="fa fa-check"></i> Parité atteinte</span>
+                                <span ng-if="demoDataAll[0].fields.indice_de_parite_hommes_femmes_prescolaire_ratio_fille_garcon < 0.97" style="color:#c62828"><i class="fa fa-exclamation-triangle"></i> Défavorable aux filles</span>
+                                <span ng-if="demoDataAll[0].fields.indice_de_parite_hommes_femmes_prescolaire_ratio_fille_garcon > 1.03" style="color:#e65100"><i class="fa fa-exclamation-triangle"></i> Défavorable aux garçons</span>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Indice de parité F/G — Préscolaire</h4>
+                                <p class="stat-overlay-text">Rapport filles/garçons scolarisés au préscolaire. Valeur cible : entre 0,97 et 1,03.</p>
+                            </div></div>
+                        </div>
+
+                        <!-- Parité - Primaire -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ed_parpri' ? null : 'ed_parpri')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ed_parpri'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-pink"><i class="fa fa-venus-mars stat-icon"></i></div>
+                                <div class="stat-title">Indice de parité F/G<br><small>Primaire</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxdemo.parameters['refine.annee'] && ctxdemo.parameters['refine.annee'] != maxYearDemo[0].x}">{{ maxYearDemo[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ demoDataAll[0].fields.indice_de_parite_hommes_femmes_primaire_ratio_fille_garcon | number:2 }}</div>
+                            </div>
+                            <div class="stat-card-footer">
+                                <span ng-if="demoDataAll[0].fields.indice_de_parite_hommes_femmes_primaire_ratio_fille_garcon >= 0.97 && demoDataAll[0].fields.indice_de_parite_hommes_femmes_primaire_ratio_fille_garcon <= 1.03" style="color:#2e7d32"><i class="fa fa-check"></i> Parité atteinte</span>
+                                <span ng-if="demoDataAll[0].fields.indice_de_parite_hommes_femmes_primaire_ratio_fille_garcon < 0.97" style="color:#c62828"><i class="fa fa-exclamation-triangle"></i> Défavorable aux filles</span>
+                                <span ng-if="demoDataAll[0].fields.indice_de_parite_hommes_femmes_primaire_ratio_fille_garcon > 1.03" style="color:#e65100"><i class="fa fa-exclamation-triangle"></i> Défavorable aux garçons</span>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Indice de parité F/G — Primaire</h4>
+                                <p class="stat-overlay-text">Rapport filles/garçons scolarisés au primaire. Valeur cible : entre 0,97 et 1,03.</p>
+                            </div></div>
+                        </div>
+
+                        <!-- Parité - Secondaire -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ed_parsec' ? null : 'ed_parsec')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ed_parsec'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-purple"><i class="fa fa-venus-mars stat-icon"></i></div>
+                                <div class="stat-title">Indice de parité F/G<br><small>Secondaire</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxdemo.parameters['refine.annee'] && ctxdemo.parameters['refine.annee'] != maxYearDemo[0].x}">{{ maxYearDemo[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ demoDataAll[0].fields.indice_de_parite_hommes_femmes_secondaire_ratio_fille_garcon | number:2 }}</div>
+                            </div>
+                            <div class="stat-card-footer">
+                                <span ng-if="demoDataAll[0].fields.indice_de_parite_hommes_femmes_secondaire_ratio_fille_garcon >= 0.97 && demoDataAll[0].fields.indice_de_parite_hommes_femmes_secondaire_ratio_fille_garcon <= 1.03" style="color:#2e7d32"><i class="fa fa-check"></i> Parité atteinte</span>
+                                <span ng-if="demoDataAll[0].fields.indice_de_parite_hommes_femmes_secondaire_ratio_fille_garcon < 0.97" style="color:#c62828"><i class="fa fa-exclamation-triangle"></i> Défavorable aux filles</span>
+                                <span ng-if="demoDataAll[0].fields.indice_de_parite_hommes_femmes_secondaire_ratio_fille_garcon > 1.03" style="color:#e65100"><i class="fa fa-exclamation-triangle"></i> Défavorable aux garçons</span>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Indice de parité F/G — Secondaire</h4>
+                                <p class="stat-overlay-text">Rapport filles/garçons scolarisés au secondaire. Valeur cible : entre 0,97 et 1,03.</p>
+                            </div></div>
+                        </div>
+
+
+                        <!-- ═══════════════════════════════════════════════════════ -->
+                        <!-- SECTION 5 — EFFECTIFS ÉLÈVES                           -->
+                        <!-- ═══════════════════════════════════════════════════════ 
+
+                        <div class="stats-section-title" ng-if="demoDataAll.length">
+                            <i class="fa fa-users"></i> Effectifs Élèves
+                        </div> -->
+
+                        <!-- Élèves Primaire - Filles -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ed_elvpf' ? null : 'ed_elvpf')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ed_elvpf'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-pink"><i class="fa fa-female stat-icon"></i></div>
+                                <div class="stat-title">Élèves - Filles<br><small>Primaire</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxdemo.parameters['refine.annee'] && ctxdemo.parameters['refine.annee'] != maxYearDemo[0].x}">{{ maxYearDemo[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ demoDataAll[0].fields.nombre_d_eleve_du_primaire_de_sexe_feminin | number:0 }}</div>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Élèves filles — Primaire</h4>
+                                <p class="stat-overlay-text">Effectif total des élèves de sexe féminin inscrits dans le cycle primaire.</p>
+                            </div></div>
+                        </div>
+
+                        <!-- Élèves Primaire - Garçons -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ed_elvpm' ? null : 'ed_elvpm')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ed_elvpm'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-blue"><i class="fa fa-male stat-icon"></i></div>
+                                <div class="stat-title">Élèves - Garçons<br><small>Primaire</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxdemo.parameters['refine.annee'] && ctxdemo.parameters['refine.annee'] != maxYearDemo[0].x}">{{ maxYearDemo[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ demoDataAll[0].fields.nombre_d_eleve_du_primaire_de_sexe_masculin | number:0 }}</div>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Élèves garçons — Primaire</h4>
+                                <p class="stat-overlay-text">Effectif total des élèves de sexe masculin inscrits dans le cycle primaire.</p>
+                            </div></div>
+                        </div>
+
+                        <!-- Élèves Secondaire - Filles -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ed_elvsf' ? null : 'ed_elvsf')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ed_elvsf'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-pink"><i class="fa fa-female stat-icon"></i></div>
+                                <div class="stat-title">Élèves - Filles<br><small>Secondaire</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxdemo.parameters['refine.annee'] && ctxdemo.parameters['refine.annee'] != maxYearDemo[0].x}">{{ maxYearDemo[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ demoDataAll[0].fields.nombre_d_eleve_du_secondaire_de_sexe_feminin | number:0 }}</div>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Élèves filles — Secondaire</h4>
+                                <p class="stat-overlay-text">Effectif total des élèves de sexe féminin inscrits dans le cycle secondaire.</p>
+                            </div></div>
+                        </div>
+
+                        <!-- Élèves Secondaire - Garçons -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ed_elvsm' ? null : 'ed_elvsm')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ed_elvsm'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-blue"><i class="fa fa-male stat-icon"></i></div>
+                                <div class="stat-title">Élèves - Garçons<br><small>Secondaire</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxdemo.parameters['refine.annee'] && ctxdemo.parameters['refine.annee'] != maxYearDemo[0].x}">{{ maxYearDemo[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ demoDataAll[0].fields.nombre_d_eleve_du_secondaire_de_sexe_masculin | number:0 }}</div>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Élèves garçons — Secondaire</h4>
+                                <p class="stat-overlay-text">Effectif total des élèves de sexe masculin inscrits dans le cycle secondaire.</p>
+                            </div></div>
+                        </div>
+
+
+                        <!-- ═══════════════════════════════════════════════════════ -->
+                        <!-- SECTION 6 — CORPS ENSEIGNANT                           -->
+                        <!-- ═══════════════════════════════════════════════════════ 
+
+                        <div class="stats-section-title" ng-if="demoDataAll.length">
+                            <i class="fa fa-chalkboard-teacher"></i> Corps Enseignant
+                        </div> -->
+
+                        <!-- Enseignants Primaire - Femmes -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ed_enspf' ? null : 'ed_enspf')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ed_enspf'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-pink"><i class="fa fa-chalkboard-teacher stat-icon"></i></div>
+                                <div class="stat-title">Enseignantes - Femmes<br><small>Primaire</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxdemo.parameters['refine.annee'] && ctxdemo.parameters['refine.annee'] != maxYearDemo[0].x}">{{ maxYearDemo[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ demoDataAll[0].fields.nombre_d_enseignants_femmes_du_niveau_primaire | number:0 }}</div>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Enseignantes femmes — Primaire</h4>
+                                <p class="stat-overlay-text">Nombre total d'enseignantes de sexe féminin exerçant dans le cycle primaire.</p>
+                            </div></div>
+                        </div>
+
+                        <!-- Enseignants Primaire - Hommes -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ed_enspm' ? null : 'ed_enspm')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ed_enspm'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-blue"><i class="fa fa-chalkboard-teacher stat-icon"></i></div>
+                                <div class="stat-title">Enseignants - Hommes<br><small>Primaire</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxdemo.parameters['refine.annee'] && ctxdemo.parameters['refine.annee'] != maxYearDemo[0].x}">{{ maxYearDemo[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ demoDataAll[0].fields.nombre_d_enseignants_hommes_du_niveau_primaire | number:0 }}</div>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Enseignants hommes — Primaire</h4>
+                                <p class="stat-overlay-text">Nombre total d'enseignants de sexe masculin exerçant dans le cycle primaire.</p>
+                            </div></div>
+                        </div>
+
+                        <!-- Enseignants Secondaire - Femmes -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ed_enssf' ? null : 'ed_enssf')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ed_enssf'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-pink"><i class="fa fa-chalkboard-teacher stat-icon"></i></div>
+                                <div class="stat-title">Enseignantes - Femmes<br><small>Secondaire</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxdemo.parameters['refine.annee'] && ctxdemo.parameters['refine.annee'] != maxYearDemo[0].x}">{{ maxYearDemo[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ demoDataAll[0].fields.nombre_d_enseignants_femmes_du_niveau_secondaire | number:0 }}</div>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Enseignantes femmes — Secondaire</h4>
+                                <p class="stat-overlay-text">Nombre total d'enseignantes de sexe féminin exerçant dans le cycle secondaire.</p>
+                            </div></div>
+                        </div>
+
+                        <!-- Enseignants Secondaire - Hommes -->
+                        <div class="stat-card stat-card-hover-info" ng-if="demoDataAll.length"
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ed_enssm' ? null : 'ed_enssm')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ed_enssm'}">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-wrapper stat-icon-blue"><i class="fa fa-chalkboard-teacher stat-icon"></i></div>
+                                <div class="stat-title">Enseignants - Hommes<br><small>Secondaire</small> <span class="stat-year-badge" ng-class="{'stat-year-badge-fallback': ctxdemo.parameters['refine.annee'] && ctxdemo.parameters['refine.annee'] != maxYearDemo[0].x}">{{ maxYearDemo[0].x }}</span></div>
+                            </div>
+                            <div class="stat-value-wrapper">
+                                <div class="stat-value">{{ demoDataAll[0].fields.nombre_d_enseignants_hommes_du_niveau_secondaire | number:0 }}</div>
+                            </div>
+                            <div class="stat-overlay"><div class="stat-overlay-content">
+                                <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                <h4 class="stat-overlay-title">Enseignants hommes — Secondaire</h4>
+                                <p class="stat-overlay-text">Nombre total d'enseignants de sexe masculin exerçant dans le cycle secondaire.</p>
+                            </div></div>
+                        </div>
+
+                    </div>
+                    </div><!-- /ods-adv-analysis maxYearDemo -->
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title" ng-if="activeValeur == 'courant'">Evolution de la population Totale</h3>
+                        </div>
+                        <ods-dataset-context context="populationparsexe" populationparsexe-dataset="population-par-sexe">
+                            <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                <ods-chart-query context="populationparsexe" field-x="annee" maxpoints="0" timescale="year">
+                                    <ods-chart-serie expression-y="population_totale" chart-type="line" function-y="SUM" label-y="Population Totale" color="#000000" scientific-display="true">
+                                    </ods-chart-serie>
+                                </ods-chart-query>
+                            </ods-chart>
+
+                        </ods-dataset-context>
+
+                        <p style="text-align: center; font-size: 12px; color: #94A3B8; margin-top: 10px;"></p>
+                    </div>
+
+                    
+
+                
+                </div>
+                
+                <div ng-if="activeTab == 'dividende'">
+
+                    <h2 class="section-title">
+                        <i class="fa fa-line-chart" style="color: var(--primary-color); margin-right: 8px;"></i>
+                        Dividende Démographique
+                    </h2>
+
+                    <!-- KPI DIVIDENDE -->
+                    <div class="stats-grid"
+                         ods-results="divData"
+                         ods-results-context="ctxonp2"
+                         ods-results-max="1"
+                         ods-results-sort="annee desc">
+
+                        <div class="stat-card stat-card-hover-info" ng-if="divData.length">
+                            <div class="stat-title">
+                                <i class="fa fa-balance-scale stat-card-icon"></i>
+                                Indice du Dividende Démographique
+                            </div>
+                            <div class="stat-value">
+                                {{ divData[0].fields.indice_du_dividende_demographique | number:2 }}
+                            </div>
+                            <div class="stat-trend">
+                                <span style="color:#64748B; font-size:11px;">Rapport actifs / dépendants</span>
+                            </div>
+                            <div class="stat-overlay">
+                                <div class="stat-overlay-content">
+                                    <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                    <h4 class="stat-overlay-title">Dividende Démographique</h4>
+                                    <p class="stat-overlay-text">
+                                        L'indice du dividende démographique mesure le potentiel
+                                        de croissance économique lié à la structure d'âge de la population,
+                                        notamment le rapport entre la population active et les dépendants.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- POPULATION ACTIVE (rappel) 
+                        <div class="stat-card stat-card-hover-info"
+                             ods-results="popDiv"
+                             ods-results-context="ctxonp1"
+                             ods-results-max="1"
+                             ods-results-sort="annee desc"
+                             ng-if="popDiv.length">
+                            <div class="stat-title">
+                                <i class="fa fa-briefcase stat-card-icon"></i>
+                                Population active (15–64 ans)
+                            </div>
+                            <div class="stat-value">
+                                {{ popDiv[0].fields.popualtion_active_15_64_ans | number:0 }}
+                                <small class="stat-subtext">hab.</small>
+                            </div>
+                            <div class="stat-trend">
+                                <span style="color:#64748B; font-size:11px;">Moteur du dividende démographique</span>
+                            </div>
+                            <div class="stat-overlay">
+                                <div class="stat-overlay-content">
+                                    <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                    <h4 class="stat-overlay-title">Population active</h4>
+                                    <p class="stat-overlay-text">
+                                        La population active (15–64 ans) est le principal moteur
+                                        du dividende démographique.
+                                    </p>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <!-- POPULATION JEUNES (rappel) 
+                        <div class="stat-card stat-card-hover-info"
+                             ods-results="popJeunes"
+                             ods-results-context="ctxonp1"
+                             ods-results-max="1"
+                             ods-results-sort="annee desc"
+                             ng-if="popJeunes.length">
+                            <div class="stat-title">
+                                <i class="fa fa-user-o stat-card-icon"></i>
+                                Population jeunes (moins de 35 ans)
+                            </div>
+                            <div class="stat-value">
+                                {{ popJeunes[0].fields.population_jeunes_moins_de_35_ans | number:0 }}
+                                <small class="stat-subtext">hab.</small>
+                            </div>
+                            <div class="stat-trend">
+                                <span style="color:#64748B; font-size:11px;">Potentiel futur de main-d'œuvre</span>
+                            </div>
+                            <div class="stat-overlay">
+                                <div class="stat-overlay-content">
+                                    <i class="fa fa-info-circle stat-overlay-icon"></i>
+                                    <h4 class="stat-overlay-title">Population jeunes</h4>
+                                    <p class="stat-overlay-text">
+                                        Les jeunes de moins de 35 ans représentent
+                                        le potentiel futur de main-d'œuvre.
+                                    </p>
+                                </div>
+                            </div>
+                        </div> -->
+
+                    </div><!-- /stats-grid dividende -->
+
+                    <!-- GRAPHE EVOLUTION DIVIDENDE -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">
+                                <i class="fa fa-line-chart" style="margin-right:6px; color:var(--primary-color);"></i>
+                                Évolution de l'Indice du Dividende Démographique
+                            </h3>
+                        </div>
+                        <ods-dataset-context context="ctxonp1,ctxonp2,ctxonp3" ctxonp1-dataset="onp" ctxonp2-dataset="onp-2" ctxonp3-dataset="onp-3">
+                        <ods-chart timescale="year" scientific-display="false">
+                            <ods-chart-query context="ctxonp2"
+                                             field-x="annee"
+                                             maxpoints="0"
+                                             timescale="year">
+                                <ods-chart-serie expression-y="indice_du_dividende_demographique"
+                                                 chart-type="line"
+                                                 function-y="AVG"
+                                                 label-y="Indice du dividende démographique"
+                                                 color="#0A71B5">
+                                </ods-chart-serie>
+                            </ods-chart-query>
+                        </ods-chart>
+                        </ods-dataset-context>
+                        <p style="text-align:center; font-size:12px; color:#94A3B8; margin-top:10px;"></p>
+                    </div>
+
+                    <!-- GRAPHE COMPARATIF TRANCHES D'AGE 
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">
+                                <i class="fa fa-bar-chart" style="margin-right:6px; color:var(--primary-color);"></i>
+                                Évolution comparée des Tranches d'Âge
+                            </h3>
+                        </div>
+                        <ods-dataset-context context="ctxonp1,ctxonp2,ctxonp3" ctxonp1-dataset="onp" ctxonp2-dataset="onp-2" ctxonp3-dataset="onp-3">
+                        <ods-chart timescale="year" scientific-display="false">
+                            <ods-chart-query context="ctxonp1"
+                                             field-x="annee"
+                                             maxpoints="0"
+                                             timescale="year">
+                                <ods-chart-serie expression-y="population_moins_de_15_ans"
+                                                 chart-type="line"
+                                                 function-y="SUM"
+                                                 label-y="Moins de 15 ans"
+                                                 color="#F98C44"
+                                                 scientific-display="true">
+                                </ods-chart-serie>
+                                <ods-chart-serie expression-y="popualtion_active_15_64_ans"
+                                                 chart-type="line"
+                                                 function-y="SUM"
+                                                 label-y="15–64 ans"
+                                                 color="#0A71B5"
+                                                 scientific-display="true">
+                                </ods-chart-serie>
+                                <ods-chart-serie expression-y="population_65_ans_et_plus"
+                                                 chart-type="line"
+                                                 function-y="SUM"
+                                                 label-y="65 ans et plus"
+                                                 color="#19630A"
+                                                 scientific-display="true">
+                                </ods-chart-serie>
+                                <ods-chart-serie expression-y="population_jeunes_moins_de_35_ans"
+                                                 chart-type="line"
+                                                 function-y="SUM"
+                                                 label-y="Moins de 35 ans"
+                                                 color="#9B59B6"
+                                                 scientific-display="true">
+                                </ods-chart-serie>
+                            </ods-chart-query>
+                        </ods-chart>
+                        </ods-dataset-context>
+                        <p style="text-align:center; font-size:12px; color:#94A3B8; margin-top:10px;"></p>
+                    </div> -->
+
+
+                </div><!-- /onglet dividende -->
+                
+                
+                
+                
+
+            </div>
+
+        </main>
+    </div>
+
+</ods-dataset-context>

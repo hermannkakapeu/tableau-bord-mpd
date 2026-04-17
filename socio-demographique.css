@@ -1550,201 +1550,96 @@ chart-placeholder1 {
 }
 
 
-.trend-up{
-    color: var(--primary-color);
+.trend-up  { color: var(--primary-color); }
+.trend-down { color: red; }
+
+/* ─── Structures KPI manquantes ──────────────────────────────────── */
+.stat-card-header {
+    display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;
+}
+.stat-icon-wrapper {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 16px;
+}
+.stat-icon-orange  { background: #FFF3E0; color: #EF7D00; }
+.stat-icon-pink    { background: #FCE4EC; color: #E91E63; }
+.stat-icon-cyan    { background: #E0F7FA; color: #0097A7; }
+.stat-icon-lime    { background: #F1F8E9; color: #558B2F; }
+.stat-icon-blue    { background: #E3F2FD; color: #1565C0; }
+.stat-icon-rose    { background: #FCE4EC; color: #C2185B; }
+.stat-icon-green   { background: #E8F5E9; color: #2E7D32; }
+.stat-icon-red     { background: #FFEBEE; color: #C62828; }
+.stat-icon-purple  { background: #EDE7F6; color: #6A1B9A; }
+.stat-icon-indigo  { background: #E8EAF6; color: #283593; }
+.stat-icon-teal    { background: #E0F2F1; color: #00695C; }
+.stat-icon-amber   { background: #FFF8E1; color: #F57F17; }
+.stat-value-wrapper { display: flex; flex-direction: column; }
+.stat-progress-bar  { height: 6px; background: #E2E8F0; border-radius: 3px; overflow: hidden; margin-top: 8px; }
+.stat-progress-fill { height: 100%; background: var(--primary-color); border-radius: 3px; transition: width 0.4s ease; }
+.stat-progress-green  { background: #2E7D32; }
+.stat-progress-teal   { background: #00695C; }
+.stat-progress-orange { background: #EF7D00; }
+.stat-progress-amber  { background: #F57F17; }
+.stat-card-footer { margin-top: 10px; font-size: 11px; border-top: 1px solid #E5E7EB; padding-top: 8px; }
+.stat-card-icon   { margin-right: 8px; }
+
+/* ─── Badge & bandeau année ──────────────────────────────────────── */
+.stat-year-badge {
+    display: inline-block; background: #E0F2FE; color: #0369A1;
+    font-size: 10px; font-weight: 700; padding: 1px 6px;
+    border-radius: 20px; margin-left: 4px; vertical-align: middle; line-height: 1.6;
+}
+.stat-year-badge-fallback {
+    background: #FFF3E0 !important; color: #C2410C !important;
+}
+.stats-year-banner {
+    font-size: 12px; color: #0369A1; background: #E0F2FE;
+    border-radius: 6px; padding: 4px 12px; margin-bottom: 12px;
+    display: inline-block; font-weight: 600;
 }
 
-.trend-down{
-    color: red;
-}
-
-/* =============================
-   ACCORDION CARD
-   ============================= */
-
-.accordion-card {
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    margin-bottom: 20px;
-    background: #ffffff;
-}
-
-/* Header cliquable */
-.accordion-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 20px;
-    cursor: pointer;
-    background-color: #f5f7fa;
-    border-bottom: 1px solid transparent;
-    transition: background-color 0.2s ease;
-    user-select: none;
-}
-
-.accordion-header:hover {
-    background-color: #eaeff5;
-}
-
-/* Flèche déroulante */
-.accordion-icon {
-    font-size: 14px;
-    color: #666;
-    transition: transform 0.3s ease;
-    display: inline-block;
-}
-
-/* Rotation quand ouvert */
-.accordion-icon.open {
-    transform: rotate(180deg);
-}
-
-/* Corps déroulant */
-.accordion-body {
-    padding: 20px;
-    animation: fadeIn 0.3s ease;
-}
-
-/* Sections internes */
-.accordion-section {
-    margin-bottom: 24px;
-}
-
-.section-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 12px;
-}
-
-/* Séparateur entre les 2 graphes */
-.accordion-divider {
-    border: none;
-    border-top: 1px dashed #ddd;
-    margin: 20px 0;
-}
-
-/* Animation d'apparition */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-6px); }
-    to   { opacity: 1; transform: translateY(0); }
-} 
-
-
-
-
-
-/* ══════════════════════════════════════════════
-   CARTES KPI CLIQUABLES + PANNEAU ÉVOLUTION
-══════════════════════════════════════════════ */
-.stat-card { cursor: pointer; }
-
+/* ─── Carte active (clic) ─────────────────────────────────────────── */
 .stat-card-active {
     border: 2px solid var(--primary-color) !important;
     background: #F0FDF4 !important;
     box-shadow: 0 0 0 3px rgba(15,119,5,0.1) !important;
 }
 .stat-card-active .stat-title { color: var(--primary-color); }
+.stat-card { cursor: pointer; }
 
-/* Seuils d'alerte */
-.stat-alert-orange { border-color: #EF7D00 !important; background: #FFFAF0 !important; }
-.stat-alert-orange .stat-value { color: #EF7D00; }
-.stat-alert-red    { border-color: #c0392b !important; background: #FFF5F5 !important; }
-.stat-alert-red    .stat-value { color: #c0392b; }
-
-/* Variation N-1 */
+/* ─── Variation N-1 ───────────────────────────────────────────────── */
 .stat-variation {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 0.73rem;
-    font-weight: 600;
-    margin-top: 8px;
-    padding-top: 8px;
-    border-top: 1px solid #E5E7EB;
+    display: flex; align-items: center; gap: 4px;
+    font-size: 0.73rem; font-weight: 600;
+    margin-top: 8px; padding-top: 8px; border-top: 1px solid #E5E7EB;
 }
-.stat-var-up   { color: #0F7705; }
-.stat-var-down { color: #c0392b; }
+.stat-var-up    { color: #0F7705; }
+.stat-var-down  { color: #c0392b; }
 .stat-var-label { font-weight: 400; color: #94A3B8; margin-left: 2px; font-size: 0.7rem; }
 
-/* Panneau graphique déroulant */
-.stat-chart-panel {
-    display: none;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-.stat-chart-panel.open {
-    display: block;
-    animation: statPanelIn 0.25s ease;
-}
+/* ─── Panneau graphique déroulant (clic) ─────────────────────────── */
+.stat-chart-panel { display: none; margin-bottom: 20px; }
+.stat-chart-panel.open { display: block; animation: statPanelIn 0.25s ease; }
 @keyframes statPanelIn {
     from { opacity: 0; transform: translateY(-8px); }
     to   { opacity: 1; transform: translateY(0); }
 }
 .stat-chart-inner {
-    background: white;
-    border: 1px solid #E2E8F0;
-    border-radius: 12px;
-    padding: 20px 24px 24px;
+    background: white; border: 1px solid #E2E8F0;
+    border-radius: 12px; padding: 20px 24px 24px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.07);
 }
 .stat-chart-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
+    display: flex; align-items: center;
+    justify-content: space-between; margin-bottom: 16px;
 }
-.stat-chart-title {
-    font-size: 15px;
-    font-weight: 700;
-    color: #1A2B3C;
-}
+.stat-chart-title { font-size: 15px; font-weight: 700; color: #1A2B3C; }
 .stat-chart-close {
-    background: none;
-    border: none;
-    font-size: 18px;
-    color: #94A3B8;
-    cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 4px;
-    transition: 0.2s;
-    line-height: 1;
+    background: none; border: none; font-size: 18px; color: #94A3B8;
+    cursor: pointer; padding: 4px 8px; border-radius: 4px;
+    transition: 0.2s; line-height: 1; font-family: 'Alegreya Sans', sans-serif;
 }
 .stat-chart-close:hover { background: #F1F5F9; color: #1A2B3C; }
+.kpi-filter-year { display: flex; align-items: center; }
 
-/* ===== TABLEAU INFLATION 3 BANDES ===== */
-.inflation-bandes { border-collapse: collapse; width: 100%; }
-.inflation-bandes thead tr { background: #1A2B3C; color: white; }
-.inflation-bandes thead th { padding: 11px 14px; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; }
-
-/* Bandes parentes */
-.infl-bande { cursor: default; transition: opacity 0.15s; }
-.infl-bande td { padding: 13px 14px; font-size: 14px; border-bottom: 1px solid #E2E8F0; }
-
-/* Bande 1 — Indice Global (vert) */
-.infl-bande-global { background: #F0FDF4; border-left: 5px solid #0F7705; cursor: pointer; }
-.infl-bande-global:hover { background: #DCFCE7; }
-
-/* Bande 2 — Taux mensuel (orange) */
-.infl-bande-taux { background: #FFF7ED; border-left: 5px solid #EF7D00; }
-
-/* Bande 3 — Indice moyen 12 mois (bleu) */
-.infl-bande-moy { background: #EFF6FF; border-left: 5px solid #0A71B5; }
-
-/* Sous-lignes */
-.infl-sous-ligne td { padding: 9px 14px 9px 14px; font-size: 13px; background: #FAFAFA; border-bottom: 1px solid #F1F5F9; color: #374151; }
-.infl-sous-ligne:hover td { background: #F1F5F9; }
-.infl-sous-ligne td:first-child { padding-left: 20px; }
-
-/* Déco */
-.infl-chevron { display: inline-block; width: 22px; font-size: 11px; color: #64748B; }
-.infl-no-expand { color: #CBD5E1; }
-.infl-badge { display: inline-block; margin-left: 8px; font-size: 11px; font-weight: 500; color: #0F7705; background: #DCFCE7; padding: 2px 8px; border-radius: 10px; }
-.infl-sous-indent { color: #94A3B8; margin-right: 6px; }
-
-/* Variations */
-.infl-var-hausse { color: #0F7705; font-weight: 700; }
-.infl-var-baisse { color:#c0392b ; font-weight: 700; }
-.infl-var-stable  { color: #94A3B8; font-weight: 500; }

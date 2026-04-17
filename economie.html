@@ -25,9 +25,9 @@
                      ctxippi-dataset="ippi-maj"
                      ctxipi-dataset="ipi-maj"
                      ctxdemo-dataset="indicateurs-demographiques-copie"
-                     ctxihpc-dataset="ihpcbase23"
-                     ctxihpcprev-dataset="ihpcbase23"
-                     ctxihpcprev-parameters="{'refine.annee':'2024','disjunctive.annee':true,'refine.mois':'Janvier','disjunctive.mois':true}"
+                     ctxihpc-dataset="1_ihpcbase23"
+                     ctxihpcprev-dataset="1_ihpcbase23"
+                     ctxihpcprev-parameters="{'refine.annee':'2024','disjunctive.annee':true,'refine.mois':'Décembre','disjunctive.mois':true}"
                      ctxpauvrete-dataset="evolution-du-taux-de-pauvrete-1"
                      ctxcomext-dataset="2-commerce-exterieur"
                      ctxcomext1-dataset="commerce-exterieur"
@@ -41,6 +41,12 @@
                      
                      ctxpib2WithoutYear="pib-series"
                      ctxpib2-parameters="{
+                                         'refine.annee':'2025',
+                                         'disjunctive.annee':true,
+                                         'refine.mois':'Janvier',
+                                         'disjunctive.mois':true
+                                         }"
+                     ctxihpc-parameters="{
                                          'refine.annee':'2025',
                                          'disjunctive.annee':true,
                                          'refine.mois':'Janvier',
@@ -62,7 +68,7 @@
                                         }"
                      >
 
-    <div class="dashboard-layout">
+    <div class="dashboard-layout" ng-init="moisList=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre']">
 
         <nav class="sidebar">
             <!--<div class="logo-me">ME</div>-->
@@ -72,7 +78,7 @@
             </div>
             
 
-            <a href="/pages/accueil-tableau-de-bord/" class="nav-item active">
+            <a href="/pages/accueil-2/" class="nav-item active">  
                 <div class="nav-icon-box">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard-icon lucide-layout-dashboard"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
                 </div>
@@ -95,7 +101,7 @@
             <header class="top-header">
                 <div class="header-left-section">
                    
-                    <a href="/pages/page-accueil-mpd/" style="line-height: 0;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMxYTJiM2MiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1hcnJvdy1sZWZ0LWljb24gbHVjaWRlLWFycm93LWxlZnQiPjxwYXRoIGQ9Im0xMiAxOS03LTcgNy03Ii8+PHBhdGggZD0iTTE5IDEySDUiLz48L3N2Zz4="></a>
+                    <a href="/pages/accueil-2/" style="line-height: 0;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMxYTJiM2MiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1hcnJvdy1sZWZ0LWljb24gbHVjaWRlLWFycm93LWxlZnQiPjxwYXRoIGQ9Im0xMiAxOS03LTcgNy03Ii8+PHBhdGggZD0iTTE5IDEySDUiLz48L3N2Zz4="></a>
                     <h1 class="header-welcome-text">Indicateurs Economiques</h1>
                 </div>
 
@@ -180,34 +186,6 @@
 
                             </div>
                         </div>
-                        
-                        <!-- 🧮 Type de valeur
-                        <div class="filter-group"
-                             ng-class="{'disabled-filter': activeDevise == 'USD'}">
-
-                            <span class="filter-label">Type de valeur :</span>
-
-                            <div class="currency-toggle">
-                                <button class="currency-btn"
-                                        ng-disabled="activeDevise == 'USD' || activeTab =='echanges' || activeTab =='echanges1'"
-                                        ng-class="{'active': activeValeur == 'courant',
-                                                  'disabled-filter1': activeTab == 'echanges',
-                                                  'disabled-filter': activeTab == 'echanges1'}"
-                                        ng-click="activeValeur = 'courant'">
-                                    Francs courants
-                                </button>
-
-                                <button class="currency-btn"
-                                        ng-disabled="activeDevise == 'USD' || activeTab =='echanges' || activeTab =='echanges1'"
-                                        ng-class="{'active': activeValeur == 'constant',
-                                                  'disabled-filter1': activeTab == 'echanges',
-                                                  'disabled-filter': activeTab == 'echanges1'}"
-                                        ng-click="activeValeur = 'constant'">
-                                    Francs constants
-                                </button>
-                            </div>
-                        </div>  -->
-
                         <div class="filter-group" style="margin-left: 20px;">
                             <div class="currency-toggle">
                                 <button class="currency-btn"
@@ -280,39 +258,6 @@
                                     </div>
 
                                 </div> 
-                                <!-- 🔽 Sélecteur d'année 
-                                <div 
-                                     ods-facet-results="filtreannee"
-                                     ods-facet-results-facet-name="annee"
-                                     ods-facet-results-context="ctxpib2">
-                                    <ods-select options="filtreannee"
-                                                selected-values="ctxpib2.parameters['refine.annee']"
-                                                label-modifier="name"
-                                                value-modifier="name"
-                                                placeholder="Filtrer sur une année"
-                                                multiple="false">
-                                    </ods-select>
-
-                                    <!-- Synchronisation des 3 contextes -->
-                                  <!--  {{ ctxcomext.parameters['refine.annee'] = ctxicac.parameters['refine.annee'] = ctxicac3.parameters['refine.annee'] = ctxicac2.parameters['refine.annee'] = ctxicac1.parameters['refine.annee']  = ctxdemo.parameters['refine.annee'] = ctxihpc.parameters['refine.annee'] = ctxpib.parameters['refine.annee'] = pibseries2.parameters['refine.annee'] = ctxpib2.parameters['refine.annee']; "" }} -->
-
-                               <!-- </div>  -->
-
-                                <!-- 🔍 Label dynamique : Réel / Estimatif / Prévisionnel
-                            <div class="kpi-type-valeur"
-                                 ods-results="rows"
-                                 ods-results-context="ctxoffre"
-                                 ng-class="{
-                                           'type-reel': rows[0].fields.type_valeur === 'Réel',
-                                           'type-estimatif': rows[0].fields.type_valeur === 'Estimatif',
-                                           'type-previsionnel': rows[0].fields.type_valeur === 'Prévisionnel'
-                                           }">
-
-                                <div>
-                                    {{ rows[0].fields.type_valeur }}
-                                </div>
-
-                            </div>       ng-if="activeTab !='invest'" -->
                             </div>
                         </div>
                         <div class="filter-group" style="margin-left: 20px;" ng-if="activeTab =='inflation'">
@@ -327,40 +272,21 @@
 
 
 
-                                <!-- 🔽 Sélecteur de mois -->
-                                <div 
-                                     ods-facet-results="filtreannee" 
-                                     ods-facet-results-facet-name="mois"
-                                     ods-facet-results-context="ctxihpc">
-                                    <ods-select options="filtreannee"
-                                                selected-values="ctxihpc.parameters['refine.mois']"
-                                                label-modifier="name"
-                                                value-modifier="name"
-                                                placeholder="Filtrer sur un mois"
-                                                multiple="false">
-                                    </ods-select>
+                                <!-- 🔽 Sélecteur de mois – liste statique en ordre chronologique -->
+                                <select ng-model="ctxihpc.parameters['refine.mois']"
+                                        class="ods-select__input"
+                                        style="padding:6px 10px; border:1px solid #ccc; border-radius:4px; font-size:14px; background:#fff; cursor:pointer;">
+                                    <option value="" disabled>Filtrer sur un mois</option>
+                                    <option ng-repeat="m in moisList" ng-value="m">{{m}}</option>
+                                </select>
 
-                                    <!-- Synchronisation des 3 contextes                 ctxihpc.parameters['refine.mois'] = -->
-                                    {{   ctxcomext.parameters['refine.mois'] = ctxippi.parameters['refine.mois'] = ctxipi.parameters['refine.mois'] = ctxsocio.parameters['refine.mois'] = ctxicac3.parameters['refine.mois'] = ctxicac2.parameters['refine.mois'] = ctxicac.parameters['refine.mois'] = ctxicac1.parameters['refine.mois'] = ctxihpcprev.parameters['refine.mois'] = ctxihpc.parameters['refine.mois'] ; "" }}
-                                    {{ ctxihpcprev.parameters['refine.annee'] = '' + (annee.parameters['refine.annee'] * 1 - 1); "" }}
+                                <!-- Synchronisation des contextes (même mois vers tous) -->
+                                {{ ctxcomext.parameters['refine.mois'] = ctxippi.parameters['refine.mois'] = ctxipi.parameters['refine.mois'] = ctxsocio.parameters['refine.mois'] = ctxicac3.parameters['refine.mois'] = ctxicac2.parameters['refine.mois'] = ctxicac.parameters['refine.mois'] = ctxicac1.parameters['refine.mois'] = ctxihpc.parameters['refine.mois']; "" }}
+                                <!-- Variation mensuelle : mois précédent (Janvier → Décembre N-1, sinon même année) -->
+                                {{ ctxihpcprev.parameters['refine.mois'] = moisList[(moisList.indexOf(ctxihpc.parameters['refine.mois']) + 11) % 12]; "" }}
+                                {{ ctxihpcprev.parameters['refine.annee'] = (moisList.indexOf(ctxihpc.parameters['refine.mois']) === 0) ? '' + (annee.parameters['refine.annee'] * 1 - 1) : '' + annee.parameters['refine.annee']; "" }}
 
-                                </div>
-
-                                <!-- 🔍 Label dynamique : Réel / Estimatif / Prévisionnel
-                            <div class="kpi-type-valeur"
-                                 ods-results="rows"
-                                 ods-results-context="ctxoffre"
-                                 ng-class="{
-                                           'type-reel': rows[0].fields.type_valeur === 'Réel',
-                                           'type-estimatif': rows[0].fields.type_valeur === 'Estimatif',
-                                           'type-previsionnel': rows[0].fields.type_valeur === 'Prévisionnel'
-                                           }">
-
-                                <div>
-                                    {{ rows[0].fields.type_valeur }}
-                                </div>
-
-                            </div> ods-results-max="2" -->
+                                
                             </div>
                         </div>
                         
@@ -373,25 +299,320 @@
                 
                 <!-- -->
                 <div ng-if="activeTab == 'kpi'">
+                    <!-- ===== PANNEAUX GRAPHIQUES (clic sur une carte) ===== -->
+                    <div class="stat-chart-panel" ng-class="{'open': kpi.activeStatChart !== null}">
+                        <div class="stat-chart-inner chart-card">
+                            <div class="stat-chart-header">
+                                <span class="stat-chart-title">
+                                    <span ng-if="kpi.activeStatChart==='ec_pib_nom'">Évolution du PIB Nominal (Mds FCFA)</span>
+                                    <span ng-if="kpi.activeStatChart==='ec_pib_usd'">Évolution du PIB Nominal (Millions USD)</span>
+                                    <span ng-if="kpi.activeStatChart==='ec_pib_real'">Évolution du PIB Réel – base 2015 (Mds FCFA)</span>
+                                    <span ng-if="kpi.activeStatChart==='ec_pib_hab'">Évolution du PIB par Habitant (k FCFA courant)</span>
+                                    <span ng-if="kpi.activeStatChart==='ec_pib_hab_usd'">Évolution du PIB par Habitant (USD)</span>
+                                    <span ng-if="kpi.activeStatChart==='ec_pib_hab_const'">Évolution du PIB par Habitant – base 2015 (k FCFA)</span>
+                                    <span ng-if="kpi.activeStatChart==='ec_croissance'">Évolution du Taux de Croissance du PIB Réel (%)</span>
+                                    <span ng-if="kpi.activeStatChart==='ec_inflation'">Évolution de l’Inflation – IHPC (%)</span>
+                                    <!--<span ng-if="kpi.activeStatChart==='ec_invest'">Évolution du Taux d’Investissement (%)</span>-->
+                                    <span ng-if="kpi.activeStatChart==='ec_fbcf'">Évolution de la FBCF (Mds FCFA)</span>
+                                    <span ng-if="kpi.activeStatChart==='ec_fbcf_usd'">Évolution de la FBCF (Millions USD)</span>
+                                    <span ng-if="kpi.activeStatChart==='ec_solde'">Évolution du Solde Commercial FOB-FOB (Mds FCFA)</span>
+                                    <span ng-if="kpi.activeStatChart==='ec_exp'">Évolution des Exportations (Mds FCFA)</span>
+                                    <span ng-if="kpi.activeStatChart==='ec_imp'">Évolution des Importations (Mds FCFA)</span>
+                                    <span ng-if="kpi.activeStatChart==='ec_exp_usd'">Évolution des Exportations (Millions USD)</span>
+                                    <span ng-if="kpi.activeStatChart==='ec_imp_usd'">Évolution des Importations (Millions USD)</span>
+                                    <span ng-if="kpi.activeStatChart==='ec_icor'">Évolution de l’ICOR</span>
+                                    <span ng-if="kpi.activeStatChart==='ec_eib'">Évolution de l’Épargne Intérieure Brute (Mds FCFA)</span>
+                                    <span ng-if="kpi.activeStatChart==='ec_cons'">Évolution de la Consommation Finale (Mds FCFA)</span>
+                                    <span ng-if="kpi.activeStatChart==='ec_stocks'">Évolution de la Variation des Stocks (Mds FCFA)</span>
+                                    <span ng-if="kpi.activeStatChart==='ec_demext'">Évolution de la Demande Externe Nette (Mds FCFA)</span>
+                                    <span ng-if="kpi.activeStatChart==='ec_defpib'">Évolution du Déflateur Implicite du PIB (%)</span>
+                                    <span ng-if="kpi.activeStatChart==='ec_defmen'">Évolution du Déflateur de Consommation des Ménages (%)</span>
+                                </span>
+                                <button class="stat-chart-close" ng-click="kpi.activeStatChart=null">✕</button>
+                            </div>
 
-                    <div class="stats-grid" ng-init="activeStatChart=null">
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ec_pib_nom'" context="agregcht1" agregcht1-dataset="principaux-aggregats-dge-dm">
+                                <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                    <ods-chart-query context="agregcht1" field-x="annee" maxpoints="0" timescale="year">
+                                        <ods-chart-serie expression-y="pib_nominal" chart-type="bar" function-y="SUM" color="#0F7705" scientific-display="true" label-y="PIB Nominal (Mds FCFA)"></ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+                            </ods-dataset-context>
+
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ec_pib_usd'" context="agregcht2" agregcht2-dataset="principaux-aggregats-dge-dm">
+                                <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                    <ods-chart-query context="agregcht2" field-x="annee" maxpoints="0" timescale="year">
+                                        <ods-chart-serie expression-y="pib_nominal_dollars_us" chart-type="bar" function-y="SUM" color="#0F7705" scientific-display="true" label-y="PIB Nominal (Millions USD)"></ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+                            </ods-dataset-context>
+
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ec_pib_real'" context="agregcht3" agregcht3-dataset="principaux-aggregats-dge-dm">
+                                <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                    <ods-chart-query context="agregcht3" field-x="annee" maxpoints="0" timescale="year">
+                                        <ods-chart-serie expression-y="pib_en_francs_constants_2015" chart-type="bar" function-y="SUM" color="#0A71B5" scientific-display="true" label-y="PIB Réel (Mds FCFA, base 2015)"></ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+                            </ods-dataset-context>
+
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ec_pib_hab'" context="agregcht4" agregcht4-dataset="principaux-aggregats-dge-dm">
+                                <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                    <ods-chart-query context="agregcht4" field-x="annee" maxpoints="0" timescale="year">
+                                        <ods-chart-serie expression-y="pib_par_habitant_prix_courant" chart-type="line" function-y="SUM" color="#EF7D00" scientific-display="true" label-y="PIB/hab courant (k FCFA)"></ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+                            </ods-dataset-context>
+
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ec_pib_hab_usd'" context="agregcht5" agregcht5-dataset="principaux-aggregats-dge-dm">
+                                <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                    <ods-chart-query context="agregcht5" field-x="annee" maxpoints="0" timescale="year">
+                                        <ods-chart-serie expression-y="pib_par_habitant_dollars_us" chart-type="line" function-y="SUM" color="#EF7D00" scientific-display="true" label-y="PIB/hab (USD)"></ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+                            </ods-dataset-context>
+
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ec_pib_hab_const'" context="agregcht6" agregcht6-dataset="principaux-aggregats-dge-dm">
+                                <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                    <ods-chart-query context="agregcht6" field-x="annee" maxpoints="0" timescale="year">
+                                        <ods-chart-serie expression-y="pib_par_habitant_a_prix_constant_2015" chart-type="line" function-y="SUM" color="#0A71B5" scientific-display="true" label-y="PIB/hab constant (k FCFA)"></ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+                            </ods-dataset-context>
+
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ec_croissance'" context="agregcht7" agregcht7-dataset="principaux-aggregats-dge-dm">
+                                <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                    <ods-chart-query context="agregcht7" field-x="annee" maxpoints="0" timescale="year">
+                                        <ods-chart-serie expression-y="taux_de_croissance_du_pib_reel" chart-type="line" function-y="AVG" color="#0F7705" scientific-display="true" label-y="Taux de croissance (%)"></ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+                            </ods-dataset-context>
+
+                            <ods-dataset-context  ng-if="kpi.activeStatChart==='ec_inflation'" context="agregcht8" agregcht8-dataset="principaux-aggregats-dge-dm">
+                                <ods-chart  timescale="year" scientific-display="false" align-month="true">
+                                    <ods-chart-query context="agregcht8" field-x="annee" maxpoints="0" timescale="year">
+                                        <ods-chart-serie expression-y="ihpc_moyenne_annuelle" chart-type="line" function-y="SUM" color="#EF7D00" scientific-display="true" label-y="Inflation (%)"></ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+                            </ods-dataset-context>
+                            
+                            <div class="chart-card" ng-if="kpi.activeStatChart==='ec_invest'">
+                                <div class="chart-header">
+                                    <h3 class="chart-title">Évolution du Taux d'Investissement (%)</h3>
+                                    <div class="chart-kpi-group" ng-if="activeValeur == 'courant'">
+                                        <div class="mini-kpi" ods-adv-analysis="resultPibReal"
+                                             ods-adv-analysis-context="ctxagreg"
+                                             ods-adv-analysis-select="SUM(fbcf_en_francs_courants) AS total_pib">
+                                            <div class="mini-kpi-label" style="font-size:11px; color:#94A3B8;">FBCF</div>
+                                            <div class="mini-kpi-val">{{resultPibReal[0].total_pib | number:0}}<span style="font-size:12px; font-weight:400;">Mds FCFA</span></div>
+
+                                        </div>
+                                        <div class="mini-kpi" ods-adv-analysis="resultPibReal"
+                                             ods-adv-analysis-context="ctxagreg"
+                                             ods-adv-analysis-select="SUM(taux_d_investissement) AS total_pib">
+                                            <div class="mini-kpi-label" style="font-size:11px; color:#94A3B8;">Tx. investissement</div>
+                                            <div class="mini-kpi-val">{{resultPibReal[0].total_pib | number:0}} <span style="font-size:12px; font-weight:400;">%</span></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <ods-dataset-context
+                                                     context="ctxoffre,ctxdemande,ctxagreg"
+                                                     ctxoffre-dataset="valeur-ajoute-nominal-pib-offre-francs-courants"
+                                                     ctxdemande-dataset="valeur-ajoutee-demande-en-francs-courants-dm"
+                                                     ctxagreg-dataset="principaux-aggregats-dge-dm">
+
+                                    <div class="chart-placeholder1">
+                                        <ods-chart class="chartline1" 
+                                                   single-y-axis="true"
+                                                   scientific-display="false"
+                                                   align-month="true">
+
+                                            <ods-chart-query context="ctxagreg"
+                                                             field-x="annee"
+                                                             maxpoints="0"
+                                                             timescale="year"
+                                                             stacked="normal">
+
+                                                <ods-chart-serie expression-y="taux_d_investissement_prive"
+                                                                 chart-type="column"
+                                                                 function-y="SUM"
+                                                                 color="#EF7D00"
+                                                                 display-values="true"
+                                                                 label-y="Investissement privé (%)"
+                                                                 title="Taux d'investissement privé">
+                                                </ods-chart-serie>
+
+                                                <ods-chart-serie expression-y="taux_d_investissement_public"
+                                                                 chart-type="column"
+                                                                 function-y="SUM"
+                                                                 color="#0F7705"
+                                                                 display-values="true"
+                                                                 label-y="Investissement public (%)"
+                                                                 title="Taux d'investissement public"
+                                                                 >
+                                                </ods-chart-serie>
+
+                                                <ods-chart-serie expression-y="taux_d_investissement"
+                                                                 chart-type="line"
+                                                                 function-y="SUM"
+                                                                 color="#ffffff"
+                                                                 display-values="true"
+                                                                 label-y="Investissement total (%)"
+                                                                 title="Taux d'investissement total"
+                                                                 >
+                                                </ods-chart-serie>
+
+                                            </ods-chart-query>
+
+                                        </ods-chart>
+                                    </div>
+
+                                </ods-dataset-context>
+                                <p style="text-align: center; font-size: 12px; color: #94A3B8; margin-top: 10px;">Données provenant de la DGE</p>
+                            </div>
+
+                           <!-- <ods-dataset-context ng-if="kpi.activeStatChart==='ec_invest'" context="agregcht9" agregcht9-dataset="principaux-aggregats-dge-dm">
+                                <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                    <ods-chart-query context="agregcht9" field-x="annee" maxpoints="0" timescale="year">
+                                        <ods-chart-serie expression-y="taux_d_investissement" chart-type="line" function-y="SUM" color="#0F7705" scientific-display="true" label-y="Taux d’investissement (%)"></ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+                            </ods-dataset-context> -->
+
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ec_fbcf'" context="agregcht10" agregcht10-dataset="principaux-aggregats-dge-dm">
+                                <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                    <ods-chart-query context="agregcht10" field-x="annee" maxpoints="0" timescale="year">
+                                        <ods-chart-serie expression-y="fbcf_en_francs_courants" chart-type="bar" function-y="SUM" color="#0F7705" scientific-display="true" label-y="FBCF (Mds FCFA)"></ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+                            </ods-dataset-context>
+
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ec_fbcf_usd'" context="agregcht11" agregcht11-dataset="principaux-aggregats-dge-dm">
+                                <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                    <ods-chart-query context="agregcht11" field-x="annee" maxpoints="0" timescale="year">
+                                        <ods-chart-serie expression-y="fbcf_dollars_us" chart-type="bar" function-y="SUM" color="#0A71B5" scientific-display="true" label-y="FBCF (Millions USD)"></ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+                            </ods-dataset-context>
+
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ec_solde'" context="agregcht12" agregcht12-dataset="principaux-aggregats-dge-dm">
+                                <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                    <ods-chart-query context="agregcht12" field-x="annee" maxpoints="0" timescale="year">
+                                        <ods-chart-serie expression-y="solde_commercial_fob_fob_francs_courants" chart-type="bar" function-y="SUM" color="#EF7D00" scientific-display="true" label-y="Solde Commercial (Mds FCFA)"></ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+                            </ods-dataset-context>
+
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ec_exp'" context="agregcht13" agregcht13-dataset="principaux-aggregats-dge-dm">
+                                <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                    <ods-chart-query context="agregcht13" field-x="annee" maxpoints="0" timescale="year">
+                                        <ods-chart-serie expression-y="exportations_en_francs_courants" chart-type="bar" function-y="SUM" color="#0F7705" scientific-display="true" label-y="Exportations (Mds FCFA)"></ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+                            </ods-dataset-context>
+
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ec_imp'" context="agregcht14" agregcht14-dataset="principaux-aggregats-dge-dm">
+                                <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                    <ods-chart-query context="agregcht14" field-x="annee" maxpoints="0" timescale="year">
+                                        <ods-chart-serie expression-y="importations_en_francs_courants" chart-type="bar" function-y="SUM" color="#c0392b" scientific-display="true" label-y="Importations (Mds FCFA)"></ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+                            </ods-dataset-context>
+
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ec_exp_usd'" context="agregcht15" agregcht15-dataset="principaux-aggregats-dge-dm">
+                                <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                    <ods-chart-query context="agregcht15" field-x="annee" maxpoints="0" timescale="year">
+                                        <ods-chart-serie expression-y="exportations_de_biens_dollars_us" chart-type="bar" function-y="SUM" color="#0F7705" scientific-display="true" label-y="Exportations (Millions USD)"></ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+                            </ods-dataset-context>
+
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ec_imp_usd'" context="agregcht16" agregcht16-dataset="principaux-aggregats-dge-dm">
+                                <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                    <ods-chart-query context="agregcht16" field-x="annee" maxpoints="0" timescale="year">
+                                        <ods-chart-serie expression-y="importations_totales_dollars_us" chart-type="bar" function-y="SUM" color="#c0392b" scientific-display="true" label-y="Importations (Millions USD)"></ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+                            </ods-dataset-context>
+
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ec_icor'" context="agregcht17" agregcht17-dataset="principaux-aggregats-dge-dm">
+                                <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                    <ods-chart-query context="agregcht17" field-x="annee" maxpoints="0" timescale="year">
+                                        <ods-chart-serie expression-y="icor" chart-type="line" function-y="SUM" color="#EF7D00" scientific-display="true" label-y="ICOR"></ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+                            </ods-dataset-context>
+
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ec_eib'" context="agregcht18" agregcht18-dataset="principaux-aggregats-dge-dm">
+                                <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                    <ods-chart-query context="agregcht18" field-x="annee" maxpoints="0" timescale="year">
+                                        <ods-chart-serie expression-y="epargne_interieure_brute_en_francs_courants" chart-type="bar" function-y="SUM" color="#0F7705" scientific-display="true" label-y="Épargne Intérieure Brute (Mds FCFA)"></ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+                            </ods-dataset-context>
+
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ec_cons'" context="agregcht19" agregcht19-dataset="principaux-aggregats-dge-dm">
+                                <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                    <ods-chart-query context="agregcht19" field-x="annee" maxpoints="0" timescale="year">
+                                        <ods-chart-serie expression-y="consommation_finale_en_francs_courants" chart-type="bar" function-y="SUM" color="#0A71B5" scientific-display="true" label-y="Consommation Finale (Mds FCFA)"></ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+                            </ods-dataset-context>
+
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ec_stocks'" context="agregcht20" agregcht20-dataset="principaux-aggregats-dge-dm">
+                                <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                    <ods-chart-query context="agregcht20" field-x="annee" maxpoints="0" timescale="year">
+                                        <ods-chart-serie expression-y="variation_des_stocks_en_francs_courants" chart-type="bar" function-y="SUM" color="#EF7D00" scientific-display="true" label-y="Variation des Stocks (Mds FCFA)"></ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+                            </ods-dataset-context>
+
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ec_demext'" context="agregcht21" agregcht21-dataset="principaux-aggregats-dge-dm">
+                                <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                    <ods-chart-query context="agregcht21" field-x="annee" maxpoints="0" timescale="year">
+                                        <ods-chart-serie expression-y="demande_externe_nette_en_francs_courants" chart-type="bar" function-y="SUM" color="#EF7D00" scientific-display="true" label-y="Demande Externe Nette (Mds FCFA)"></ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+                            </ods-dataset-context>
+
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ec_defpib'" context="agregcht22" agregcht22-dataset="principaux-aggregats-dge-dm">
+                                <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                    <ods-chart-query context="agregcht22" field-x="annee" maxpoints="0" timescale="year">
+                                        <ods-chart-serie expression-y="deflateur_implicite_du_pib" chart-type="line" function-y="SUM" color="#EF7D00" scientific-display="true" label-y="Déflateur PIB (%)"></ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+                            </ods-dataset-context>
+
+                            <ods-dataset-context ng-if="kpi.activeStatChart==='ec_defmen'" context="agregcht23" agregcht23-dataset="principaux-aggregats-dge-dm">
+                                <ods-chart timescale="year" scientific-display="false" align-month="true">
+                                    <ods-chart-query context="agregcht23" field-x="annee" maxpoints="0" timescale="year">
+                                        <ods-chart-serie expression-y="deflateur_consommation_des_menages" chart-type="line" function-y="SUM" color="#c0392b" scientific-display="true" label-y="Déflateur Ménages (%)"></ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+                            </ods-dataset-context>
+
+                        </div>
+                    </div><!-- end chart panels -->
+
+                    <div class="stats-grid" ng-init="kpi={activeStatChart:null}">
                         <!-- 1. PIB Nominal FCFA -->
                         <div class="stat-card stat-card-hover-info"
-                             ng-if="activeDevise == ‘FCFA’ && activeValeur == ‘courant’"
+                             ng-if="activeDevise == 'FCFA' && activeValeur == 'courant'"
                              ods-adv-analysis="resultPibFcfa" ods-adv-analysis-context="ctxagreg"
                              ods-adv-analysis-select="SUM(pib_nominal) AS total_pib"
-                             ng-click="activeStatChart = (activeStatChart===’ec_pib_nom’ ? null : ‘ec_pib_nom’)"
-                             ng-class="{‘stat-card-active’: activeStatChart===’ec_pib_nom’}">
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ec_pib_nom' ? null : 'ec_pib_nom')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ec_pib_nom'}">
                             <div class="stat-title">PIB Nominal</div>
                             <div class="stat-value">{{ resultPibFcfa[0].total_pib | number:0 }} <small class="stat-subtext">Mds FCFA</small></div>
                             <div ods-adv-analysis="prevPibNom" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(pib_nominal) AS val">
                                 <div class="stat-variation" ng-if="resultPibFcfa[0] && prevPibNom[0]">
-                                    <span ng-class="{‘stat-var-up’: resultPibFcfa[0].total_pib >= prevPibNom[0].val, ‘stat-var-down’: resultPibFcfa[0].total_pib < prevPibNom[0].val}">
-                                        {{ resultPibFcfa[0].total_pib >= prevPibNom[0].val ? ‘▲’ : ‘▼’ }}
+                                    <span ng-class="{'stat-var-up': resultPibFcfa[0].total_pib >= prevPibNom[0].val, 'stat-var-down': resultPibFcfa[0].total_pib < prevPibNom[0].val}">
+                                        {{ resultPibFcfa[0].total_pib >= prevPibNom[0].val ? '▲' : '▼' }}
                                         {{ ((resultPibFcfa[0].total_pib - prevPibNom[0].val) / prevPibNom[0].val * 100) | number:1 }}%
                                     </span>
-                                    <span class="stat-var-label">vs {{ annee.parameters[‘refine.annee’] * 1 - 1 }}</span>
+                                    <span class="stat-var-label">vs {{ annee.parameters['refine.annee'] * 1 - 1 }}</span>
                                 </div>
                             </div>
                             <div class="stat-trend"><span class="white">-</span></div>
@@ -411,8 +632,8 @@
                              ng-if="activeDevise == 'USD'"
                              ods-adv-analysis="resultPibUsd" ods-adv-analysis-context="ctxagreg"
                              ods-adv-analysis-select="SUM(pib_nominal_dollars_us) AS total_pib"
-                             ng-click="activeStatChart = (activeStatChart==='ec_pib_usd' ? null : 'ec_pib_usd')"
-                             ng-class="{'stat-card-active': activeStatChart==='ec_pib_usd'}">
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ec_pib_usd' ? null : 'ec_pib_usd')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ec_pib_usd'}">
                             <div class="stat-title">PIB Nominal ($)</div>
                             <div class="stat-value">{{ resultPibUsd[0].total_pib | number:0 }} <small class="stat-subtext">Millions USD</small></div>
                             <div ods-adv-analysis="prevPibUsd" ods-adv-analysis-context="ctxagregprev"
@@ -439,21 +660,21 @@
 
                         <!-- 3. PIB Réel FCFA constant -->
                         <div class="stat-card stat-card-hover-info"
-                             ng-if="activeDevise == ‘FCFA’ && activeValeur == ‘constant’"
+                             ng-if="activeDevise == 'FCFA' && activeValeur == 'constant'"
                              ods-adv-analysis="resultPibReal" ods-adv-analysis-context="ctxagreg"
                              ods-adv-analysis-select="SUM(pib_en_francs_constants_2015) AS total_pib"
-                             ng-click="activeStatChart = (activeStatChart===’ec_pib_real’ ? null : ‘ec_pib_real’)"
-                             ng-class="{‘stat-card-active’: activeStatChart===’ec_pib_real’}">
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ec_pib_real' ? null : 'ec_pib_real')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ec_pib_real'}">
                             <div class="stat-title">PIB Réel</div>
                             <div class="stat-value">{{ resultPibReal[0].total_pib | number:0 }} <small class="stat-subtext">Mds FCFA</small></div>
                             <div ods-adv-analysis="prevPibReal" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(pib_en_francs_constants_2015) AS val">
                                 <div class="stat-variation" ng-if="resultPibReal[0] && prevPibReal[0]">
-                                    <span ng-class="{‘stat-var-up’: resultPibReal[0].total_pib >= prevPibReal[0].val, ‘stat-var-down’: resultPibReal[0].total_pib < prevPibReal[0].val}">
-                                        {{ resultPibReal[0].total_pib >= prevPibReal[0].val ? ‘▲’ : ‘▼’ }}
+                                    <span ng-class="{'stat-var-up': resultPibReal[0].total_pib >= prevPibReal[0].val, 'stat-var-down': resultPibReal[0].total_pib < prevPibReal[0].val}">
+                                        {{ resultPibReal[0].total_pib >= prevPibReal[0].val ? '▲' : '▼' }}
                                         {{ ((resultPibReal[0].total_pib - prevPibReal[0].val) / prevPibReal[0].val * 100) | number:1 }}%
                                     </span>
-                                    <span class="stat-var-label">vs {{ annee.parameters[‘refine.annee’] * 1 - 1 }}</span>
+                                    <span class="stat-var-label">vs {{ annee.parameters['refine.annee'] * 1 - 1 }}</span>
                                 </div>
                             </div>
                             <div class="stat-trend"><span>Base 2015</span></div>
@@ -473,8 +694,8 @@
                              ng-if="activeDevise == 'FCFA' && activeValeur == 'courant'"
                              ods-adv-analysis="resPibHabCourant" ods-adv-analysis-context="ctxagreg"
                              ods-adv-analysis-select="SUM(pib_par_habitant_prix_courant) AS total_pib"
-                             ng-click="activeStatChart = (activeStatChart==='ec_pib_hab' ? null : 'ec_pib_hab')"
-                             ng-class="{'stat-card-active': activeStatChart==='ec_pib_hab'}">
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ec_pib_hab' ? null : 'ec_pib_hab')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ec_pib_hab'}">
                             <div class="stat-title">PIB par Habitant</div>
                             <div class="stat-value">{{ resPibHabCourant[0].total_pib | number:0 }} <small class="stat-subtext">k FCFA</small></div>
                             <div ods-adv-analysis="prevPibHab" ods-adv-analysis-context="ctxagregprev"
@@ -504,8 +725,8 @@
                              ng-if="activeDevise == 'USD'"
                              ods-adv-analysis="resPibHabUsd" ods-adv-analysis-context="ctxagreg"
                              ods-adv-analysis-select="SUM(pib_par_habitant_dollars_us) AS total_pib"
-                             ng-click="activeStatChart = (activeStatChart==='ec_pib_hab_usd' ? null : 'ec_pib_hab_usd')"
-                             ng-class="{'stat-card-active': activeStatChart==='ec_pib_hab_usd'}">
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ec_pib_hab_usd' ? null : 'ec_pib_hab_usd')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ec_pib_hab_usd'}">
                             <div class="stat-title">PIB par Habitant ($)</div>
                             <div class="stat-value">{{ resPibHabUsd[0].total_pib | number:0 }} <small class="stat-subtext">USD</small></div>
                             <div ods-adv-analysis="prevPibHabUsd" ods-adv-analysis-context="ctxagregprev"
@@ -532,21 +753,21 @@
 
                         <!-- 6. PIB par Habitant constant (alias fix: resPibHabConst) -->
                         <div class="stat-card stat-card-hover-info"
-                             ng-if="activeDevise == ‘FCFA’ && activeValeur == ‘constant’"
+                             ng-if="activeDevise == 'FCFA' && activeValeur == 'constant'"
                              ods-adv-analysis="resPibHabConst" ods-adv-analysis-context="ctxagreg"
                              ods-adv-analysis-select="SUM(pib_par_habitant_a_prix_constant_2015) AS total_pib"
-                             ng-click="activeStatChart = (activeStatChart===’ec_pib_hab_const’ ? null : ‘ec_pib_hab_const’)"
-                             ng-class="{‘stat-card-active’: activeStatChart===’ec_pib_hab_const’}">
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ec_pib_hab_const' ? null : 'ec_pib_hab_const')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ec_pib_hab_const'}">
                             <div class="stat-title">PIB par Habitant</div>
                             <div class="stat-value">{{ resPibHabConst[0].total_pib | number:0 }} <small class="stat-subtext">k FCFA</small></div>
                             <div ods-adv-analysis="prevPibHabConst" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(pib_par_habitant_a_prix_constant_2015) AS val">
                                 <div class="stat-variation" ng-if="resPibHabConst[0] && prevPibHabConst[0]">
-                                    <span ng-class="{‘stat-var-up’: resPibHabConst[0].total_pib >= prevPibHabConst[0].val, ‘stat-var-down’: resPibHabConst[0].total_pib < prevPibHabConst[0].val}">
-                                        {{ resPibHabConst[0].total_pib >= prevPibHabConst[0].val ? ‘▲’ : ‘▼’ }}
+                                    <span ng-class="{'stat-var-up': resPibHabConst[0].total_pib >= prevPibHabConst[0].val, 'stat-var-down': resPibHabConst[0].total_pib < prevPibHabConst[0].val}">
+                                        {{ resPibHabConst[0].total_pib >= prevPibHabConst[0].val ? '▲' : '▼' }}
                                         {{ ((resPibHabConst[0].total_pib - prevPibHabConst[0].val) / prevPibHabConst[0].val * 100) | number:1 }}%
                                     </span>
-                                    <span class="stat-var-label">vs {{ annee.parameters[‘refine.annee’] * 1 - 1 }}</span>
+                                    <span class="stat-var-label">vs {{ annee.parameters['refine.annee'] * 1 - 1 }}</span>
                                 </div>
                             </div>
                             <div class="stat-trend"><span>Base 2015</span></div>
@@ -564,20 +785,20 @@
                         <div class="stat-card stat-card-hover-info"
                              ods-adv-analysis="resCroissance" ods-adv-analysis-context="ctxagreg"
                              ods-adv-analysis-select="AVG(taux_de_croissance_du_pib_reel) AS val"
-                             ng-click="activeStatChart = (activeStatChart===’ec_croissance’ ? null : ‘ec_croissance’)"
-                             ng-class="{‘stat-card-active’: activeStatChart===’ec_croissance’,
-                                        ‘stat-alert-orange’: resCroissance[0] && resCroissance[0].val < 5 && resCroissance[0].val >= 3,
-                                        ‘stat-alert-red’: resCroissance[0] && resCroissance[0].val < 3}">
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ec_croissance' ? null : 'ec_croissance')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ec_croissance',
+                                        'stat-alert-orange': resCroissance[0] && resCroissance[0].val < 5 && resCroissance[0].val >= 3,
+                                        'stat-alert-red': resCroissance[0] && resCroissance[0].val < 3}">
                             <div class="stat-title">Taux de Croissance du PIB réel</div>
                             <div class="stat-value">{{ resCroissance[0].val | number:1 }} <small class="stat-subtext">%</small></div>
                             <div ods-adv-analysis="prevCroissance" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="AVG(taux_de_croissance_du_pib_reel) AS val">
                                 <div class="stat-variation" ng-if="resCroissance[0] && prevCroissance[0]">
-                                    <span ng-class="{‘stat-var-up’: resCroissance[0].val >= prevCroissance[0].val, ‘stat-var-down’: resCroissance[0].val < prevCroissance[0].val}">
-                                        {{ resCroissance[0].val >= prevCroissance[0].val ? ‘▲’ : ‘▼’ }}
+                                    <span ng-class="{'stat-var-up': resCroissance[0].val >= prevCroissance[0].val, 'stat-var-down': resCroissance[0].val < prevCroissance[0].val}">
+                                        {{ resCroissance[0].val >= prevCroissance[0].val ? '▲' : '▼' }}
                                         {{ (resCroissance[0].val - prevCroissance[0].val) | number:1 }} pts
                                     </span>
-                                    <span class="stat-var-label">vs {{ annee.parameters[‘refine.annee’] * 1 - 1 }}</span>
+                                    <span class="stat-var-label">vs {{ annee.parameters['refine.annee'] * 1 - 1 }}</span>
                                 </div>
                             </div>
                             <div class="stat-trend"><span>Croissance Réelle</span></div>
@@ -596,20 +817,20 @@
                         <div class="stat-card stat-card-hover-info"
                              ods-adv-analysis="resInflation" ods-adv-analysis-context="ctxagreg"
                              ods-adv-analysis-select="SUM(ihpc_moyenne_annuelle) AS val"
-                             ng-click="activeStatChart = (activeStatChart===’ec_inflation’ ? null : ‘ec_inflation’)"
-                             ng-class="{‘stat-card-active’: activeStatChart===’ec_inflation’,
-                                        ‘stat-alert-orange’: resInflation[0] && resInflation[0].val > 3 && resInflation[0].val <= 5,
-                                        ‘stat-alert-red’: resInflation[0] && resInflation[0].val > 5}">
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ec_inflation' ? null : 'ec_inflation')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ec_inflation',
+                                        'stat-alert-orange': resInflation[0] && resInflation[0].val > 3 && resInflation[0].val <= 5,
+                                        'stat-alert-red': resInflation[0] && resInflation[0].val > 5}">
                             <div class="stat-title">Inflation</div>
                             <div class="stat-value">{{ resInflation[0].val | number:1 }} <small class="stat-subtext">%</small></div>
                             <div ods-adv-analysis="prevInflation" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(ihpc_moyenne_annuelle) AS val">
                                 <div class="stat-variation" ng-if="resInflation[0] && prevInflation[0]">
-                                    <span ng-class="{‘stat-var-up’: resInflation[0].val >= prevInflation[0].val, ‘stat-var-down’: resInflation[0].val < prevInflation[0].val}">
-                                        {{ resInflation[0].val >= prevInflation[0].val ? ‘▲’ : ‘▼’ }}
+                                    <span ng-class="{'stat-var-up': resInflation[0].val >= prevInflation[0].val, 'stat-var-down': resInflation[0].val < prevInflation[0].val}">
+                                        {{ resInflation[0].val >= prevInflation[0].val ? '▲' : '▼' }}
                                         {{ (resInflation[0].val - prevInflation[0].val) | number:1 }} pts
                                     </span>
-                                    <span class="stat-var-label">vs {{ annee.parameters[‘refine.annee’] * 1 - 1 }}</span>
+                                    <span class="stat-var-label">vs {{ annee.parameters['refine.annee'] * 1 - 1 }}</span>
                                 </div>
                             </div>
                             <div class="stat-trend"><span>Indice Harmonisé des Prix à la Consommation</span></div>
@@ -628,18 +849,18 @@
                         <div class="stat-card stat-card-hover-info"
                              ods-adv-analysis="resInvest" ods-adv-analysis-context="ctxagreg"
                              ods-adv-analysis-select="SUM(taux_d_investissement) AS val"
-                             ng-click="activeStatChart = (activeStatChart===’ec_invest’ ? null : ‘ec_invest’)"
-                             ng-class="{‘stat-card-active’: activeStatChart===’ec_invest’}">
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ec_invest' ? null : 'ec_invest')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ec_invest'}">
                             <div class="stat-title">Taux d’Investissement</div>
                             <div class="stat-value">{{ resInvest[0].val | number:1 }} <small class="stat-subtext">%</small></div>
                             <div ods-adv-analysis="prevInvest" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(taux_d_investissement) AS val">
                                 <div class="stat-variation" ng-if="resInvest[0] && prevInvest[0]">
-                                    <span ng-class="{‘stat-var-up’: resInvest[0].val >= prevInvest[0].val, ‘stat-var-down’: resInvest[0].val < prevInvest[0].val}">
-                                        {{ resInvest[0].val >= prevInvest[0].val ? ‘▲’ : ‘▼’ }}
+                                    <span ng-class="{'stat-var-up': resInvest[0].val >= prevInvest[0].val, 'stat-var-down': resInvest[0].val < prevInvest[0].val}">
+                                        {{ resInvest[0].val >= prevInvest[0].val ? '▲' : '▼' }}
                                         {{ (resInvest[0].val - prevInvest[0].val) | number:1 }} pts
                                     </span>
-                                    <span class="stat-var-label">vs {{ annee.parameters[‘refine.annee’] * 1 - 1 }}</span>
+                                    <span class="stat-var-label">vs {{ annee.parameters['refine.annee'] * 1 - 1 }}</span>
                                 </div>
                             </div>
                             <div class="stat-trend">
@@ -664,21 +885,21 @@
 
                         <!-- 10. FBCF FCFA -->
                         <div class="stat-card stat-card-hover-info"
-                             ng-if="activeDevise == ‘FCFA’ && activeValeur == ‘courant’"
+                             ng-if="activeDevise == 'FCFA' && activeValeur == 'courant'"
                              ods-adv-analysis="fbcfFCFA" ods-adv-analysis-context="ctxagreg"
                              ods-adv-analysis-select="SUM(fbcf_en_francs_courants) AS val"
-                             ng-click="activeStatChart = (activeStatChart===’ec_fbcf’ ? null : ‘ec_fbcf’)"
-                             ng-class="{‘stat-card-active’: activeStatChart===’ec_fbcf’}">
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ec_fbcf' ? null : 'ec_fbcf')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ec_fbcf'}">
                             <div class="stat-title">FBCF</div>
                             <div class="stat-value">{{ fbcfFCFA[0].val | number:0 }} <small class="stat-subtext">Mds FCFA</small></div>
                             <div ods-adv-analysis="prevFbcf" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(fbcf_en_francs_courants) AS val">
                                 <div class="stat-variation" ng-if="fbcfFCFA[0] && prevFbcf[0]">
-                                    <span ng-class="{‘stat-var-up’: fbcfFCFA[0].val >= prevFbcf[0].val, ‘stat-var-down’: fbcfFCFA[0].val < prevFbcf[0].val}">
-                                        {{ fbcfFCFA[0].val >= prevFbcf[0].val ? ‘▲’ : ‘▼’ }}
+                                    <span ng-class="{'stat-var-up': fbcfFCFA[0].val >= prevFbcf[0].val, 'stat-var-down': fbcfFCFA[0].val < prevFbcf[0].val}">
+                                        {{ fbcfFCFA[0].val >= prevFbcf[0].val ? '▲' : '▼' }}
                                         {{ ((fbcfFCFA[0].val - prevFbcf[0].val) / prevFbcf[0].val * 100) | number:1 }}%
                                     </span>
-                                    <span class="stat-var-label">vs {{ annee.parameters[‘refine.annee’] * 1 - 1 }}</span>
+                                    <span class="stat-var-label">vs {{ annee.parameters['refine.annee'] * 1 - 1 }}</span>
                                 </div>
                             </div>
                             <div class="stat-trend"><span>Investissements</span></div>
@@ -698,8 +919,8 @@
                              ng-if="activeDevise == 'USD'"
                              ods-adv-analysis="fbcfUSD" ods-adv-analysis-context="ctxagreg"
                              ods-adv-analysis-select="SUM(fbcf_dollars_us) AS val"
-                             ng-click="activeStatChart = (activeStatChart==='ec_fbcf_usd' ? null : 'ec_fbcf_usd')"
-                             ng-class="{'stat-card-active': activeStatChart==='ec_fbcf_usd'}">
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ec_fbcf_usd' ? null : 'ec_fbcf_usd')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ec_fbcf_usd'}">
                             <div class="stat-title">FBCF (USD)</div>
                             <div class="stat-value">{{ fbcfUSD[0].val | number:0 }} <small class="stat-subtext">Millions USD</small></div>
                             <div ods-adv-analysis="prevFbcfUsd" ods-adv-analysis-context="ctxagregprev"
@@ -739,8 +960,8 @@
                              ng-if="activeDevise == 'FCFA' && activeValeur == 'courant'"
                              ods-adv-analysis="resultSoldeCurrent" ods-adv-analysis-context="ctxagreg"
                              ods-adv-analysis-select="SUM(solde_commercial_fob_fob_francs_courants) AS total_pib"
-                             ng-click="activeStatChart = (activeStatChart==='ec_solde' ? null : 'ec_solde')"
-                             ng-class="{'stat-card-active': activeStatChart==='ec_solde',
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ec_solde' ? null : 'ec_solde')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ec_solde',
                                         'stat-alert-orange': resultSoldeCurrent[0] && resultSoldeCurrent[0].total_pib < 0 && resultSoldeCurrent[0].total_pib > -5000,
                                         'stat-alert-red': resultSoldeCurrent[0] && resultSoldeCurrent[0].total_pib <= -5000}">
                             <div class="stat-title">Solde Commercial</div>
@@ -768,21 +989,21 @@
 
                         <!-- 13. Exportations FCFA -->
                         <div class="stat-card stat-card-hover-info"
-                             ng-if="activeDevise == ‘FCFA’ && activeValeur == ‘courant’"
+                             ng-if="activeDevise == 'FCFA' && activeValeur == 'courant'"
                              ods-adv-analysis="expFCFA" ods-adv-analysis-context="ctxagreg"
                              ods-adv-analysis-select="SUM(exportations_en_francs_courants) AS val"
-                             ng-click="activeStatChart = (activeStatChart===’ec_exp’ ? null : ‘ec_exp’)"
-                             ng-class="{‘stat-card-active’: activeStatChart===’ec_exp’}">
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ec_exp' ? null : 'ec_exp')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ec_exp'}">
                             <div class="stat-title">Exportations</div>
                             <div class="stat-value">{{ expFCFA[0].val | number:0 }} <small class="stat-subtext">Mds FCFA</small></div>
                             <div ods-adv-analysis="prevExp" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(exportations_en_francs_courants) AS val">
                                 <div class="stat-variation" ng-if="expFCFA[0] && prevExp[0]">
-                                    <span ng-class="{‘stat-var-up’: expFCFA[0].val >= prevExp[0].val, ‘stat-var-down’: expFCFA[0].val < prevExp[0].val}">
-                                        {{ expFCFA[0].val >= prevExp[0].val ? ‘▲’ : ‘▼’ }}
+                                    <span ng-class="{'stat-var-up': expFCFA[0].val >= prevExp[0].val, 'stat-var-down': expFCFA[0].val < prevExp[0].val}">
+                                        {{ expFCFA[0].val >= prevExp[0].val ? '▲' : '▼' }}
                                         {{ ((expFCFA[0].val - prevExp[0].val) / prevExp[0].val * 100) | number:1 }}%
                                     </span>
-                                    <span class="stat-var-label">vs {{ annee.parameters[‘refine.annee’] * 1 - 1 }}</span>
+                                    <span class="stat-var-label">vs {{ annee.parameters['refine.annee'] * 1 - 1 }}</span>
                                 </div>
                             </div>
                             <div class="stat-trend"><span>Commerce Extérieur</span></div>
@@ -799,21 +1020,21 @@
 
                         <!-- 14. Importations FCFA -->
                         <div class="stat-card stat-card-hover-info"
-                             ng-if="activeDevise == ‘FCFA’ && activeValeur == ‘courant’"
+                             ng-if="activeDevise == 'FCFA' && activeValeur == 'courant'"
                              ods-adv-analysis="impFCFA" ods-adv-analysis-context="ctxagreg"
                              ods-adv-analysis-select="SUM(importations_en_francs_courants) AS val"
-                             ng-click="activeStatChart = (activeStatChart===’ec_imp’ ? null : ‘ec_imp’)"
-                             ng-class="{‘stat-card-active’: activeStatChart===’ec_imp’}">
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ec_imp' ? null : 'ec_imp')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ec_imp'}">
                             <div class="stat-title">Importations</div>
                             <div class="stat-value">{{ impFCFA[0].val | number:0 }} <small class="stat-subtext">Mds FCFA</small></div>
                             <div ods-adv-analysis="prevImp" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(importations_en_francs_courants) AS val">
                                 <div class="stat-variation" ng-if="impFCFA[0] && prevImp[0]">
-                                    <span ng-class="{‘stat-var-up’: impFCFA[0].val >= prevImp[0].val, ‘stat-var-down’: impFCFA[0].val < prevImp[0].val}">
-                                        {{ impFCFA[0].val >= prevImp[0].val ? ‘▲’ : ‘▼’ }}
+                                    <span ng-class="{'stat-var-up': impFCFA[0].val >= prevImp[0].val, 'stat-var-down': impFCFA[0].val < prevImp[0].val}">
+                                        {{ impFCFA[0].val >= prevImp[0].val ? '▲' : '▼' }}
                                         {{ ((impFCFA[0].val - prevImp[0].val) / prevImp[0].val * 100) | number:1 }}%
                                     </span>
-                                    <span class="stat-var-label">vs {{ annee.parameters[‘refine.annee’] * 1 - 1 }}</span>
+                                    <span class="stat-var-label">vs {{ annee.parameters['refine.annee'] * 1 - 1 }}</span>
                                 </div>
                             </div>
                             <div class="stat-trend"><span>Commerce Extérieur</span></div>
@@ -831,8 +1052,8 @@
                              ng-if="activeDevise == 'USD'"
                              ods-adv-analysis="expUSD" ods-adv-analysis-context="ctxagreg"
                              ods-adv-analysis-select="SUM(exportations_de_biens_dollars_us) AS val"
-                             ng-click="activeStatChart = (activeStatChart==='ec_exp_usd' ? null : 'ec_exp_usd')"
-                             ng-class="{'stat-card-active': activeStatChart==='ec_exp_usd'}">
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ec_exp_usd' ? null : 'ec_exp_usd')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ec_exp_usd'}">
                             <div class="stat-title">Exportations ($)</div>
                             <div class="stat-value">{{ expUSD[0].val | number:0 }} <small class="stat-subtext">Millions USD</small></div>
                             <div ods-adv-analysis="prevExpUsd" ods-adv-analysis-context="ctxagregprev"
@@ -862,8 +1083,8 @@
                              ng-if="activeDevise == 'USD'"
                              ods-adv-analysis="impUSD" ods-adv-analysis-context="ctxagreg"
                              ods-adv-analysis-select="SUM(importations_totales_dollars_us) AS val"
-                             ng-click="activeStatChart = (activeStatChart==='ec_imp_usd' ? null : 'ec_imp_usd')"
-                             ng-class="{'stat-card-active': activeStatChart==='ec_imp_usd'}">
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ec_imp_usd' ? null : 'ec_imp_usd')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ec_imp_usd'}">
                             <div class="stat-title">Importations ($)</div>
                             <div class="stat-value">{{ impUSD[0].val | number:0 }} <small class="stat-subtext">Millions USD</small></div>
                             <div ods-adv-analysis="prevImpUsd" ods-adv-analysis-context="ctxagregprev"
@@ -891,20 +1112,20 @@
                         <div class="stat-card stat-card-hover-info"
                              ods-adv-analysis="resultICOR" ods-adv-analysis-context="ctxagreg"
                              ods-adv-analysis-select="SUM(icor) AS total_pib"
-                             ng-click="activeStatChart = (activeStatChart===’ec_icor’ ? null : ‘ec_icor’)"
-                             ng-class="{‘stat-card-active’: activeStatChart===’ec_icor’,
-                                        ‘stat-alert-orange’: resultICOR[0] && resultICOR[0].total_pib > 4 && resultICOR[0].total_pib <= 6,
-                                        ‘stat-alert-red’: resultICOR[0] && resultICOR[0].total_pib > 6}">
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ec_icor' ? null : 'ec_icor')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ec_icor',
+                                        'stat-alert-orange': resultICOR[0] && resultICOR[0].total_pib > 4 && resultICOR[0].total_pib <= 6,
+                                        'stat-alert-red': resultICOR[0] && resultICOR[0].total_pib > 6}">
                             <div class="stat-title">ICOR</div>
                             <div class="stat-value">{{ resultICOR[0].total_pib | number:1 }} <small class="stat-subtext">-</small></div>
                             <div ods-adv-analysis="prevICOR" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(icor) AS val">
                                 <div class="stat-variation" ng-if="resultICOR[0] && prevICOR[0]">
-                                    <span ng-class="{‘stat-var-up’: resultICOR[0].total_pib >= prevICOR[0].val, ‘stat-var-down’: resultICOR[0].total_pib < prevICOR[0].val}">
-                                        {{ resultICOR[0].total_pib >= prevICOR[0].val ? ‘▲’ : ‘▼’ }}
+                                    <span ng-class="{'stat-var-up': resultICOR[0].total_pib >= prevICOR[0].val, 'stat-var-down': resultICOR[0].total_pib < prevICOR[0].val}">
+                                        {{ resultICOR[0].total_pib >= prevICOR[0].val ? '▲' : '▼' }}
                                         {{ (resultICOR[0].total_pib - prevICOR[0].val) | number:1 }} pts
                                     </span>
-                                    <span class="stat-var-label">vs {{ annee.parameters[‘refine.annee’] * 1 - 1 }}</span>
+                                    <span class="stat-var-label">vs {{ annee.parameters['refine.annee'] * 1 - 1 }}</span>
                                 </div>
                             </div>
                             <div class="stat-trend"><span>Capital / Croissance</span></div>
@@ -922,21 +1143,21 @@
 
                         <!-- 18. Épargne Intérieure Brute (alias fix: resEIB) -->
                         <div class="stat-card stat-card-hover-info"
-                             ng-if="activeDevise == ‘FCFA’ && activeValeur == ‘courant’"
+                             ng-if="activeDevise == 'FCFA' && activeValeur == 'courant'"
                              ods-adv-analysis="resEIB" ods-adv-analysis-context="ctxagreg"
                              ods-adv-analysis-select="SUM(epargne_interieure_brute_en_francs_courants) AS val"
-                             ng-click="activeStatChart = (activeStatChart===’ec_eib’ ? null : ‘ec_eib’)"
-                             ng-class="{‘stat-card-active’: activeStatChart===’ec_eib’}">
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ec_eib' ? null : 'ec_eib')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ec_eib'}">
                             <div class="stat-title">Épargne Intérieure Brute</div>
                             <div class="stat-value">{{ resEIB[0].val | number:0 }} <small class="stat-subtext">Mds FCFA</small></div>
                             <div ods-adv-analysis="prevEIB" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(epargne_interieure_brute_en_francs_courants) AS val">
                                 <div class="stat-variation" ng-if="resEIB[0] && prevEIB[0]">
-                                    <span ng-class="{‘stat-var-up’: resEIB[0].val >= prevEIB[0].val, ‘stat-var-down’: resEIB[0].val < prevEIB[0].val}">
-                                        {{ resEIB[0].val >= prevEIB[0].val ? ‘▲’ : ‘▼’ }}
+                                    <span ng-class="{'stat-var-up': resEIB[0].val >= prevEIB[0].val, 'stat-var-down': resEIB[0].val < prevEIB[0].val}">
+                                        {{ resEIB[0].val >= prevEIB[0].val ? '▲' : '▼' }}
                                         {{ ((resEIB[0].val - prevEIB[0].val) / prevEIB[0].val * 100) | number:1 }}%
                                     </span>
-                                    <span class="stat-var-label">vs {{ annee.parameters[‘refine.annee’] * 1 - 1 }}</span>
+                                    <span class="stat-var-label">vs {{ annee.parameters['refine.annee'] * 1 - 1 }}</span>
                                 </div>
                             </div>
                             <div class="stat-trend"
@@ -963,8 +1184,8 @@
                              ng-if="activeDevise == 'FCFA' && activeValeur == 'courant'"
                              ods-adv-analysis="resultConsFinale" ods-adv-analysis-context="ctxagreg"
                              ods-adv-analysis-select="SUM(consommation_finale_en_francs_courants) AS total_pib"
-                             ng-click="activeStatChart = (activeStatChart==='ec_cons' ? null : 'ec_cons')"
-                             ng-class="{'stat-card-active': activeStatChart==='ec_cons'}">
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ec_cons' ? null : 'ec_cons')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ec_cons'}">
                             <div class="stat-title">Consommation Finale</div>
                             <div class="stat-value">{{ resultConsFinale[0].total_pib | number:0 }} <small class="stat-subtext">Mds FCFA</small></div>
                             <div ods-adv-analysis="prevCons" ods-adv-analysis-context="ctxagregprev"
@@ -993,8 +1214,8 @@
                              ng-if="activeDevise == 'FCFA' && activeValeur == 'courant'"
                              ods-adv-analysis="resultStocks" ods-adv-analysis-context="ctxagreg"
                              ods-adv-analysis-select="SUM(variation_des_stocks_en_francs_courants) AS total_pib"
-                             ng-click="activeStatChart = (activeStatChart==='ec_stocks' ? null : 'ec_stocks')"
-                             ng-class="{'stat-card-active': activeStatChart==='ec_stocks'}">
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ec_stocks' ? null : 'ec_stocks')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ec_stocks'}">
                             <div class="stat-title">Variation des Stocks</div>
                             <div class="stat-value">{{ resultStocks[0].total_pib | number:0 }} <small class="stat-subtext">Mds FCFA</small></div>
                             <div ods-adv-analysis="prevStocks" ods-adv-analysis-context="ctxagregprev"
@@ -1028,8 +1249,8 @@
                              ng-if="activeDevise == 'FCFA' && activeValeur == 'courant'"
                              ods-adv-analysis="resDemExt" ods-adv-analysis-context="ctxagreg"
                              ods-adv-analysis-select="SUM(demande_externe_nette_en_francs_courants) AS total_pib"
-                             ng-click="activeStatChart = (activeStatChart==='ec_demext' ? null : 'ec_demext')"
-                             ng-class="{'stat-card-active': activeStatChart==='ec_demext'}">
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ec_demext' ? null : 'ec_demext')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ec_demext'}">
                             <div class="stat-title">Demande Externe Nette</div>
                             <div class="stat-value">{{ resDemExt[0].total_pib | number:0 }} <small class="stat-subtext">Mds FCFA</small></div>
                             <div ods-adv-analysis="prevDemExt" ods-adv-analysis-context="ctxagregprev"
@@ -1065,18 +1286,18 @@
                         <div class="stat-card stat-card-hover-info"
                              ods-adv-analysis="defPib" ods-adv-analysis-context="ctxagreg"
                              ods-adv-analysis-select="SUM(deflateur_implicite_du_pib) AS val"
-                             ng-click="activeStatChart = (activeStatChart===’ec_defpib’ ? null : ‘ec_defpib’)"
-                             ng-class="{‘stat-card-active’: activeStatChart===’ec_defpib’}">
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ec_defpib' ? null : 'ec_defpib')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ec_defpib'}">
                             <div class="stat-title">Déflateur Implicite du PIB</div>
                             <div class="stat-value">{{ defPib[0].val | number:1 }} <small class="stat-subtext">%</small></div>
                             <div ods-adv-analysis="prevDefPib" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(deflateur_implicite_du_pib) AS val">
                                 <div class="stat-variation" ng-if="defPib[0] && prevDefPib[0]">
-                                    <span ng-class="{‘stat-var-up’: defPib[0].val >= prevDefPib[0].val, ‘stat-var-down’: defPib[0].val < prevDefPib[0].val}">
-                                        {{ defPib[0].val >= prevDefPib[0].val ? ‘▲’ : ‘▼’ }}
+                                    <span ng-class="{'stat-var-up': defPib[0].val >= prevDefPib[0].val, 'stat-var-down': defPib[0].val < prevDefPib[0].val}">
+                                        {{ defPib[0].val >= prevDefPib[0].val ? '▲' : '▼' }}
                                         {{ (defPib[0].val - prevDefPib[0].val) | number:1 }} pts
                                     </span>
-                                    <span class="stat-var-label">vs {{ annee.parameters[‘refine.annee’] * 1 - 1 }}</span>
+                                    <span class="stat-var-label">vs {{ annee.parameters['refine.annee'] * 1 - 1 }}</span>
                                 </div>
                             </div>
                             <div class="stat-trend"><span class="white">-</span></div>
@@ -1095,18 +1316,18 @@
                         <div class="stat-card stat-card-hover-info"
                              ods-adv-analysis="defMenages" ods-adv-analysis-context="ctxagreg"
                              ods-adv-analysis-select="SUM(deflateur_consommation_des_menages) AS val"
-                             ng-click="activeStatChart = (activeStatChart===’ec_defmen’ ? null : ‘ec_defmen’)"
-                             ng-class="{‘stat-card-active’: activeStatChart===’ec_defmen’}">
+                             ng-click="kpi.activeStatChart = (kpi.activeStatChart==='ec_defmen' ? null : 'ec_defmen')"
+                             ng-class="{'stat-card-active': kpi.activeStatChart==='ec_defmen'}">
                             <div class="stat-title">Déflateur de Consommation des Ménages</div>
                             <div class="stat-value">{{ defMenages[0].val | number:1 }} <small class="stat-subtext">%</small></div>
                             <div ods-adv-analysis="prevDefMenages" ods-adv-analysis-context="ctxagregprev"
                                  ods-adv-analysis-select="SUM(deflateur_consommation_des_menages) AS val">
                                 <div class="stat-variation" ng-if="defMenages[0] && prevDefMenages[0]">
-                                    <span ng-class="{‘stat-var-up’: defMenages[0].val >= prevDefMenages[0].val, ‘stat-var-down’: defMenages[0].val < prevDefMenages[0].val}">
-                                        {{ defMenages[0].val >= prevDefMenages[0].val ? ‘▲’ : ‘▼’ }}
+                                    <span ng-class="{'stat-var-up': defMenages[0].val >= prevDefMenages[0].val, 'stat-var-down': defMenages[0].val < prevDefMenages[0].val}">
+                                        {{ defMenages[0].val >= prevDefMenages[0].val ? '▲' : '▼' }}
                                         {{ (defMenages[0].val - prevDefMenages[0].val) | number:1 }} pts
                                     </span>
-                                    <span class="stat-var-label">vs {{ annee.parameters[‘refine.annee’] * 1 - 1 }}</span>
+                                    <span class="stat-var-label">vs {{ annee.parameters['refine.annee'] * 1 - 1 }}</span>
                                 </div>
                             </div>
                             <div class="stat-trend"><span class="white">-</span></div>
@@ -1121,224 +1342,7 @@
 
                     </div><!-- end stats-grid -->
 
-                    <!-- ===== PANNEAUX GRAPHIQUES (clic sur une carte) ===== -->
-                    <div class="stat-chart-panel" ng-class="{‘open’: activeStatChart !== null}">
-                        <div class="stat-chart-inner">
-                            <div class="stat-chart-header">
-                                <span class="stat-chart-title">
-                                    <span ng-if="activeStatChart===’ec_pib_nom’">Évolution du PIB Nominal (Mds FCFA)</span>
-                                    <span ng-if="activeStatChart===’ec_pib_usd’">Évolution du PIB Nominal (Millions USD)</span>
-                                    <span ng-if="activeStatChart===’ec_pib_real’">Évolution du PIB Réel – base 2015 (Mds FCFA)</span>
-                                    <span ng-if="activeStatChart===’ec_pib_hab’">Évolution du PIB par Habitant (k FCFA courant)</span>
-                                    <span ng-if="activeStatChart===’ec_pib_hab_usd’">Évolution du PIB par Habitant (USD)</span>
-                                    <span ng-if="activeStatChart===’ec_pib_hab_const’">Évolution du PIB par Habitant – base 2015 (k FCFA)</span>
-                                    <span ng-if="activeStatChart===’ec_croissance’">Évolution du Taux de Croissance du PIB Réel (%)</span>
-                                    <span ng-if="activeStatChart===’ec_inflation’">Évolution de l’Inflation – IHPC (%)</span>
-                                    <span ng-if="activeStatChart===’ec_invest’">Évolution du Taux d’Investissement (%)</span>
-                                    <span ng-if="activeStatChart===’ec_fbcf’">Évolution de la FBCF (Mds FCFA)</span>
-                                    <span ng-if="activeStatChart===’ec_fbcf_usd’">Évolution de la FBCF (Millions USD)</span>
-                                    <span ng-if="activeStatChart===’ec_solde’">Évolution du Solde Commercial FOB-FOB (Mds FCFA)</span>
-                                    <span ng-if="activeStatChart===’ec_exp’">Évolution des Exportations (Mds FCFA)</span>
-                                    <span ng-if="activeStatChart===’ec_imp’">Évolution des Importations (Mds FCFA)</span>
-                                    <span ng-if="activeStatChart===’ec_exp_usd’">Évolution des Exportations (Millions USD)</span>
-                                    <span ng-if="activeStatChart===’ec_imp_usd’">Évolution des Importations (Millions USD)</span>
-                                    <span ng-if="activeStatChart===’ec_icor’">Évolution de l’ICOR</span>
-                                    <span ng-if="activeStatChart===’ec_eib’">Évolution de l’Épargne Intérieure Brute (Mds FCFA)</span>
-                                    <span ng-if="activeStatChart===’ec_cons’">Évolution de la Consommation Finale (Mds FCFA)</span>
-                                    <span ng-if="activeStatChart===’ec_stocks’">Évolution de la Variation des Stocks (Mds FCFA)</span>
-                                    <span ng-if="activeStatChart===’ec_demext’">Évolution de la Demande Externe Nette (Mds FCFA)</span>
-                                    <span ng-if="activeStatChart===’ec_defpib’">Évolution du Déflateur Implicite du PIB (%)</span>
-                                    <span ng-if="activeStatChart===’ec_defmen’">Évolution du Déflateur de Consommation des Ménages (%)</span>
-                                </span>
-                                <button class="stat-chart-close" ng-click="activeStatChart=null">✕</button>
-                            </div>
-
-                            <ods-dataset-context ng-if="activeStatChart===’ec_pib_nom’" context="agregcht1" agregcht1-dataset="principaux-aggregats-dge-dm">
-                                <ods-chart timescale="year" scientific-display="false" align-month="true">
-                                    <ods-chart-query context="agregcht1" field-x="annee" maxpoints="0" timescale="year">
-                                        <ods-chart-serie expression-y="pib_nominal" chart-type="bar" function-y="SUM" color="#0F7705" scientific-display="true" label-y="PIB Nominal (Mds FCFA)"></ods-chart-serie>
-                                    </ods-chart-query>
-                                </ods-chart>
-                            </ods-dataset-context>
-
-                            <ods-dataset-context ng-if="activeStatChart===’ec_pib_usd’" context="agregcht2" agregcht2-dataset="principaux-aggregats-dge-dm">
-                                <ods-chart timescale="year" scientific-display="false" align-month="true">
-                                    <ods-chart-query context="agregcht2" field-x="annee" maxpoints="0" timescale="year">
-                                        <ods-chart-serie expression-y="pib_nominal_dollars_us" chart-type="bar" function-y="SUM" color="#0F7705" scientific-display="true" label-y="PIB Nominal (Millions USD)"></ods-chart-serie>
-                                    </ods-chart-query>
-                                </ods-chart>
-                            </ods-dataset-context>
-
-                            <ods-dataset-context ng-if="activeStatChart===’ec_pib_real’" context="agregcht3" agregcht3-dataset="principaux-aggregats-dge-dm">
-                                <ods-chart timescale="year" scientific-display="false" align-month="true">
-                                    <ods-chart-query context="agregcht3" field-x="annee" maxpoints="0" timescale="year">
-                                        <ods-chart-serie expression-y="pib_en_francs_constants_2015" chart-type="bar" function-y="SUM" color="#0A71B5" scientific-display="true" label-y="PIB Réel (Mds FCFA, base 2015)"></ods-chart-serie>
-                                    </ods-chart-query>
-                                </ods-chart>
-                            </ods-dataset-context>
-
-                            <ods-dataset-context ng-if="activeStatChart===’ec_pib_hab’" context="agregcht4" agregcht4-dataset="principaux-aggregats-dge-dm">
-                                <ods-chart timescale="year" scientific-display="false" align-month="true">
-                                    <ods-chart-query context="agregcht4" field-x="annee" maxpoints="0" timescale="year">
-                                        <ods-chart-serie expression-y="pib_par_habitant_prix_courant" chart-type="line" function-y="SUM" color="#EF7D00" scientific-display="true" label-y="PIB/hab courant (k FCFA)"></ods-chart-serie>
-                                    </ods-chart-query>
-                                </ods-chart>
-                            </ods-dataset-context>
-
-                            <ods-dataset-context ng-if="activeStatChart===’ec_pib_hab_usd’" context="agregcht5" agregcht5-dataset="principaux-aggregats-dge-dm">
-                                <ods-chart timescale="year" scientific-display="false" align-month="true">
-                                    <ods-chart-query context="agregcht5" field-x="annee" maxpoints="0" timescale="year">
-                                        <ods-chart-serie expression-y="pib_par_habitant_dollars_us" chart-type="line" function-y="SUM" color="#EF7D00" scientific-display="true" label-y="PIB/hab (USD)"></ods-chart-serie>
-                                    </ods-chart-query>
-                                </ods-chart>
-                            </ods-dataset-context>
-
-                            <ods-dataset-context ng-if="activeStatChart===’ec_pib_hab_const’" context="agregcht6" agregcht6-dataset="principaux-aggregats-dge-dm">
-                                <ods-chart timescale="year" scientific-display="false" align-month="true">
-                                    <ods-chart-query context="agregcht6" field-x="annee" maxpoints="0" timescale="year">
-                                        <ods-chart-serie expression-y="pib_par_habitant_a_prix_constant_2015" chart-type="line" function-y="SUM" color="#0A71B5" scientific-display="true" label-y="PIB/hab constant (k FCFA)"></ods-chart-serie>
-                                    </ods-chart-query>
-                                </ods-chart>
-                            </ods-dataset-context>
-
-                            <ods-dataset-context ng-if="activeStatChart===’ec_croissance’" context="agregcht7" agregcht7-dataset="principaux-aggregats-dge-dm">
-                                <ods-chart timescale="year" scientific-display="false" align-month="true">
-                                    <ods-chart-query context="agregcht7" field-x="annee" maxpoints="0" timescale="year">
-                                        <ods-chart-serie expression-y="taux_de_croissance_du_pib_reel" chart-type="line" function-y="AVG" color="#0F7705" scientific-display="true" label-y="Taux de croissance (%)"></ods-chart-serie>
-                                    </ods-chart-query>
-                                </ods-chart>
-                            </ods-dataset-context>
-
-                            <ods-dataset-context ng-if="activeStatChart===’ec_inflation’" context="agregcht8" agregcht8-dataset="principaux-aggregats-dge-dm">
-                                <ods-chart timescale="year" scientific-display="false" align-month="true">
-                                    <ods-chart-query context="agregcht8" field-x="annee" maxpoints="0" timescale="year">
-                                        <ods-chart-serie expression-y="ihpc_moyenne_annuelle" chart-type="line" function-y="SUM" color="#EF7D00" scientific-display="true" label-y="Inflation (%)"></ods-chart-serie>
-                                    </ods-chart-query>
-                                </ods-chart>
-                            </ods-dataset-context>
-
-                            <ods-dataset-context ng-if="activeStatChart===’ec_invest’" context="agregcht9" agregcht9-dataset="principaux-aggregats-dge-dm">
-                                <ods-chart timescale="year" scientific-display="false" align-month="true">
-                                    <ods-chart-query context="agregcht9" field-x="annee" maxpoints="0" timescale="year">
-                                        <ods-chart-serie expression-y="taux_d_investissement" chart-type="line" function-y="SUM" color="#0F7705" scientific-display="true" label-y="Taux d’investissement (%)"></ods-chart-serie>
-                                    </ods-chart-query>
-                                </ods-chart>
-                            </ods-dataset-context>
-
-                            <ods-dataset-context ng-if="activeStatChart===’ec_fbcf’" context="agregcht10" agregcht10-dataset="principaux-aggregats-dge-dm">
-                                <ods-chart timescale="year" scientific-display="false" align-month="true">
-                                    <ods-chart-query context="agregcht10" field-x="annee" maxpoints="0" timescale="year">
-                                        <ods-chart-serie expression-y="fbcf_en_francs_courants" chart-type="bar" function-y="SUM" color="#0F7705" scientific-display="true" label-y="FBCF (Mds FCFA)"></ods-chart-serie>
-                                    </ods-chart-query>
-                                </ods-chart>
-                            </ods-dataset-context>
-
-                            <ods-dataset-context ng-if="activeStatChart===’ec_fbcf_usd’" context="agregcht11" agregcht11-dataset="principaux-aggregats-dge-dm">
-                                <ods-chart timescale="year" scientific-display="false" align-month="true">
-                                    <ods-chart-query context="agregcht11" field-x="annee" maxpoints="0" timescale="year">
-                                        <ods-chart-serie expression-y="fbcf_dollars_us" chart-type="bar" function-y="SUM" color="#0A71B5" scientific-display="true" label-y="FBCF (Millions USD)"></ods-chart-serie>
-                                    </ods-chart-query>
-                                </ods-chart>
-                            </ods-dataset-context>
-
-                            <ods-dataset-context ng-if="activeStatChart===’ec_solde’" context="agregcht12" agregcht12-dataset="principaux-aggregats-dge-dm">
-                                <ods-chart timescale="year" scientific-display="false" align-month="true">
-                                    <ods-chart-query context="agregcht12" field-x="annee" maxpoints="0" timescale="year">
-                                        <ods-chart-serie expression-y="solde_commercial_fob_fob_francs_courants" chart-type="bar" function-y="SUM" color="#EF7D00" scientific-display="true" label-y="Solde Commercial (Mds FCFA)"></ods-chart-serie>
-                                    </ods-chart-query>
-                                </ods-chart>
-                            </ods-dataset-context>
-
-                            <ods-dataset-context ng-if="activeStatChart===’ec_exp’" context="agregcht13" agregcht13-dataset="principaux-aggregats-dge-dm">
-                                <ods-chart timescale="year" scientific-display="false" align-month="true">
-                                    <ods-chart-query context="agregcht13" field-x="annee" maxpoints="0" timescale="year">
-                                        <ods-chart-serie expression-y="exportations_en_francs_courants" chart-type="bar" function-y="SUM" color="#0F7705" scientific-display="true" label-y="Exportations (Mds FCFA)"></ods-chart-serie>
-                                    </ods-chart-query>
-                                </ods-chart>
-                            </ods-dataset-context>
-
-                            <ods-dataset-context ng-if="activeStatChart===’ec_imp’" context="agregcht14" agregcht14-dataset="principaux-aggregats-dge-dm">
-                                <ods-chart timescale="year" scientific-display="false" align-month="true">
-                                    <ods-chart-query context="agregcht14" field-x="annee" maxpoints="0" timescale="year">
-                                        <ods-chart-serie expression-y="importations_en_francs_courants" chart-type="bar" function-y="SUM" color="#c0392b" scientific-display="true" label-y="Importations (Mds FCFA)"></ods-chart-serie>
-                                    </ods-chart-query>
-                                </ods-chart>
-                            </ods-dataset-context>
-
-                            <ods-dataset-context ng-if="activeStatChart===’ec_exp_usd’" context="agregcht15" agregcht15-dataset="principaux-aggregats-dge-dm">
-                                <ods-chart timescale="year" scientific-display="false" align-month="true">
-                                    <ods-chart-query context="agregcht15" field-x="annee" maxpoints="0" timescale="year">
-                                        <ods-chart-serie expression-y="exportations_de_biens_dollars_us" chart-type="bar" function-y="SUM" color="#0F7705" scientific-display="true" label-y="Exportations (Millions USD)"></ods-chart-serie>
-                                    </ods-chart-query>
-                                </ods-chart>
-                            </ods-dataset-context>
-
-                            <ods-dataset-context ng-if="activeStatChart===’ec_imp_usd’" context="agregcht16" agregcht16-dataset="principaux-aggregats-dge-dm">
-                                <ods-chart timescale="year" scientific-display="false" align-month="true">
-                                    <ods-chart-query context="agregcht16" field-x="annee" maxpoints="0" timescale="year">
-                                        <ods-chart-serie expression-y="importations_totales_dollars_us" chart-type="bar" function-y="SUM" color="#c0392b" scientific-display="true" label-y="Importations (Millions USD)"></ods-chart-serie>
-                                    </ods-chart-query>
-                                </ods-chart>
-                            </ods-dataset-context>
-
-                            <ods-dataset-context ng-if="activeStatChart===’ec_icor’" context="agregcht17" agregcht17-dataset="principaux-aggregats-dge-dm">
-                                <ods-chart timescale="year" scientific-display="false" align-month="true">
-                                    <ods-chart-query context="agregcht17" field-x="annee" maxpoints="0" timescale="year">
-                                        <ods-chart-serie expression-y="icor" chart-type="line" function-y="SUM" color="#EF7D00" scientific-display="true" label-y="ICOR"></ods-chart-serie>
-                                    </ods-chart-query>
-                                </ods-chart>
-                            </ods-dataset-context>
-
-                            <ods-dataset-context ng-if="activeStatChart===’ec_eib’" context="agregcht18" agregcht18-dataset="principaux-aggregats-dge-dm">
-                                <ods-chart timescale="year" scientific-display="false" align-month="true">
-                                    <ods-chart-query context="agregcht18" field-x="annee" maxpoints="0" timescale="year">
-                                        <ods-chart-serie expression-y="epargne_interieure_brute_en_francs_courants" chart-type="bar" function-y="SUM" color="#0F7705" scientific-display="true" label-y="Épargne Intérieure Brute (Mds FCFA)"></ods-chart-serie>
-                                    </ods-chart-query>
-                                </ods-chart>
-                            </ods-dataset-context>
-
-                            <ods-dataset-context ng-if="activeStatChart===’ec_cons’" context="agregcht19" agregcht19-dataset="principaux-aggregats-dge-dm">
-                                <ods-chart timescale="year" scientific-display="false" align-month="true">
-                                    <ods-chart-query context="agregcht19" field-x="annee" maxpoints="0" timescale="year">
-                                        <ods-chart-serie expression-y="consommation_finale_en_francs_courants" chart-type="bar" function-y="SUM" color="#0A71B5" scientific-display="true" label-y="Consommation Finale (Mds FCFA)"></ods-chart-serie>
-                                    </ods-chart-query>
-                                </ods-chart>
-                            </ods-dataset-context>
-
-                            <ods-dataset-context ng-if="activeStatChart===’ec_stocks’" context="agregcht20" agregcht20-dataset="principaux-aggregats-dge-dm">
-                                <ods-chart timescale="year" scientific-display="false" align-month="true">
-                                    <ods-chart-query context="agregcht20" field-x="annee" maxpoints="0" timescale="year">
-                                        <ods-chart-serie expression-y="variation_des_stocks_en_francs_courants" chart-type="bar" function-y="SUM" color="#EF7D00" scientific-display="true" label-y="Variation des Stocks (Mds FCFA)"></ods-chart-serie>
-                                    </ods-chart-query>
-                                </ods-chart>
-                            </ods-dataset-context>
-
-                            <ods-dataset-context ng-if="activeStatChart===’ec_demext’" context="agregcht21" agregcht21-dataset="principaux-aggregats-dge-dm">
-                                <ods-chart timescale="year" scientific-display="false" align-month="true">
-                                    <ods-chart-query context="agregcht21" field-x="annee" maxpoints="0" timescale="year">
-                                        <ods-chart-serie expression-y="demande_externe_nette_en_francs_courants" chart-type="bar" function-y="SUM" color="#EF7D00" scientific-display="true" label-y="Demande Externe Nette (Mds FCFA)"></ods-chart-serie>
-                                    </ods-chart-query>
-                                </ods-chart>
-                            </ods-dataset-context>
-
-                            <ods-dataset-context ng-if="activeStatChart===’ec_defpib’" context="agregcht22" agregcht22-dataset="principaux-aggregats-dge-dm">
-                                <ods-chart timescale="year" scientific-display="false" align-month="true">
-                                    <ods-chart-query context="agregcht22" field-x="annee" maxpoints="0" timescale="year">
-                                        <ods-chart-serie expression-y="deflateur_implicite_du_pib" chart-type="line" function-y="SUM" color="#EF7D00" scientific-display="true" label-y="Déflateur PIB (%)"></ods-chart-serie>
-                                    </ods-chart-query>
-                                </ods-chart>
-                            </ods-dataset-context>
-
-                            <ods-dataset-context ng-if="activeStatChart===’ec_defmen’" context="agregcht23" agregcht23-dataset="principaux-aggregats-dge-dm">
-                                <ods-chart timescale="year" scientific-display="false" align-month="true">
-                                    <ods-chart-query context="agregcht23" field-x="annee" maxpoints="0" timescale="year">
-                                        <ods-chart-serie expression-y="deflateur_consommation_des_menages" chart-type="line" function-y="SUM" color="#c0392b" scientific-display="true" label-y="Déflateur Ménages (%)"></ods-chart-serie>
-                                    </ods-chart-query>
-                                </ods-chart>
-                            </ods-dataset-context>
-
-                        </div>
-                    </div><!-- end chart panels -->
+                    
 
                 </div>
 
@@ -3595,11 +3599,11 @@
                 <div ng-if="activeTab == 'inflation'" ng-init="expandedBande=null">
                     <div class="chart-card">
                         <div class="chart-header">
-                            <h3 class="chart-title">Indicateurs Harmonisés des Prix à la Consommation <small>(Base 2015 = 100)</small></h3>
+                            <h3 class="chart-title">Indicateurs Harmonisés des Prix à la Consommation<small>(Base 2015 = 100)</small></h3>
                             <div style="font-size:13px;color:#64748B;font-weight:500;">
                                 {{ ctxihpc.parameters['refine.mois'] }} {{ annee.parameters['refine.annee'] }}
                                 vs
-                                {{ ctxihpcprev.parameters['refine.mois'] }} {{ annee.parameters['refine.annee'] * 1 - 1 }}
+                                {{ ctxihpcprev.parameters['refine.mois'] }} {{ ctxihpcprev.parameters['refine.annee'] }}
                             </div>
                         </div>
 
@@ -3629,7 +3633,7 @@
                                 <tr>
                                     <th style="width:52%">INDICATEUR</th>
                                     <th style="text-align:center;width:16%">{{ ctxihpc.parameters['refine.mois'] }} {{ annee.parameters['refine.annee'] }}</th>
-                                    <th style="text-align:center;width:16%">{{ ctxihpcprev.parameters['refine.mois'] }} {{ annee.parameters['refine.annee'] * 1 - 1 }}</th>
+                                    <th style="text-align:center;width:16%">{{ ctxihpcprev.parameters['refine.mois'] }} {{ ctxihpcprev.parameters['refine.annee'] }}</th>
                                     <th style="text-align:center;width:16%">VARIATION</th>
                                 </tr>
                             </thead>
@@ -3742,31 +3746,43 @@
                         </div><!-- end ctxihpcprev -->
                         </div><!-- end ctxihpc -->
 
-                        <p style="text-align:center;font-size:12px;color:#94A3B8;margin-top:10px;">Source : ANStat — ▲ hausse &nbsp;|&nbsp; ▼ baisse par rapport au même mois de l'année précédente</p>
+                        <p style="text-align:center;font-size:12px;color:#94A3B8;margin-top:10px;">Source : ANStat — ▲ hausse &nbsp;|&nbsp; ▼ baisse par rapport au mois précédent</p>
                     </div>
 
 
+                <!-- Graphe 1 : Indices (Indice global + Indice moyen sur 12 mois) -->
                 <div class="chart-card">
                     <div class="chart-header">
-                        <h3 class="chart-title" ng-if="activeValeur == 'courant'">Courbe d’évolution des indicateurs</small></h3>
+                        <h3 class="chart-title">Évolution des indices IHPC <small>(Base 2015 = 100)</small></h3>
+                    </div>
+                    <ods-dataset-context context="ihpcbase23" ihpcbase23-dataset="1_ihpcbase23">
+                        <ods-chart timescale="year" scientific-display="false" align-month="true">
+                            <ods-chart-query context="ihpcbase23" field-x="mois_n" maxpoints="0" timescale="month">
+                                <ods-chart-serie expression-y="00_indice_global" chart-type="line" function-y="SUM" label-y="Indice global" color="#66c2a5" display-values="false" scientific-display="false">
+                                </ods-chart-serie>
+                                <ods-chart-serie expression-y="indice_moyen_sur_12_mois" chart-type="line" function-y="SUM" label-y="Indice moyen sur 12 mois" color="#8da0cb" scientific-display="false">
+                                </ods-chart-serie>
+                            </ods-chart-query>
+                        </ods-chart>
+                    </ods-dataset-context>
+                    <p style="text-align: center; font-size: 12px; color: #94A3B8; margin-top: 10px;">Données réelles de l’ANStat</p>
                 </div>
-                <ods-dataset-context context="ihpcbase23" ihpcbase23-dataset="1_ihpcbase23">
-                    
-                    <ods-chart timescale="year" scientific-display="false" align-month="true">
-                        <ods-chart-query context="ihpcbase23" field-x="mois_n" maxpoints="0" timescale="month">
-                            <ods-chart-serie expression-y="00_indice_global" chart-type="line" function-y="SUM" label-y="Indice global" color="#66c2a5" display-values="false" scientific-display="false">
-                            </ods-chart-serie>
-                            <ods-chart-serie expression-y="taux_mensuel_d_inflation" chart-type="line" function-y="SUM" label-y="Taux Mensuel d'Inflation" color="#fc8d62" scientific-display="true">
-                            </ods-chart-serie>
-                            <ods-chart-serie expression-y="indice_moyen_sur_12_mois" chart-type="line" function-y="SUM" color="#8da0cb" scientific-display="true">
-                            </ods-chart-serie>
-                        </ods-chart-query>
-                    </ods-chart>
 
-                </ods-dataset-context>
-
-                <p style="text-align: center; font-size: 12px; color: #94A3B8; margin-top: 10px;"> Données réelles de l'ANStat</p>
-            </div>
+                <!-- Graphe 2 : Taux mensuel d’inflation -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Évolution du taux mensuel d’inflation <small>(%)</small></h3>
+                    </div>
+                    <ods-dataset-context context="ihpcbase23taux" ihpcbase23taux-dataset="1_ihpcbase23">
+                        <ods-chart timescale="year" scientific-display="false" align-month="true">
+                            <ods-chart-query context="ihpcbase23taux" field-x="mois_n" maxpoints="0" timescale="month">
+                                <ods-chart-serie expression-y="taux_mensuel_d_inflation" chart-type="line" function-y="SUM" label-y="Taux mensuel d’inflation (%)" color="#fc8d62" scientific-display="false">
+                                </ods-chart-serie>
+                            </ods-chart-query>
+                        </ods-chart>
+                    </ods-dataset-context>
+                    <p style="text-align: center; font-size: 12px; color: #94A3B8; margin-top: 10px;">Données réelles de l’ANStat</p>
+                </div>
 
 
             </div>
@@ -4302,25 +4318,6 @@
                 </div>
                 
                 <div ng-if="activeTab == 'commerce'">
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <h3 class="chart-title" ng-if="activeValeur == 'courant'"> Importations et Exportations des marchandises <small>(Mds FCFA)</small></h3>
-                        </div>  
-                        
-                            <ods-chart scientific-display="false" align-month="true">
-                                <ods-chart-query context="ctxcomext" field-x="exp_imp" maxpoints="0">
-                                    <ods-chart-serie expression-y="valeur" chart-type="pie" function-y="SUM" color="range-Dark2" scientific-display="true">
-                                    </ods-chart-serie>
-                                </ods-chart-query>
-                            </ods-chart>
-
-                       
-
-                        <p style="text-align: center; font-size: 12px; color: #94A3B8; margin-top: 10px;">Données Réelles de provenant de l'ANSTAT</p>
-                    </div>
-                
-                    
-                    
 
                 </div>
                 
