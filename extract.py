@@ -387,34 +387,37 @@ def restructurer_population(df: pd.DataFrame) -> pd.DataFrame:
 
 def sauvegarder_tableau(df, chemin_base):
     """
-    Sauvegarde en CSV, Excel et TXT avec le chemin horodaté fourni.
+    Traite et sauvegarde en Excel horodaté (archive).
+    Seuls les fichiers raw.txt (générés par robot.py) et .xlsx sont conservés —
+    les sorties .csv et .txt ne sont plus produites.
+
     chemin_base : ex. 'historique/pib-courant/pib-courant_2024-01-15_14-30-00'
 
     Routing selon la source :
       - 'pib'        → enrichir_pib()
       - 'population' → restructurer_population()
       - autres       → transposer_indicateurs()
+
+    Retourne : (chemin_xlsx, df_traite)
+      Le df_traite est renvoyé afin que robot.py puisse l'utiliser
+      directement (ex. split Agrégat / non-Agrégat pour le PIB).
     """
-    chemin_csv  = chemin_base + ".csv"
     chemin_xlsx = chemin_base + ".xlsx"
-    chemin_txt  = chemin_base + ".txt"
-    print(f"Chemins de sauvegarde :\n  CSV : {chemin_csv}\n  Excel : {chemin_xlsx}\n  TXT : {chemin_txt}")
+    print(f"Sauvegarde archive : {chemin_xlsx}")
 
     if 'pib' in chemin_xlsx:
         print("Enrichissement PIB...")
-        df = enrichir_pib(df)
+        df_traite = enrichir_pib(df)
         print("Enrichissement terminé.")
     elif 'population' in chemin_xlsx:
         print("Restructuration population (Année | Région | Féminin | Homme | Total)...")
-        df = restructurer_population(df)
+        df_traite = restructurer_population(df)
         print("Restructuration terminée.")
     else:
         print("Transposition des indicateurs...")
-        df = transposer_indicateurs(df)
+        df_traite = transposer_indicateurs(df)
         print("Transposition terminée.")
 
-    df.to_csv(chemin_csv, index=False, encoding="utf-8-sig", sep=";")
-    df.to_excel(chemin_xlsx, index=False, sheet_name="Données")
-    df.to_string(open(chemin_txt, "w", encoding="utf-8"))
+    df_traite.to_excel(chemin_xlsx, index=False, sheet_name="Données")
 
-    return chemin_csv, chemin_xlsx, chemin_txt
+    return chemin_xlsx, df_traite

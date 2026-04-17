@@ -11,7 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
-from extract import parse_sdmx_to_dataframe, sauvegarder_tableau, transposer_indicateurs
+from extract import parse_sdmx_to_dataframe, sauvegarder_tableau
 from config import DOSSIER_HISTORIQUE, DOSSIER_LOGS, HEADLESS, MAPPING, NOM_FICHIER_DATA
 
 
@@ -121,21 +121,40 @@ def traiter_lien(lien_config):
         logger.info(f"Période : {df['Période'].min()} → {df['Période'].max()}")
         logger.info(f"Valeur min={df['Valeur'].min():.2f} | max={df['Valeur'].max():.2f} | moy={df['Valeur'].mean():.2f}")
 
-        # ── Sauvegarder ───────────────────────────────────────
-        csv_path, xlsx_path, txt_path = sauvegarder_tableau(df, chemin_base)
+        # ── Sauvegarder (archive horodatée) ──────────────────────
+        xlsx_path, df_traite = sauvegarder_tableau(df, chemin_base)
+        nom_fichier_base = NOM_FICHIER_DATA.get(nom, f"data_{nom}")
 
-        logger.info(f"✅ CSV   : {csv_path}")
-        logger.info(f"✅ Excel : {xlsx_path}")
-        logger.info(f"✅ TXT   : {txt_path}")
-        logger.info(f"✅ LOG   : {log_path}")
+        logger.info(f"✅ Excel (archive) : {xlsx_path}")
+        logger.info(f"✅ LOG             : {log_path}")
 
         # ── Copier dans data/ sous nom générique (écrasé à chaque run) ──
-        dossier_data = os.path.join(dossier_lien, "data")
-        os.makedirs(dossier_data, exist_ok=True)
-        nom_fichier_data = NOM_FICHIER_DATA.get(nom, f"data_{nom}") + ".xlsx"
-        chemin_data_xlsx = os.path.join(dossier_data, nom_fichier_data)
-        shutil.copy2(xlsx_path, chemin_data_xlsx)
-        logger.info(f"✅ DATA  : {chemin_data_xlsx}")
+        if "Secteur" in df_traite.columns:
+            # ── PIB : deux dossiers selon le secteur ─────────────
+            # Unicode escape sur "Agrégat" pour éviter tout problème
+            # d'encodage de fichier source sur Windows.
+            _AGREGAT = "Agr\u00e9gat"
+            df_data    = df_traite[df_traite["Secteur"] != _AGREGAT]
+            df_agregat = df_traite[df_traite["Secteur"] == _AGREGAT]
+
+            dossier_data = os.path.join(dossier_lien, "data")
+            os.makedirs(dossier_data, exist_ok=True)
+            chemin_data_xlsx = os.path.join(dossier_data, nom_fichier_base + ".xlsx")
+            df_data.to_excel(chemin_data_xlsx, index=False, sheet_name="Données")
+            logger.info(f"✅ DATA            : {chemin_data_xlsx}  ({len(df_data)} lignes, hors Agr\u00e9gat)")
+
+            dossier_agreg = os.path.join(dossier_lien, "data-agreg")
+            os.makedirs(dossier_agreg, exist_ok=True)
+            chemin_agreg_xlsx = os.path.join(dossier_agreg, nom_fichier_base + "-agregat.xlsx")
+            df_agregat.to_excel(chemin_agreg_xlsx, index=False, sheet_name="Données")
+            logger.info(f"✅ DATA-AGREG      : {chemin_agreg_xlsx}  ({len(df_agregat)} lignes, Agr\u00e9gat seul)")
+        else:
+            # ── Autres sources : copie directe ────────────────────
+            dossier_data = os.path.join(dossier_lien, "data")
+            os.makedirs(dossier_data, exist_ok=True)
+            chemin_data_xlsx = os.path.join(dossier_data, nom_fichier_base + ".xlsx")
+            shutil.copy2(xlsx_path, chemin_data_xlsx)
+            logger.info(f"✅ DATA            : {chemin_data_xlsx}")
 
         logger.info(f"Traitement '{nom}' terminé avec succès.")
 
