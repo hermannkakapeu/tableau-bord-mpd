@@ -331,6 +331,57 @@ def enrichir_pib(df: pd.DataFrame) -> pd.DataFrame:
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# RESTRUCTURATION POPULATION
+# ══════════════════════════════════════════════════════════════════════════════
+
+def restructurer_population(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Restructure les données population en tableau par région :
+
+        Année | Région | Féminin | Homme | Total
+
+    Attend un DataFrame issu de parse_sdmx_to_dataframe dont les indicateurs
+    sont composites : "Effectif de Population — {Région} — {Sexe}".
+    La colonne "Sexe" est pivotée en 3 colonnes : Féminin, Homme, Total.
+    """
+    df = df.copy()
+
+    # ── Éclater l'indicateur composite ────────────────────────────
+    # Format : "Effectif de Population — {NOM_REGION} — {NOM_SEXE}"
+    parties      = df["Indicateur"].str.split(" — ", expand=True)
+    df["Région"] = parties[1].str.strip()
+    df["Sexe"]   = parties[2].str.strip()
+
+    # ── Extraire l'année ───────────────────────────────────────────
+    df["Année"] = df["Période"].dt.year
+
+    # ── Pivot : une colonne par valeur de Sexe ─────────────────────
+    df_pivot = df.pivot_table(
+        index=["Année", "Région"],
+        columns="Sexe",
+        values="Valeur",
+        aggfunc="first"
+    ).reset_index()
+    df_pivot.columns.name = None
+
+    # ── Renommer "Masculin" → "Homme" ──────────────────────────────
+    df_pivot = df_pivot.rename(columns={"Masculin": "Homme"})
+
+    # ── Ordonner les colonnes ──────────────────────────────────────
+    cols_finales = ["Année", "Région"]
+    for col in ["Féminin", "Homme", "Total"]:
+        if col in df_pivot.columns:
+            cols_finales.append(col)
+
+    df_final = (
+        df_pivot[cols_finales]
+        .sort_values(["Année", "Région"])
+        .reset_index(drop=True)
+    )
+    return df_final
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # SAUVEGARDE
 # ══════════════════════════════════════════════════════════════════════════════
 
@@ -338,20 +389,29 @@ def sauvegarder_tableau(df, chemin_base):
     """
     Sauvegarde en CSV, Excel et TXT avec le chemin horodaté fourni.
     chemin_base : ex. 'historique/pib-courant/pib-courant_2024-01-15_14-30-00'
+
+    Routing selon la source :
+      - 'pib'        → enrichir_pib()
+      - 'population' → restructurer_population()
+      - autres       → transposer_indicateurs()
     """
     chemin_csv  = chemin_base + ".csv"
     chemin_xlsx = chemin_base + ".xlsx"
     chemin_txt  = chemin_base + ".txt"
     print(f"Chemins de sauvegarde :\n  CSV : {chemin_csv}\n  Excel : {chemin_xlsx}\n  TXT : {chemin_txt}")
 
-    if 'pib' not in chemin_xlsx:
-        print("Transposition des indicateurs...")
-        df = transposer_indicateurs(df)
-        print("Transposition terminée.")
-    else:
+    if 'pib' in chemin_xlsx:
         print("Enrichissement PIB...")
         df = enrichir_pib(df)
         print("Enrichissement terminé.")
+    elif 'population' in chemin_xlsx:
+        print("Restructuration population (Année | Région | Féminin | Homme | Total)...")
+        df = restructurer_population(df)
+        print("Restructuration terminée.")
+    else:
+        print("Transposition des indicateurs...")
+        df = transposer_indicateurs(df)
+        print("Transposition terminée.")
 
     df.to_csv(chemin_csv, index=False, encoding="utf-8-sig", sep=";")
     df.to_excel(chemin_xlsx, index=False, sheet_name="Données")
